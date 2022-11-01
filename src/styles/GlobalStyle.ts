@@ -18,12 +18,14 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
-  b {
+  b,
+  h1, h2, h3, h4, h5 {
     font-weight: 700;
   }
   input,
   textarea {
     outline: none;
+    border: 1px solid #ddd;
   }
   textarea {
     resize: none;
