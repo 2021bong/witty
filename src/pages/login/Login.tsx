@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const WittyLogin = () => {
+const Login = () => {
   const [idValue, setIdValue] = useState('');
   const [pwValue, setPwValue] = useState('');
 
@@ -47,7 +47,7 @@ const WittyLogin = () => {
   );
 };
 
-export default WittyLogin;
+export default Login;
 
 const Main = styled.div`
   display: flex;
