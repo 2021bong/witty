@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const WittyLogin = () => {
   const [idValue, setIdValue] = useState('');
@@ -38,7 +39,9 @@ const WittyLogin = () => {
       </form>
       <div className='btnContainer'>
         <button className='btn'>로그인</button>
-        <button className='btn'>회원가입</button>
+        <Link to='/signup'>
+          <button className='btn'>회원가입</button>
+        </Link>
       </div>
     </Main>
   );
