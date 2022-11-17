@@ -172,7 +172,7 @@ const SignUp = () => {
           <input
             type='password'
             id='pw'
-            placeholder='영문+숫자+특수문자 8자 이상 16자 이하'
+            placeholder='영문+숫자+@#*!^ 8자 이상 16자 이하'
             onChange={handlePwValue}
             value={pwValue}
           />
@@ -180,7 +180,7 @@ const SignUp = () => {
             <p className='true desc'>사용가능한 비밀번호입니다.😀</p>
           ) : (
             <p className='desc'>
-              🚨 영문+숫자+특수문자 조합의 8자 - 16자만 가능합니다.
+              🚨 영문+숫자+@#*!^ 조합의 8자 - 16자만 가능합니다.
             </p>
           )}
         </div>
