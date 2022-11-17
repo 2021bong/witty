@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -7,6 +7,7 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
+import axios from 'axios';
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -14,6 +15,7 @@ const SignUp = () => {
   const [pw2Value, setPw2Value] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
+  const navigate = useNavigate();
 
   const handleIdValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIdValue(e.target.value);
@@ -35,6 +37,35 @@ const SignUp = () => {
     setEmailValue(e.target.value);
   };
 
+  const checkingEmail = () => {
+    axios
+      .get(`http://localhost:8000/validation?email=${emailValue}`)
+      .then((msg) => console.log(msg));
+  };
+
+  const checkingId = () => {
+    axios
+      .get(`http://localhost:8000/validation?id=${idValue}`)
+      .then((msg) => console.log(msg));
+  };
+
+  const checkSignUp = () => {
+    if (
+      checkEmail(emailValue) &&
+      checkName(nameValue) &&
+      checkId(idValue) &&
+      checkPw(pwValue) &&
+      pwValue === pw2Value
+    ) {
+      axios
+        .post('http://localhost:8000/signup')
+        .then((msg) => console.log(msg));
+      navigate('/');
+    } else {
+      alert('가입 정보를 확인해주세요!✋');
+    }
+  };
+
   return (
     <Main>
       <h3 className='title'>🐹 회원가입</h3>
@@ -50,7 +81,9 @@ const SignUp = () => {
               value={emailValue}
               className='inputWithBtn'
             />
-            <button className='btn'>중복 검사</button>
+            <button className='btn' onClick={checkingEmail}>
+              중복 확인
+            </button>
           </div>
           {checkEmail(emailValue) ? (
             <p className='true desc'>사용가능한 이메일입니다.😀</p>
@@ -84,7 +117,9 @@ const SignUp = () => {
               value={idValue}
               className='inputWithBtn'
             />
-            <button className='btn'>중복 검사</button>
+            <button className='btn' onClick={checkingId}>
+              중복 확인
+            </button>
           </div>
           {checkId(idValue) ? (
             <p className='true desc'>사용가능한 아이디입니다.😀</p>
@@ -126,7 +161,9 @@ const SignUp = () => {
         </div>
       </form>
       <div className='btnContainer'>
-        <button className='btn'>회원가입 하기</button>
+        <button className='btn' onClick={checkSignUp}>
+          회원가입 하기
+        </button>
         <Link to='/'>
           <button className='cancelBtn'>취소</button>
         </Link>

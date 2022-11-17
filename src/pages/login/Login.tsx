@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [idValue, setIdValue] = useState('');
@@ -12,6 +13,14 @@ const Login = () => {
 
   const handlePwValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPwValue(e.target.value);
+  };
+
+  const onLogin = () => {
+    if (idValue.length !== 0 && pwValue.length !== 0) {
+      axios.post('http://localhost:8000/login').then((msg) => console.log(msg));
+    } else {
+      alert('아이디와 비밀번호를 입력해주세요.');
+    }
   };
 
   return (
@@ -38,7 +47,14 @@ const Login = () => {
         </div>
       </form>
       <div className='btnContainer'>
-        <button className='btn'>로그인</button>
+        <button
+          className={
+            idValue.length >= 6 && pwValue.length >= 8 ? 'btn' : 'disbledBtn'
+          }
+          onClick={onLogin}
+        >
+          로그인
+        </button>
         <Link to='/signup'>
           <button className='btn'>회원가입</button>
         </Link>
@@ -121,6 +137,21 @@ const Main = styled.div`
 
       &:first-of-type {
         margin-bottom: 5px;
+      }
+    }
+
+    .disbledBtn {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 5px;
+      border: none;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      cursor: default;
+
+      &:active {
+        background-color: #ddd;
       }
     }
   }
