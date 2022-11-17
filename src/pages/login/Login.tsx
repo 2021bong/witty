@@ -19,11 +19,13 @@ const Login = () => {
   const onLogin = () => {
     if (idValue.length !== 0 && pwValue.length !== 0) {
       axios
-        .post<LoginData, LoginRes>('http://localhost:8000//users/signin', {
+        .post<LoginData, LoginRes>('http://localhost:8000/users/signin', {
           account: idValue,
           password: pwValue,
         })
-        .then((res) => window.localStorage.setItem('token', res.result.token))
+        .then((res) =>
+          window.localStorage.setItem('token', res.data.result.token)
+        )
         .catch((err) => console.log(err));
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');

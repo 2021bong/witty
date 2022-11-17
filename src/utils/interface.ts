@@ -4,10 +4,12 @@ export interface LoginData {
 }
 
 export interface LoginRes {
-  message: string;
-  result: {
-    nickname: string;
-    token: string;
+  data: {
+    message: string;
+    result: {
+      nickname: string;
+      token: string;
+    };
   };
 }
 
@@ -28,3 +30,5 @@ export interface SignUpType {
 export interface ValidationRes {
   message: string;
 }
+
+export interface SignUpRes extends ValidationRes {}

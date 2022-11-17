@@ -16,7 +16,6 @@ export const checkId = (id: string) => {
 };
 
 export const checkPw = (pw: string) => {
-  const pwFormat =
-    /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+  const pwFormat = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[@#*!^]).{8,16}$/;
   return pw !== '' && pw !== undefined && pwFormat.test(pw);
 };

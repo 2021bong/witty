@@ -13,6 +13,7 @@ import {
   IdType,
   SignUpType,
   ValidationRes,
+  SignUpRes,
 } from '../../utils/interface';
 
 const SignUp = () => {
@@ -47,7 +48,7 @@ const SignUp = () => {
     if (checkEmail(emailValue)) {
       axios
         .post<EmailType, ValidationRes>(
-          `http://localhost:8000/users/duplication`,
+          'http://localhost:8000/users/duplication',
           {
             email: emailValue,
           }
@@ -66,7 +67,7 @@ const SignUp = () => {
     if (checkId(idValue)) {
       axios
         .post<IdType, ValidationRes>(
-          `http://localhost:8000/users/duplication`,
+          'http://localhost:8000/users/duplication',
           {
             account: idValue,
           }
@@ -90,17 +91,16 @@ const SignUp = () => {
       pwValue === pw2Value
     ) {
       axios
-        .post<SignUpType, ValidationRes>('http://localhost:8000/users/signup', {
+        .post<SignUpType, SignUpRes>('http://localhost:8000/users/signup', {
           account: idValue,
           password: pwValue,
           nickname: nameValue,
           email: emailValue,
         })
         .then((res) => {
-          if (res.message === 'User_Created') {
-            navigate('/');
-          }
-        });
+          navigate('/');
+        })
+        .catch((err) => console.log(err));
     } else {
       alert('가입 정보를 확인해주세요!✋');
     }
@@ -172,7 +172,7 @@ const SignUp = () => {
           <input
             type='password'
             id='pw'
-            placeholder='영문+숫자+특수문자 6자 이상 15자 이하'
+            placeholder='영문+숫자+특수문자 8자 이상 16자 이하'
             onChange={handlePwValue}
             value={pwValue}
           />
@@ -180,7 +180,7 @@ const SignUp = () => {
             <p className='true desc'>사용가능한 비밀번호입니다.😀</p>
           ) : (
             <p className='desc'>
-              🚨 영문+숫자+특수문자 조합의 6자 - 15자만 가능합니다.
+              🚨 영문+숫자+특수문자 조합의 8자 - 16자만 가능합니다.
             </p>
           )}
         </div>
