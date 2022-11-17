@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styled from 'styled-components';
+import {
+  checkEmail,
+  checkName,
+  checkId,
+  checkPw,
+} from '../../utils/validation';
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -46,7 +52,7 @@ const SignUp = () => {
             />
             <button className='btn'>중복 검사</button>
           </div>
-          {emailValue ? (
+          {checkEmail(emailValue) ? (
             <p className='true desc'>사용가능한 이메일입니다.😀</p>
           ) : (
             <p className='desc'>🚨 올바른 이메일 형식이 아닙니다.</p>
@@ -61,7 +67,7 @@ const SignUp = () => {
             onChange={handleNameValue}
             value={nameValue}
           />
-          {nameValue ? (
+          {checkName(nameValue) ? (
             <p className='true desc'>사용가능한 이름입니다.😀</p>
           ) : (
             <p className='desc'>🚨 8자 이하의 이름만 설정가능합니다.</p>
@@ -80,7 +86,7 @@ const SignUp = () => {
             />
             <button className='btn'>중복 검사</button>
           </div>
-          {idValue ? (
+          {checkId(idValue) ? (
             <p className='true desc'>사용가능한 아이디입니다.😀</p>
           ) : (
             <p className='desc'>사용할 수 없는 아이디입니다.🥲</p>
@@ -95,11 +101,11 @@ const SignUp = () => {
             onChange={handlePwValue}
             value={pwValue}
           />
-          {pwValue ? (
+          {checkPw(pwValue) ? (
             <p className='true desc'>사용가능한 비밀번호입니다.😀</p>
           ) : (
             <p className='desc'>
-              🚨 영문+숫자+특수문자 조합의 6자 이상만 가능합니다.
+              🚨 영문+숫자+특수문자 조합의 6자 - 15자만 가능합니다.
             </p>
           )}
         </div>
