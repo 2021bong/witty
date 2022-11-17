@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+import { LoginData, LoginRes } from '../../utils/interface';
 
 const Login = () => {
   const [idValue, setIdValue] = useState('');
@@ -17,7 +18,13 @@ const Login = () => {
 
   const onLogin = () => {
     if (idValue.length !== 0 && pwValue.length !== 0) {
-      axios.post('http://localhost:8000/login').then((msg) => console.log(msg));
+      axios
+        .post<LoginData, LoginRes>('http://localhost:8000//users/signin', {
+          account: idValue,
+          password: pwValue,
+        })
+        .then((res) => window.localStorage.setItem('token', res.result.token))
+        .catch((err) => console.log(err));
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
     }

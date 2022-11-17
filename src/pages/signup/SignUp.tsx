@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import {
   checkEmail,
@@ -7,7 +8,12 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
-import axios from 'axios';
+import {
+  EmailType,
+  IdType,
+  SignUpType,
+  ValidationRes,
+} from '../../utils/interface';
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -38,15 +44,41 @@ const SignUp = () => {
   };
 
   const checkingEmail = () => {
-    axios
-      .get(`http://localhost:8000/validation?email=${emailValue}`)
-      .then((msg) => console.log(msg));
+    if (checkEmail(emailValue)) {
+      axios
+        .post<EmailType, ValidationRes>(
+          `http://localhost:8000/users/duplication`,
+          {
+            email: emailValue,
+          }
+        )
+        .then((res) => alert('사용 가능한 이메일입니다.😀'))
+        .catch((err) => {
+          alert('이미 존재하는 이메일입니다.😅');
+          setEmailValue('');
+        });
+    } else {
+      alert('이메일을 바르게 입력해주세요.🥺');
+    }
   };
 
   const checkingId = () => {
-    axios
-      .get(`http://localhost:8000/validation?id=${idValue}`)
-      .then((msg) => console.log(msg));
+    if (checkId(idValue)) {
+      axios
+        .post<IdType, ValidationRes>(
+          `http://localhost:8000/users/duplication`,
+          {
+            account: idValue,
+          }
+        )
+        .then((res) => alert('사용 가능한 아이디입니다.😀'))
+        .catch((err) => {
+          alert('이미 존재하는 아이디입니다.😅');
+          setIdValue('');
+        });
+    } else {
+      alert('아이디를 바르게 입력해주세요.🥺');
+    }
   };
 
   const checkSignUp = () => {
@@ -58,9 +90,17 @@ const SignUp = () => {
       pwValue === pw2Value
     ) {
       axios
-        .post('http://localhost:8000/signup')
-        .then((msg) => console.log(msg));
-      navigate('/');
+        .post<SignUpType, ValidationRes>('http://localhost:8000/users/signup', {
+          account: idValue,
+          password: pwValue,
+          nickname: nameValue,
+          email: emailValue,
+        })
+        .then((res) => {
+          if (res.message === 'User_Created') {
+            navigate('/');
+          }
+        });
     } else {
       alert('가입 정보를 확인해주세요!✋');
     }
