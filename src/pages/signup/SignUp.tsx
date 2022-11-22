@@ -22,6 +22,8 @@ const SignUp = () => {
   const [pw2Value, setPw2Value] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
+  const [emailCheckDuplicate, setEmailCheckDuplicate] = useState(false);
+  const [idCheckDuplicate, setIdCheckDuplicate] = useState(false);
   const navigate = useNavigate();
 
   const handleIdValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +55,10 @@ const SignUp = () => {
             email: emailValue,
           }
         )
-        .then((res) => alert('사용 가능한 이메일입니다.😀'))
+        .then((res) => {
+          alert('사용 가능한 이메일입니다.😀');
+          setEmailCheckDuplicate(true);
+        })
         .catch((err) => {
           alert('이미 존재하는 이메일입니다.😅');
           setEmailValue('');
@@ -72,7 +77,10 @@ const SignUp = () => {
             account: idValue,
           }
         )
-        .then((res) => alert('사용 가능한 아이디입니다.😀'))
+        .then((res) => {
+          alert('사용 가능한 아이디입니다.😀');
+          setIdCheckDuplicate(true);
+        })
         .catch((err) => {
           alert('이미 존재하는 아이디입니다.😅');
           setIdValue('');
@@ -88,7 +96,9 @@ const SignUp = () => {
       checkName(nameValue) &&
       checkId(idValue) &&
       checkPw(pwValue) &&
-      pwValue === pw2Value
+      pwValue === pw2Value &&
+      emailCheckDuplicate &&
+      idCheckDuplicate
     ) {
       axios
         .post<SignUpType, SignUpRes>('http://localhost:8000/users/signup', {
@@ -101,6 +111,14 @@ const SignUp = () => {
           navigate('/');
         })
         .catch((err) => console.log(err));
+    } else if (
+      checkEmail(emailValue) &&
+      checkName(nameValue) &&
+      checkId(idValue) &&
+      checkPw(pwValue) &&
+      pwValue === pw2Value
+    ) {
+      alert('이메일과 아이디 모두 중복 확인을 해주세요!✋');
     } else {
       alert('가입 정보를 확인해주세요!✋');
     }
@@ -126,7 +144,11 @@ const SignUp = () => {
             </button>
           </div>
           {checkEmail(emailValue) ? (
-            <p className='true desc'>사용가능한 이메일입니다.😀</p>
+            emailCheckDuplicate ? (
+              <p className='true desc'>사용가능한 이메일입니다.😀</p>
+            ) : (
+              <p className='desc'>이메일 중복 확인을 해주세요.😀</p>
+            )
           ) : (
             <p className='desc'>🚨 올바른 이메일 형식이 아닙니다.</p>
           )}
@@ -162,7 +184,11 @@ const SignUp = () => {
             </button>
           </div>
           {checkId(idValue) ? (
-            <p className='true desc'>사용가능한 아이디입니다.😀</p>
+            idCheckDuplicate ? (
+              <p className='true desc'>사용가능한 아이디입니다.😀</p>
+            ) : (
+              <p className='desc'>아이디 중복 확인을 해주세요.😀</p>
+            )
           ) : (
             <p className='desc'>사용할 수 없는 아이디입니다.🥲</p>
           )}
