@@ -11,9 +11,9 @@ const Router = () => {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
 
   useEffect(() => {
-    setIsLogin(window.localStorage.getItem('token'));
-    console.log(window.localStorage.getItem('token'));
-  }, [window.localStorage]);
+    setIsLogin(localStorage.getItem('token'));
+    console.log(localStorage.getItem('token'));
+  }, [localStorage.getItem('token')]);
 
   return (
     <ThemeProvider theme={theme}>
