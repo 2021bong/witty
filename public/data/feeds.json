@@ -1,0 +1,64 @@
+{
+  "feeds": [
+    {
+      "id": 1,
+      "userId": "2021bong",
+      "content": "오늘은 날씨가 좋았다~",
+      "time": "20221123"
+    },
+    {
+      "id": 2,
+      "userId": "jieun",
+      "content": "카카오톡 url 알려조",
+      "time": "20221123"
+    },
+    {
+      "id": 3,
+      "userId": "분노한 봉원희",
+      "content": "타입스크립트를 없애버리고 싶다...",
+      "time": "20221123"
+    },
+    {
+      "id": 4,
+      "userId": "힘내는 지은",
+      "content": "화잍잉...",
+      "time": "20221123"
+    },
+    {
+      "id": 5,
+      "userId": "분노한 이혦",
+      "content": "타스랑 싸울 사람 구함 1/n",
+      "time": "20221123"
+    },
+    {
+      "id": 6,
+      "userId": "2021bong",
+      "content": "내일도 날씨가 좋았으면 좋겠다.",
+      "time": "20221123"
+    },
+    {
+      "id": 7,
+      "userId": "화가 난 봉원희",
+      "content": "뇌졸중을 조심합시다",
+      "time": "20221123"
+    },
+    {
+      "id": 8,
+      "userId": "슬랙알림봇",
+      "content": "오늘 오후 4시에 세션 있습니다~",
+      "time": "20221123"
+    },
+    {
+      "id": 9,
+      "userId": "helloworld",
+      "content": "hel loworld :)",
+      "time": "20221123"
+    },
+    {
+      "id": 10,
+      "userId": "error500",
+      "content": "alert('error!')",
+      "time": "20221123"
+    }
+  ]
+}
