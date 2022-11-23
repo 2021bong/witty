@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import KakaoBtn from '../../components/KakaoBtn';
+import SignUpBtn from '../../components/SignUpBtn';
 import {
   checkEmail,
   checkName,
@@ -227,9 +229,8 @@ const SignUp = () => {
         </div>
       </form>
       <div className='btnContainer'>
-        <button className='btn' onClick={checkSignUp}>
-          회원가입 하기
-        </button>
+        <SignUpBtn btnText='회원가입 하기' checkSignUp={checkSignUp} />
+        <KakaoBtn btnText={'카카오로 시작하기'} />
         <Link to='/'>
           <button className='cancelBtn'>취소</button>
         </Link>

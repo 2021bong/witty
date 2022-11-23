@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { LoginData, LoginRes } from '../../utils/interface';
+import SignUpBtn from '../../components/SignUpBtn';
+import KakaoBtn from '../../components/KakaoBtn';
 
 const Login = () => {
   const [idValue, setIdValue] = useState('');
@@ -65,8 +67,9 @@ const Login = () => {
           로그인
         </button>
         <Link to='/signup'>
-          <button className='btn'>회원가입</button>
+          <SignUpBtn btnText='회원가입' />
         </Link>
+        <KakaoBtn btnText='카카오계정으로 로그인' />
       </div>
     </Main>
   );
@@ -132,7 +135,7 @@ const Main = styled.div`
       width: 100%;
       height: 40px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       color: #fff;
       background-color: ${({ theme }) => theme.mainColor};
 
@@ -154,7 +157,7 @@ const Main = styled.div`
       height: 40px;
       margin-bottom: 5px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid #ddd;
       background-color: #fff;
       cursor: default;

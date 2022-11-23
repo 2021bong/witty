@@ -8,7 +8,7 @@ export const Main = styled.div`
   width: 90%;
   min-height: 600px;
   max-width: 500px;
-  margin: 100px auto;
+  margin: 30px auto;
   padding: 3rem;
   border: 1px solid #ddd;
   border-radius: 1rem;
@@ -93,38 +93,18 @@ export const Main = styled.div`
     width: 80%;
     min-width: 270px;
 
-    .btn {
-      width: 100%;
-      height: 40px;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      background-color: ${({ theme }) => theme.mainColor};
-
-      &:hover {
-        background-color: ${({ theme }) => theme.subColor};
-      }
-
-      &:active {
-        background-color: ${({ theme }) => theme.mainColor2};
-      }
-
-      &:first-of-type {
-        margin-bottom: 5px;
-      }
-    }
-
     .cancelBtn {
       width: 100%;
       height: 40px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 12px;
       color: ${({ theme }) => theme.text};
       background-color: #fff;
 
       &:hover {
         color: #fff;
         background-color: ${({ theme }) => theme.mainColor};
+        border: none;
       }
 
       &:active {
@@ -132,8 +112,8 @@ export const Main = styled.div`
         background-color: ${({ theme }) => theme.mainColor2};
       }
 
-      &:first-of-type {
-        margin-bottom: 5px;
+      &:last-of-type {
+        margin-bottom: 0;
       }
     }
   }

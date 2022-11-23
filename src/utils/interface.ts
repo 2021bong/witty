@@ -27,6 +27,15 @@ export interface SignUpType {
   email: string;
 }
 
+export interface SignUpBtnType {
+  btnText: string;
+  checkSignUp?: () => void;
+}
+
+export interface KaKaoBtnType {
+  btnText: string;
+}
+
 export interface ValidationRes {
   message: string;
 }
