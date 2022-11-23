@@ -12,7 +12,7 @@ const Router = () => {
 
   useEffect(() => {
     setIsLogin(localStorage.getItem('token'));
-    console.log(localStorage.getItem('token'));
+    console.log('local Token', localStorage.getItem('token'));
   }, [localStorage.getItem('token')]);
 
   return (

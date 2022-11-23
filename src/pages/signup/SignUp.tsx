@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import KakaoBtn from '../../components/KakaoBtn';
 import SignUpBtn from '../../components/SignUpBtn';
@@ -127,16 +127,17 @@ const SignUp = () => {
   };
 
   const handleKaKaoLogin = () => {
-    axios(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${
-        import.meta.env.VITE_KAKAO_REST_API_KEY
-      }&redirect_uri=${
-        import.meta.env.VITE_KAKAO_REDIRECT_URL
-      }&response_type=code`
-    )
-      .then((res) => console.log(res))
-      .catch((err) => console.log('error', err));
+    // window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+    //   import.meta.env.VITE_KAKAO_REST_API_KEY
+    // }&redirect_uri=${
+    //   import.meta.env.VITE_KAKAO_REDIRECT_URL
+    // }&response_type=code`;
   };
+
+  useEffect(() => {
+    const kakaoToken = new URLSearchParams(location.search).get('code');
+    console.log(kakaoToken);
+  });
 
   return (
     <Main>
