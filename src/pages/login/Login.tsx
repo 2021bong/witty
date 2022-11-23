@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <Main>
       <h3 className='greeting'>
-        Hello <span>Witty!</span> 🐹
+        Hello, <span>Witty!</span> 🐹
       </h3>
       <form className='formContainer' onSubmit={(e) => e.preventDefault()}>
         <div className='inputContainer'>

@@ -34,6 +34,7 @@ export interface SignUpBtnType {
 
 export interface KaKaoBtnType {
   btnText: string;
+  handleKaKaoLogin?: () => void;
 }
 
 export interface ValidationRes {

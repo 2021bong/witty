@@ -126,6 +126,18 @@ const SignUp = () => {
     }
   };
 
+  const handleKaKaoLogin = () => {
+    axios(
+      `https://kauth.kakao.com/oauth/authorize?client_id=${
+        import.meta.env.VITE_KAKAO_REST_API_KEY
+      }&redirect_uri=${
+        import.meta.env.VITE_KAKAO_REDIRECT_URL
+      }&response_type=code`
+    )
+      .then((res) => console.log(res))
+      .catch((err) => console.log('error', err));
+  };
+
   return (
     <Main>
       <h3 className='title'>🐹 회원가입</h3>
@@ -230,7 +242,10 @@ const SignUp = () => {
       </form>
       <div className='btnContainer'>
         <SignUpBtn btnText='회원가입 하기' checkSignUp={checkSignUp} />
-        <KakaoBtn btnText={'카카오로 시작하기'} />
+        <KakaoBtn
+          btnText={'카카오로 시작하기'}
+          handleKaKaoLogin={handleKaKaoLogin}
+        />
         <Link to='/'>
           <button className='cancelBtn'>취소</button>
         </Link>

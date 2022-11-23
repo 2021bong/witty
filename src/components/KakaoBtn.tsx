@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { KaKaoBtnType } from '../utils/interface';
 
-const KakaoBtn = ({ btnText }: KaKaoBtnType) => {
+const KakaoBtn = ({ btnText, handleKaKaoLogin }: KaKaoBtnType) => {
   return (
-    <Button>
+    <Button onClick={handleKaKaoLogin}>
       <p className='text'>{btnText}</p>
       <div className='imgBox'></div>
     </Button>
