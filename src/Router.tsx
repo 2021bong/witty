@@ -8,19 +8,23 @@ import { useEffect, useState } from 'react';
 import Main from './pages/main/Main';
 
 const Router = () => {
-  const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
+  const [isLogin, setIsLogin] = useState<string | null>(
+    localStorage.getItem('token')
+  );
 
-  useEffect(() => {
+  const getToken = () => {
     setIsLogin(localStorage.getItem('token'));
-    console.log('local Token', localStorage.getItem('token'));
-  }, [localStorage.getItem('token')]);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <HashRouter>
         <GlobalStyle />
         <Routes>
-          <Route path='/' element={isLogin ? <Main /> : <Login />} />
+          <Route
+            path='/'
+            element={isLogin ? <Main /> : <Login getToken={getToken} />}
+          />
           <Route path='/signup' element={<SignUp />} />
         </Routes>
       </HashRouter>

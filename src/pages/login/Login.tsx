@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { LoginData, LoginRes } from '../../utils/interface';
 import SignUpBtn from '../../components/SignUpBtn';
 import KakaoBtn from '../../components/KakaoBtn';
+import { LoginProp } from '../../utils/interface';
 
-const Login = () => {
+const Login = ({ getToken }: LoginProp) => {
   const [idValue, setIdValue] = useState('');
   const [pwValue, setPwValue] = useState('');
 
@@ -25,9 +26,10 @@ const Login = () => {
           account: idValue,
           password: pwValue,
         })
-        .then((res) =>
-          window.localStorage.setItem('token', res.data.result.token)
-        )
+        .then((res) => {
+          window.localStorage.setItem('token', res.data.result.token);
+          getToken();
+        })
         .catch((err) => console.log(err));
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');

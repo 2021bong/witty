@@ -56,3 +56,7 @@ export interface FeedType {
   content: string;
   time: string;
 }
+
+export interface LoginProp {
+  getToken: () => void;
+}
