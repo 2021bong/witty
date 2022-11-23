@@ -30,6 +30,14 @@ const GlobalStyle = createGlobalStyle`
   textarea {
     resize: none;
   }
+
+  body{
+    -ms-overflow-style: none;
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default GlobalStyle;
