@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import { HamsterProps } from '../../utils/interface';
+import { LoginProp, HamsterProps } from '../../utils/interface';
 
-const LoadingLogin = () => {
+const LoadingLogin = ({ getToken }: LoginProp) => {
   const [hAnimation, setHAnimation] = useState(false);
   const [title, setTitle] = useState('Loading');
   const authCode = location.search.split('=')[1];
@@ -30,6 +30,8 @@ const LoadingLogin = () => {
         authorizationCode: authCode,
       })
       .then((res) => {
+        localStorage.setItem('token', res.data.token);
+        getToken();
         navigate('/');
       })
       .catch((err) => {

@@ -27,7 +27,7 @@ const Login = ({ getToken }: LoginProp) => {
           password: pwValue,
         })
         .then((res) => {
-          window.localStorage.setItem('token', res.data.result.token);
+          localStorage.setItem('token', res.data.result.token);
           getToken();
         })
         .catch((err) => console.log(err));
@@ -41,7 +41,6 @@ const Login = ({ getToken }: LoginProp) => {
     Kakao.Auth.authorize({
       redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URL,
       serviceTerms: 'account_email',
-      prompts: 'none',
     });
   };
 

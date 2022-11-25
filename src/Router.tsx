@@ -28,7 +28,10 @@ const Router = () => {
             element={isLogin ? <Main /> : <Login getToken={getToken} />}
           />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/loading' element={<LoadingLogin />} />
+          <Route
+            path='/loading'
+            element={<LoadingLogin getToken={getToken} />}
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
