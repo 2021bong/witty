@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SignUpBtn from '../../components/SignUpBtn';
-import KakaoBtn from '../../components/KakaoBtn';
 import { LoginProp } from '../../utils/interface';
+
+const { Kakao } = window as any;
 
 const Login = ({ getToken }: LoginProp) => {
   const [idValue, setIdValue] = useState('');
@@ -33,6 +34,15 @@ const Login = ({ getToken }: LoginProp) => {
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
     }
+  };
+
+  const handleKaKaoLogin = () => {
+    Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY);
+    Kakao.Auth.authorize({
+      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URL,
+      serviceTerms: 'account_email',
+      prompts: 'none',
+    });
   };
 
   return (
@@ -70,13 +80,49 @@ const Login = ({ getToken }: LoginProp) => {
         <Link to='/signup'>
           <SignUpBtn btnText='회원가입' />
         </Link>
-        <KakaoBtn btnText='카카오계정으로 로그인' />
+        <KakaoBtn onClick={handleKaKaoLogin}>
+          <p className='text'>카카오로 시작하기</p>
+          <div className='imgBox'></div>
+        </KakaoBtn>
       </div>
     </Main>
   );
 };
 
 export default Login;
+
+const KakaoBtn = styled.button`
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 5px;
+  border: none;
+  border-radius: 12px;
+  background-color: #fee501;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #f1da00;
+  }
+
+  &:active {
+    background-color: #fee501;
+  }
+
+  .text {
+    color: 191600;
+    z-index: 1;
+  }
+
+  .imgBox {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background: left/15% no-repeat url('kakao_login_logo.png');
+    left: 0;
+    top: 0;
+  }
+`;
 
 const Main = styled.div`
   display: flex;

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import KakaoBtn from '../../components/KakaoBtn';
 import SignUpBtn from '../../components/SignUpBtn';
 import {
   checkEmail,
@@ -10,8 +9,6 @@ import {
   checkPw,
 } from '../../utils/validation';
 import { Main } from './SignUp.styled';
-
-const { Kakao } = window as any;
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -113,14 +110,6 @@ const SignUp = () => {
     } else {
       alert('가입 정보를 확인해주세요!✋');
     }
-  };
-
-  const handleKaKaoLogin = async () => {
-    await Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY);
-    await Kakao.Auth.authorize({
-      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URL,
-      serviceTerms: 'account_email',
-    });
   };
 
   return (
@@ -227,10 +216,6 @@ const SignUp = () => {
       </form>
       <div className='btnContainer'>
         <SignUpBtn btnText='회원가입 하기' checkSignUp={checkSignUp} />
-        <KakaoBtn
-          btnText={'카카오로 시작하기'}
-          handleKaKaoLogin={handleKaKaoLogin}
-        />
         <Link to='/'>
           <button className='cancelBtn'>취소</button>
         </Link>
