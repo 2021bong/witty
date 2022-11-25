@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { KaKaoBtnType } from '../utils/interface';
+import { KaKaoBtnProps } from '../utils/interface';
 
-const KakaoBtn = ({ btnText, handleKaKaoLogin }: KaKaoBtnType) => {
+const KakaoBtn = ({ btnText, handleKaKaoLogin }: KaKaoBtnProps) => {
   return (
     <Button onClick={handleKaKaoLogin}>
       <p className='text'>{btnText}</p>

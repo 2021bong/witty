@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { FeedType } from '../utils/interface';
+import { FeedProps } from '../utils/interface';
 
-const Feed = ({ user, content, time }: FeedType) => {
+const Feed = ({ user, content, time }: FeedProps) => {
   return (
     <Container>
       <div className='info'>

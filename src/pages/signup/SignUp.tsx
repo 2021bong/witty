@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import KakaoBtn from '../../components/KakaoBtn';
 import SignUpBtn from '../../components/SignUpBtn';
@@ -9,14 +9,9 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
-import {
-  EmailType,
-  IdType,
-  SignUpType,
-  ValidationRes,
-  SignUpRes,
-} from '../../utils/interface';
 import { Main } from './SignUp.styled';
+
+const { Kakao } = window as any;
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -51,12 +46,9 @@ const SignUp = () => {
   const checkingEmail = () => {
     if (checkEmail(emailValue)) {
       axios
-        .post<EmailType, ValidationRes>(
-          'http://localhost:8000/users/duplication',
-          {
-            email: emailValue,
-          }
-        )
+        .post('http://localhost:8000/users/duplication', {
+          email: emailValue,
+        })
         .then((res) => {
           alert('사용 가능한 이메일입니다.😀');
           setEmailCheckDuplicate(true);
@@ -73,12 +65,9 @@ const SignUp = () => {
   const checkingId = () => {
     if (checkId(idValue)) {
       axios
-        .post<IdType, ValidationRes>(
-          'http://localhost:8000/users/duplication',
-          {
-            account: idValue,
-          }
-        )
+        .post('http://localhost:8000/users/duplication', {
+          account: idValue,
+        })
         .then((res) => {
           alert('사용 가능한 아이디입니다.😀');
           setIdCheckDuplicate(true);
@@ -103,7 +92,7 @@ const SignUp = () => {
       idCheckDuplicate
     ) {
       axios
-        .post<SignUpType, SignUpRes>('http://localhost:8000/users/signup', {
+        .post('http://localhost:8000/users/signup', {
           account: idValue,
           password: pwValue,
           nickname: nameValue,
@@ -126,18 +115,13 @@ const SignUp = () => {
     }
   };
 
-  const handleKaKaoLogin = () => {
-    // window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
-    //   import.meta.env.VITE_KAKAO_REST_API_KEY
-    // }&redirect_uri=${
-    //   import.meta.env.VITE_KAKAO_REDIRECT_URL
-    // }&response_type=code`;
+  const handleKaKaoLogin = async () => {
+    await Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY);
+    await Kakao.Auth.authorize({
+      redirectUri: import.meta.env.VITE_KAKAO_REDIRECT_URL,
+      serviceTerms: 'account_email',
+    });
   };
-
-  useEffect(() => {
-    const kakaoToken = new URLSearchParams(location.search).get('code');
-    console.log(kakaoToken);
-  });
 
   return (
     <Main>

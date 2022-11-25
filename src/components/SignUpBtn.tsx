@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { SignUpBtnType } from '../utils/interface';
+import { SignUpBtnProps } from '../utils/interface';
 
-const SignUpBtn = ({ btnText, checkSignUp }: SignUpBtnType) => (
+const SignUpBtn = ({ btnText, checkSignUp }: SignUpBtnProps) => (
   <Button onClick={checkSignUp}>{btnText}</Button>
 );
 

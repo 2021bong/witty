@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import { LoginData, LoginRes } from '../../utils/interface';
 import SignUpBtn from '../../components/SignUpBtn';
 import KakaoBtn from '../../components/KakaoBtn';
 import { LoginProp } from '../../utils/interface';
@@ -22,7 +21,7 @@ const Login = ({ getToken }: LoginProp) => {
   const onLogin = () => {
     if (idValue.length !== 0 && pwValue.length !== 0) {
       axios
-        .post<LoginData, LoginRes>('http://localhost:8000/users/signin', {
+        .post('http://localhost:8000/users/signin', {
           account: idValue,
           password: pwValue,
         })

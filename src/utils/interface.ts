@@ -1,48 +1,3 @@
-export interface LoginData {
-  account: string;
-  password: string;
-}
-
-export interface LoginRes {
-  data: {
-    message: string;
-    result: {
-      nickname: string;
-      token: string;
-    };
-  };
-}
-
-export interface EmailType {
-  email: string;
-}
-export interface IdType {
-  id: string;
-}
-
-export interface SignUpType {
-  account: string;
-  password: string;
-  nickname: string;
-  email: string;
-}
-
-export interface SignUpBtnType {
-  btnText: string;
-  checkSignUp?: () => void;
-}
-
-export interface KaKaoBtnType {
-  btnText: string;
-  handleKaKaoLogin?: () => void;
-}
-
-export interface ValidationRes {
-  message: string;
-}
-
-export interface SignUpRes extends ValidationRes {}
-
 export interface FeedStateType {
   id: number;
   userId: string;
@@ -50,13 +5,26 @@ export interface FeedStateType {
   time: string;
 }
 
-export interface FeedType {
-  id?: number;
+export interface FeedProps {
   user: string;
   content: string;
   time: string;
 }
 
+export interface SignUpBtnProps {
+  btnText: string;
+  checkSignUp?: () => void;
+}
+
+export interface KaKaoBtnProps {
+  btnText: string;
+  handleKaKaoLogin?: () => void;
+}
+
 export interface LoginProp {
   getToken: () => void;
+}
+
+export interface HamsterProps {
+  hamsterAnimation: boolean;
 }
