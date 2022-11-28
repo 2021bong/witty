@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import SignUpBtn from '../../components/SignUpBtn';
+import SignUpBtn from '../signup/SignUpBtn';
 import { LoginProp } from '../../utils/interface';
 
 const { Kakao } = window as any;

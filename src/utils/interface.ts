@@ -3,12 +3,16 @@ export interface FeedStateType {
   userId: string;
   content: string;
   time: string;
+  like: number;
+  comment: number;
 }
 
 export interface FeedProps {
   user: string;
   content: string;
   time: string;
+  like: number;
+  comment: number;
 }
 
 export interface SignUpBtnProps {
