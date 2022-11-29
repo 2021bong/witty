@@ -30,14 +30,16 @@ const Feed = ({ user, content, time, like, comment }: FeedProps) => {
       <p className='content'>{content}</p>
       <div className='reactionContainer'>
         <div className='interactionContainer'>
-          <span className='heartBox' onClick={handleLikeHeart}>
+          <div className='heartBox' onClick={handleLikeHeart}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
             <span>{like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
-          </span>
-          <BsChat />
-          <span>
-            {comment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </span>
+          </div>
+          <div>
+            <BsChat />
+            <span>
+              {comment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            </span>
+          </div>
         </div>
         <div className='bookmark'>
           {save ? (
@@ -91,9 +93,25 @@ const Container = styled.div`
     .bookmark {
       cursor: pointer;
     }
+
     .interactionContainer {
-      span {
-        margin: 0 5px;
+      display: flex;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        &:first-child {
+          margin-right: 15px;
+        }
+
+        span {
+          margin-left: 5px;
+        }
+
+        svg {
+          transform: translateY(-2px);
+        }
       }
     }
 

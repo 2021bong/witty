@@ -6,6 +6,7 @@ const theme: DefaultTheme = {
   mainColor: '#FA3270',
   mainColor2: '#FAB922',
   subColor: '#E32269',
+  green: '#00B388',
 };
 
 export default theme;

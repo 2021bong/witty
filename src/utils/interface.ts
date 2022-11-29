@@ -15,6 +15,10 @@ export interface FeedProps {
   comment: number;
 }
 
+export interface GreetingProps {
+  text: string;
+}
+
 export interface SignUpBtnProps {
   btnText: string;
   checkSignUp?: () => void;

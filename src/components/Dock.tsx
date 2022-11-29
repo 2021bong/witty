@@ -58,6 +58,7 @@ const Dock = () => {
 export default Dock;
 
 const Box = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Greeting from '../../components/Greeting';
 import Dock from '../../components/Dock';
 import Feed from '../../components/Feed';
 import { FeedStateType } from '../../utils/interface';
@@ -16,10 +18,12 @@ const Main = () => {
 
   return (
     <Container>
-      <h5 className='greeting'>Hi, Witty! What's going on today?</h5>
-      <button className='writeBtn'>
-        <AiFillPlusCircle />
-      </button>
+      <Greeting text="Hi, Witty! What's going on today?" />
+      <Link to='write'>
+        <button className='writeBtn'>
+          <AiFillPlusCircle />
+        </button>
+      </Link>
       <div className='feedBox'>
         {feeds?.map((el) => (
           <Feed
@@ -53,14 +57,6 @@ const Container = styled.div`
   border: 1px solid #ddd;
   border-radius: 1rem;
   color: ${({ theme }) => theme.text};
-
-  .greeting {
-    width: 100%;
-    text-align: center;
-    padding-bottom: 20px;
-    color: ${({ theme }) => theme.mainColor};
-    font-weight: 700;
-  }
 
   .writeBtn {
     position: absolute;

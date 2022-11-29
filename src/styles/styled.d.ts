@@ -7,5 +7,6 @@ declare module 'styled-components' {
     subColor: string;
     text: string;
     border: string;
+    green: string;
   }
 }
