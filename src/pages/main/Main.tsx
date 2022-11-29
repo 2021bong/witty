@@ -14,6 +14,9 @@ const Main = () => {
     axios.get('data/feeds.json').then((res) => {
       setFeeds(res.data.feeds);
     });
+    // axios.get('http://localhost:8000/post').then((res)=>{
+    //   setFeeds(res.data.feeds);
+    // })
   }, []);
 
   return (
