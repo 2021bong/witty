@@ -1,17 +1,38 @@
 import { useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import Dock from '../../../components/Dock';
 import Greeting from '../../../components/Greeting';
 
 const Write = () => {
   const [textValue, setTextValue] = useState('');
+  const navigate = useNavigate();
 
   const handleWriteText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > 140) {
       setTextValue((prev) => prev);
     } else {
       setTextValue(e.target.value);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (textValue.length) {
+      axios
+        .post('http://localhost:8000/post', {
+          token: localStorage.getItem('token'),
+          content: textValue,
+        })
+        .then((res) => navigate('/'))
+        .catch((err) => {
+          alert(
+            '작성에 실패했습니다. 잠시 뒤 다시 시도해 주세요.🥲' + '\n' + err
+          );
+          navigate('/');
+        });
+    } else {
+      alert('내용을 작성해 주세요!🥺');
     }
   };
 
@@ -46,7 +67,9 @@ const Write = () => {
             <Link to='/'>
               <button className='cancleBtn'>취소</button>
             </Link>
-            <button className='completeBtn'>작성</button>
+            <button className='completeBtn' onClick={handleSubmit}>
+              작성
+            </button>
           </div>
         </div>
       </main>
