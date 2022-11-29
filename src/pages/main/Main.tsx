@@ -2,21 +2,38 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import Greeting from '../../components/Greeting';
 import Dock from '../../components/Dock';
 import Feed from '../../components/Feed';
-import { FeedStateType } from '../../utils/interface';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { MainFeedStateType } from '../../utils/interface';
+import { getTime } from '../../utils/function';
 
 const Main = () => {
-  const [feeds, setFeeds] = useState<FeedStateType[] | undefined>();
+  const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
+
   useEffect(() => {
     axios.get('data/feeds.json').then((res) => {
       setFeeds(res.data.feeds);
     });
-    // axios.get('http://localhost:8000/post').then((res)=>{
-    //   setFeeds(res.data.feeds);
-    // })
+
+    // axios.get('http://localhost:8000/posts').then((res) => {
+    //   const dataForState = res.data
+    //     .map((feedInfo: FeedStateType) =>
+    //       feedInfo.count_comments === null
+    //         ? { ...feedInfo, count_comments: 0 }
+    //         : feedInfo
+    //     )
+    //     .map((feedInfo: FeedStateType) =>
+    //       feedInfo.count_likes === null
+    //         ? { ...feedInfo, count_likes: 0 }
+    //         : feedInfo
+    //     )
+    //     .map((feedInfo: FeedStateType) => {
+    //       return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
+    //     });
+    //   setFeeds(dataForState);
+    // });
   }, []);
 
   return (
@@ -31,11 +48,12 @@ const Main = () => {
         {feeds?.map((el) => (
           <Feed
             key={el.id}
-            user={el.userId}
+            id={el.id}
+            user={el.nickname}
             content={el.content}
-            time={el.time}
-            like={el.like}
-            comment={el.comment}
+            time={el.created_at}
+            like={el.count_likes}
+            comment={el.count_comments}
           />
         ))}
       </div>

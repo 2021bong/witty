@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaSearch, FaUser } from 'react-icons/fa';
 import { BsBellFill } from 'react-icons/bs';
@@ -23,13 +24,15 @@ const Dock = () => {
 
   return (
     <Box className='dock'>
-      <button
-        onClick={handleDockMenu}
-        className={dockState[0].selected ? 'selected' : 'iconBtn'}
-        id='home'
-      >
-        <AiFillHome />
-      </button>
+      <Link to='/'>
+        <button
+          onClick={handleDockMenu}
+          className={dockState[0].selected ? 'selected' : 'iconBtn'}
+          id='home'
+        >
+          <AiFillHome />
+        </button>
+      </Link>
       <button
         onClick={handleDockMenu}
         className={dockState[1].selected ? 'selected' : 'iconBtn'}

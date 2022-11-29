@@ -1,18 +1,34 @@
-export interface FeedStateType {
+export interface MainFeedStateType {
   id: number;
-  userId: string;
+  nickname: string;
+  user_id?: string;
+  category?: string;
+  category_id?: number;
+  content: string;
+  created_at: string;
+  count_likes: number;
+  count_comments: number;
+}
+
+export interface FeedProps {
+  id: number;
+  user: string;
   content: string;
   time: string;
   like: number;
   comment: number;
 }
 
-export interface FeedProps {
-  user: string;
+export interface DetailFeedDataType {
+  id?: number;
+  nickname: string;
+  use_id?: number;
+  category?: string;
+  category_id?: number;
   content: string;
-  time: string;
-  like: number;
-  comment: number;
+  created_at: string;
+  count_likes: number | null;
+  count_comments: number | null;
 }
 
 export interface GreetingProps {

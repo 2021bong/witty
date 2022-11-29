@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   BsHeartFill,
@@ -7,9 +9,8 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 import { FeedProps } from '../utils/interface';
-import { useState } from 'react';
 
-const Feed = ({ user, content, time, like, comment }: FeedProps) => {
+const Feed = ({ id, user, content, time, like, comment }: FeedProps) => {
   const [heart, setHeart] = useState(false);
   const [save, setSave] = useState(false);
 
@@ -23,11 +24,13 @@ const Feed = ({ user, content, time, like, comment }: FeedProps) => {
 
   return (
     <Container>
-      <div className='info'>
-        <p className='user'>{user}</p>
-        <p className='time'>{time}</p>
-      </div>
-      <p className='content'>{content}</p>
+      <Link to={`/main/${id}`}>
+        <div className='info'>
+          <p className='user'>{user}</p>
+          <p className='time'>{time}</p>
+        </div>
+        <p className='content'>{content}</p>
+      </Link>
       <div className='reactionContainer'>
         <div className='interactionContainer'>
           <div className='heartBox' onClick={handleLikeHeart}>
@@ -55,7 +58,6 @@ const Feed = ({ user, content, time, like, comment }: FeedProps) => {
 export default Feed;
 
 const Container = styled.div`
-  padding: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.border};
   color: ${({ theme }) => theme.text};
 
@@ -63,31 +65,38 @@ const Container = styled.div`
     border: none;
   }
 
-  .info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  a {
+    display: block;
+    padding: 20px 20px 0 20px;
+    color: ${({ theme }) => theme.text};
 
-    .user {
-      font-weight: 700;
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .user {
+        font-weight: 700;
+      }
+
+      .time {
+        font-size: 14px;
+        color: ${({ theme }) => theme.subText};
+      }
     }
 
-    .time {
-      font-weight: 300;
-      color: ${({ theme }) => theme.text};
+    .content {
+      margin-bottom: 10px;
+      line-height: 1.2rem;
     }
-  }
-
-  .content {
-    margin-bottom: 10px;
-    line-height: 1.2rem;
   }
 
   .reactionContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    padding: 0 20px 20px 20px;
 
     .heartBox,
     .bookmark {

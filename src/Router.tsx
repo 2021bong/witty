@@ -9,6 +9,7 @@ import theme from './styles/theme';
 import SignUp from './pages/signup/SignUp';
 import LoadingLogin from './pages/signup/LoadingLogin';
 import Write from './pages/main/write/Write';
+import Detail from './pages/main/Detail';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -34,6 +35,7 @@ const Router = () => {
             element={<LoadingLogin getToken={getToken} />}
           />
           <Route path='/write' element={<Write />} />
+          <Route path='/main/:id' element={<Detail />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

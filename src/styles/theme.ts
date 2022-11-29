@@ -2,6 +2,7 @@ import { DefaultTheme } from 'styled-components';
 
 const theme: DefaultTheme = {
   text: '#555',
+  subText: '#aaa',
   border: '#ddd',
   mainColor: '#FA3270',
   mainColor2: '#FAB922',
