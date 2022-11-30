@@ -13,27 +13,31 @@ const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
 
   useEffect(() => {
-    axios.get('data/feeds.json').then((res) => {
-      setFeeds(res.data.feeds);
-    });
+    //   axios.get('data/feeds.json').then((res) => {
+    //     setFeeds(res.data.feeds);
+    //   });
 
-    // axios.get('http://localhost:8000/posts').then((res) => {
-    //   const dataForState = res.data
-    //     .map((feedInfo: FeedStateType) =>
-    //       feedInfo.count_comments === null
-    //         ? { ...feedInfo, count_comments: 0 }
-    //         : feedInfo
-    //     )
-    //     .map((feedInfo: FeedStateType) =>
-    //       feedInfo.count_likes === null
-    //         ? { ...feedInfo, count_likes: 0 }
-    //         : feedInfo
-    //     )
-    //     .map((feedInfo: FeedStateType) => {
-    //       return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
-    //     });
-    //   setFeeds(dataForState);
-    // });
+    axios
+      .get('http://localhost:8000/posts', {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        const dataForState = res.data
+          .map((feedInfo: MainFeedStateType) =>
+            feedInfo.count_comments === null
+              ? { ...feedInfo, count_comments: 0 }
+              : feedInfo
+          )
+          .map((feedInfo: MainFeedStateType) =>
+            feedInfo.count_likes === null
+              ? { ...feedInfo, count_likes: 0 }
+              : feedInfo
+          )
+          .map((feedInfo: MainFeedStateType) => {
+            return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
+          });
+        setFeeds(dataForState);
+      });
   }, []);
 
   return (

@@ -20,10 +20,11 @@ const Write = () => {
   const handleSubmit = () => {
     if (textValue.length) {
       axios
-        .post('http://localhost:8000/posts', {
-          token: localStorage.getItem('token'),
-          content: textValue,
-        })
+        .post(
+          'http://localhost:8000/posts',
+          { content: textValue },
+          { headers: { Authorization: localStorage.getItem('token') } }
+        )
         .then((res) => navigate('/'))
         .catch((err) => {
           alert(

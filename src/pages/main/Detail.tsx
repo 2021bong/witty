@@ -18,7 +18,7 @@ const Detail = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType | undefined>();
   const [heart, setHeart] = useState(false);
   const [save, setSave] = useState(false);
-  const param = useParams();
+  const param = useParams().id;
 
   const handleLikeHeart = () => {
     setHeart((prev) => !prev);
@@ -29,14 +29,18 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    // axios
-    //   .get(`http://localhost:8000/posts/${param}`)
-    //   .then((res) => setFeedData(res.data));
+    axios
+      .get(`http://localhost:8000/posts/${param}`, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setFeedData(res.data[0]);
+      });
   }, []);
 
   return (
     <Container>
-      <Greeting text="what's happening now" />
+      <Greeting text="What's happening now" />
       {feedData && (
         <div className='contentContainer'>
           <div className='detailFeedContainer'>
@@ -51,24 +55,24 @@ const Detail = () => {
               )}
             </div>
             <p className='userName'>
-              <b>{feedData.nickname}</b>님이
+              <b>{feedData.nickname}</b>
             </p>
             <p className='content'>
-              <b>{feedData.content}</b> 라고 했습니다.😀
+              <b>{feedData.content}</b>
             </p>
             <div className='interactionContainer'>
               <div className='likeBox' onClick={handleLikeHeart}>
                 {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
                 <span>
                   좋아요
-                  <b>{feedData.count_likes ? feedData.count_likes : 0}</b>
+                  <b>{feedData.count_likes || 0}</b>
                 </span>
               </div>
               <div className='commentBox'>
                 <BsChat />
                 <span>
                   댓글
-                  <b>{feedData.count_comments ? feedData.count_comments : 0}</b>
+                  <b>{feedData.count_comments || 0}</b>
                 </span>
               </div>
             </div>
