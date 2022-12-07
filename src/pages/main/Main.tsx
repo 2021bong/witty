@@ -11,14 +11,16 @@ import { getTime } from '../../utils/function';
 
 const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
+  let limit = 12;
+  let offset = 0;
 
   useEffect(() => {
     //   axios.get('data/feeds.json').then((res) => {
     //     setFeeds(res.data.feeds);
-    //   });
+    // .  });
 
     axios
-      .get('http://localhost:8000/posts', {
+      .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {
@@ -43,6 +45,7 @@ const Main = () => {
             key={el.id}
             id={el.id}
             user={el.nickname}
+            category={el.category}
             content={el.content}
             time={el.created_at}
             like={el.count_likes}

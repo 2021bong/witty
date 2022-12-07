@@ -10,6 +10,7 @@ import SignUp from './pages/signup/SignUp';
 import LoadingLogin from './pages/signup/LoadingLogin';
 import Write from './pages/main/write/Write';
 import Detail from './pages/main/Detail';
+import Category from './pages/category/Category';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -36,6 +37,7 @@ const Router = () => {
           />
           <Route path='/write' element={<Write />} />
           <Route path='/main/:id' element={<Detail />} />
+          <Route path='/category' element={<Category />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

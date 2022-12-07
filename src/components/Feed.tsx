@@ -13,6 +13,7 @@ import { FeedProps } from '../utils/interface';
 const Feed = ({
   id,
   user,
+  category,
   content,
   time,
   like,
@@ -34,6 +35,9 @@ const Feed = ({
   return (
     <Container>
       <Link to={`/main/${id}`}>
+        <Link to='/category' className='goCategory'>
+          <span className='category'>{'#' + category}</span>
+        </Link>
         <div className='info'>
           <p className='user'>{user}</p>
           <p className='time'>{time}</p>
@@ -82,6 +86,20 @@ const Container = styled.div`
     display: block;
     padding: 20px 20px 0 20px;
     color: ${({ theme }) => theme.text};
+
+    .goCategory {
+      padding: 0;
+
+      .category {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: ${({ theme }) => theme.mainColor2};
+        color: #fff;
+        font-size: 14px;
+      }
+    }
 
     .info {
       display: flex;
