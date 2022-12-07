@@ -10,9 +10,18 @@ import {
 } from 'react-icons/bs';
 import { FeedProps } from '../utils/interface';
 
-const Feed = ({ id, user, content, time, like, comment }: FeedProps) => {
-  const [heart, setHeart] = useState(false);
-  const [save, setSave] = useState(false);
+const Feed = ({
+  id,
+  user,
+  content,
+  time,
+  like,
+  comment,
+  isLiked,
+  isSaved,
+}: FeedProps) => {
+  const [heart, setHeart] = useState(isLiked || false);
+  const [save, setSave] = useState(isSaved || false);
 
   const handleLikeHeart = () => {
     setHeart((prev) => !prev);
@@ -35,12 +44,16 @@ const Feed = ({ id, user, content, time, like, comment }: FeedProps) => {
         <div className='interactionContainer'>
           <div className='heartBox' onClick={handleLikeHeart}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
-            <span>{like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
+            <span>
+              {like ? like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0}
+            </span>
           </div>
           <div>
             <BsChat />
             <span>
-              {comment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              {comment
+                ? comment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : 0}
             </span>
           </div>
         </div>

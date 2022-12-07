@@ -29,12 +29,20 @@ const Detail = () => {
   };
 
   useEffect(() => {
+    // axios.get('../data/feeds.json').then((res) => {
+    //   setFeedData(res.data.feeds[Number(param) - 1]);
+    //   setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
+    //   setSave(res.data.feeds[Number(param) - 1].is_marked || false);
+    // });
+
     axios
       .get(`http://localhost:8000/posts/${param}`, {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {
         setFeedData(res.data[0]);
+        setHeart(res.data[0].is_liked || false);
+        setSave(res.data[0].is_marked || false);
       });
   }, []);
 

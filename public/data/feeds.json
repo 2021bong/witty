@@ -6,7 +6,9 @@
       "content": "오늘은 날씨가 좋았다~",
       "created_at": "2022/11/19",
       "count_likes": 1,
-      "count_comments": 0
+      "count_comments": 0,
+      "is_liked": null,
+      "is_marked": null
     },
     {
       "id": 2,
@@ -14,7 +16,9 @@
       "content": "카카오톡 url 알려조",
       "created_at": "2022/11/29",
       "count_likes": 2,
-      "count_comments": 2
+      "count_comments": 2,
+      "is_liked": 0,
+      "is_marked": 0
     },
     {
       "id": 3,
@@ -22,7 +26,9 @@
       "content": "타입스크립트를 없애버리고 싶다...",
       "created_at": "2022/11/29",
       "count_likes": 100,
-      "count_comments": 23
+      "count_comments": 23,
+      "is_liked": 1,
+      "is_marked": 1
     },
     {
       "id": 4,
@@ -30,7 +36,9 @@
       "content": "화잍잉...",
       "created_at": "2022/11/29",
       "count_likes": 34,
-      "count_comments": 12
+      "count_comments": 12,
+      "is_liked": null,
+      "is_marked": 1
     },
     {
       "id": 5,
@@ -38,7 +46,9 @@
       "content": "타스랑 싸울 사람 구함 1/n",
       "created_at": "2022/11/29",
       "count_likes": 100,
-      "count_comments": 32
+      "count_comments": 32,
+      "is_liked": 1,
+      "is_marked": 0
     },
     {
       "id": 6,
