@@ -63,16 +63,10 @@ export interface HamsterProps {
   hamsterAnimation: boolean;
 }
 
-interface NoHavePhoto {
-  id: number;
-  file: null;
-  previewUrl: string | null;
-}
-
 interface HavePhoto {
   id: number;
   file: FileList | null;
   previewUrl: string | null;
 }
 
-export type PhotosType = NoHavePhoto[] | HavePhoto[];
+export type PhotosType = HavePhoto[] | [];

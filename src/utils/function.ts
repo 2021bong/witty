@@ -21,3 +21,13 @@ export const getDetailTime = (time: string) => {
     hour.toString().length === 1 ? 0 + hour.toString() : hour
   }:${min.toString().length === 1 ? 0 + min.toString() : min}`;
 };
+
+export const setColor = (textValue: string) => {
+  if (textValue.length < 100) {
+    return '#00B388';
+  } else if (textValue.length < 120) {
+    return '#FAB922';
+  } else {
+    return '#FA3270';
+  }
+};

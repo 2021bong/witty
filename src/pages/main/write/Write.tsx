@@ -1,11 +1,16 @@
-import { useState, MouseEvent, ChangeEvent, useRef } from 'react';
+import { useState, MouseEvent, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styled from 'styled-components';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
+
 import Dock from '../../../components/Dock';
 import Greeting from '../../../components/Greeting';
+import { NoticeCurcle, Preview, Container } from './Write.styled';
+
 import { PhotosType } from '../../../utils/interface';
+import { PHOTO_INDEX } from '../../../utils/constant';
+import { setColor } from '../../../utils/function';
 
 const Write = () => {
   const [textValue, setTextValue] = useState('');
@@ -16,14 +21,9 @@ const Write = () => {
     { id: 4, name: '#오늘잡담', selected: false },
     { id: 5, name: '#오늘먹은것', selected: false },
   ]);
-  const [photos, setPhotos] = useState<PhotosType>([
-    { id: 1, file: null, previewUrl: null },
-    { id: 2, file: null, previewUrl: null },
-    { id: 3, file: null, previewUrl: null },
-    { id: 4, file: null, previewUrl: null },
-  ]);
+  const [unqPhotoIndex, setUnqPhotoIndex] = useState(1);
+  const [photos, setPhotos] = useState<PhotosType>([]);
   const navigate = useNavigate();
-  const photoRef = useRef(null);
 
   const handleSelectedCategory = (e: MouseEvent<HTMLLIElement>) => {
     const selectedName = e.currentTarget.textContent;
@@ -44,22 +44,23 @@ const Write = () => {
     }
   };
 
-  const handleGetFiles = (e: ChangeEvent<HTMLInputElement>) => {
-    setPhotos((prev) =>
-      prev.map((photo) =>
-        'photo' + photo.id === e.target.id
-          ? {
-              ...photo,
-              file: e.target.files,
-              previewUrl: e.target.files
-                ? URL.createObjectURL(e.target.files[0])
-                : null,
-            }
-          : { ...photo }
-      )
-    );
+  const handleGetPhotos = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFiles = {
+      id: unqPhotoIndex,
+      file: e.target.files,
+      previewUrl: e.target.files
+        ? URL.createObjectURL(e.target.files[0])
+        : null,
+    };
+    setPhotos((prev) => [...prev, newFiles]);
+    setUnqPhotoIndex((prev) => prev + 1);
   };
-  console.log(photos);
+
+  const removePhoto = (e: MouseEvent<SVGElement>) => {
+    const deleteTarget = photos[+e.currentTarget.id];
+    const newPhotos = [...photos].filter((photo) => photo !== deleteTarget);
+    setPhotos(newPhotos);
+  };
 
   const handleSubmit = () => {
     if (textValue.length) {
@@ -83,16 +84,6 @@ const Write = () => {
         });
     } else {
       alert('내용을 작성해 주세요!🥺');
-    }
-  };
-
-  const setColor = () => {
-    if (textValue.length < 100) {
-      return '#00B388';
-    } else if (textValue.length < 120) {
-      return '#FAB922';
-    } else {
-      return '#FA3270';
     }
   };
 
@@ -131,66 +122,68 @@ const Write = () => {
           />
         </form>
         <div className='photoContainer'>
-          {photos[0].previewUrl && (
+          {photos[0]?.previewUrl && (
             <ul className='preveiwContainer'>
               {photos.map(
-                (photo) =>
+                (photo, i) =>
                   photo.previewUrl && (
-                    <Preview
-                      key={photo.id}
-                      $imgUrl={photo.previewUrl}
-                    ></Preview>
+                    <Preview key={photo.id} $imgUrl={photo.previewUrl}>
+                      <AiFillCloseCircle
+                        className='delete'
+                        onClick={removePhoto}
+                        id={i.toString()}
+                      />
+                    </Preview>
                   )
               )}
             </ul>
           )}
-
           {
-            <ul className='inputAndLabelContainer'>
-              {photos[3].file ? (
-                <IoMdPhotos className='photoIcon disabled' />
+            <div className='inputAndLabelContainer'>
+              {photos[3]?.file ? (
+                <>
+                  <label htmlFor='upload'>
+                    <IoMdPhotos className='photoIcon disabled' />
+                  </label>
+                  <input
+                    className='hiddenFileInput'
+                    type='file'
+                    id='upload'
+                    name='upload'
+                    accept='image/png, image/jpeg'
+                    disabled={true}
+                  />
+                </>
               ) : (
-                <IoMdPhotos className='photoIcon' />
+                <>
+                  <label htmlFor='upload'>
+                    <IoMdPhotos className='photoIcon' />
+                  </label>
+                  <input
+                    className='hiddenFileInput'
+                    type='file'
+                    id='upload'
+                    name='upload'
+                    accept='image/png, image/jpeg'
+                    onChange={handleGetPhotos}
+                  />
+                </>
               )}
-              {photos.map((photo) =>
-                photo.file ? (
-                  <li key={photo.id}>
-                    <label
-                      className='countPhotoBox fill'
-                      htmlFor={`photo${photo.id}`}
-                    ></label>
-                    <input
-                      className='hiddenFileInput'
-                      type='file'
-                      id={`photo${photo.id}`}
-                      name={`photo${photo.id}`}
-                      accept='image/png, image/jpeg'
-                      onChange={handleGetFiles}
-                    />
-                  </li>
-                ) : (
-                  <li key={photo.id}>
-                    <label
-                      className='countPhotoBox'
-                      htmlFor={`photo${photo.id}`}
-                    ></label>
-                    <input
-                      className='hiddenFileInput'
-                      type='file'
-                      id={`photo${photo.id}`}
-                      name={`photo${photo.id}`}
-                      accept='image/png, image/jpeg'
-                      onChange={handleGetFiles}
-                    />
-                  </li>
-                )
-              )}
-            </ul>
+              {PHOTO_INDEX.map((el) => (
+                <span
+                  key={el}
+                  className={
+                    photos[el]?.file ? 'countPhotoBox fill' : 'countPhotoBox'
+                  }
+                ></span>
+              ))}
+            </div>
           }
         </div>
         <div className='propContainer'>
           <div className='lengthContainer'>
-            <NoticeCurcle noticeColor={setColor()} /> {textValue.length} / 140
+            <NoticeCurcle noticeColor={setColor(textValue)} />{' '}
+            {textValue.length} / 140
           </div>
           <div className='btnContainer'>
             <Link to='/'>
@@ -208,168 +201,3 @@ const Write = () => {
 };
 
 export default Write;
-
-const NoticeCurcle = styled.span`
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: ${({ noticeColor }: { noticeColor: string }) =>
-    noticeColor};
-  transform: translateY(-2px);
-`;
-
-const Preview = styled.li`
-  width: 25%;
-  height: 100px;
-  margin-right: 5px;
-  border-radius: 10px;
-  background: ${({ $imgUrl }: { $imgUrl: string }) =>
-    `no-repeat center/120% url(${$imgUrl})`};
-`;
-
-const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  height: 90vh;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
-
-  .mainContainer {
-    width: 100%;
-    height: 100%;
-
-    .categoryContainer {
-      display: flex;
-      margin-bottom: 10px;
-
-      .category {
-        margin-right: 5px;
-        padding: 5px;
-        border: 1px solid ${({ theme }) => theme.mainColor};
-        border-radius: 5px;
-        font-size: 14px;
-        color: ${({ theme }) => theme.mainColor};
-        cursor: pointer;
-      }
-
-      .selected {
-        background-color: ${({ theme }) => theme.mainColor};
-        color: #fff;
-      }
-    }
-
-    form {
-      height: 40%;
-      margin-bottom: 10px;
-
-      .writeBoard {
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid ${({ theme }) => theme.border};
-      }
-    }
-
-    .photoContainer {
-      width: 100%;
-
-      .preveiwContainer {
-        display: flex;
-        width: 100%;
-        margin-bottom: 5px;
-      }
-
-      .inputAndLabelContainer {
-        display: flex;
-        align-items: flex-end;
-
-        .photoIcon {
-          margin-right: 10px;
-          color: ${({ theme }) => theme.mainColor};
-          font-size: 1.5rem;
-          cursor: pointer;
-        }
-
-        .disabled {
-          color: ${({ theme }) => theme.text};
-          cursor: not-allowed;
-        }
-
-        .countPhotoBox {
-          display: inline-block;
-          width: 1rem;
-          height: 1rem;
-          margin-right: 5px;
-          border: 1px solid ${({ theme }) => theme.mainColor};
-          border-radius: 50%;
-        }
-
-        .fill {
-          border: none;
-          background-color: ${({ theme }) => theme.mainColor};
-        }
-
-        .hiddenFileInput {
-          display: none;
-        }
-      }
-    }
-
-    .propContainer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-
-      .lengthContainer {
-        padding-left: 8px;
-      }
-
-      .btnContainer {
-        display: flex;
-        justify-content: flex-end;
-        padding-right: 8px;
-
-        button {
-          padding: 10px;
-          border: none;
-          border-radius: 10px;
-        }
-
-        .cancleBtn {
-          &:hover {
-            background-color: ${({ theme }) => theme.mainColor};
-            color: #fff;
-          }
-          &:active {
-            background-color: ${({ theme }) => theme.mainColor2};
-            color: #fff;
-          }
-        }
-
-        .completeBtn {
-          margin-left: 5px;
-          background-color: ${({ theme }) => theme.mainColor};
-          color: #fff;
-
-          &:hover {
-            background-color: ${({ theme }) => theme.subColor};
-          }
-          &:active {
-            background-color: ${({ theme }) => theme.mainColor2};
-          }
-        }
-      }
-    }
-  }
-`;
