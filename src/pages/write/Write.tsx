@@ -62,8 +62,6 @@ const Write = () => {
     setPhotos(newPhotos);
   };
 
-  console.log(photos.map((photo) => photo.file));
-
   const handleSubmit = () => {
     if (textValue.length) {
       axios
@@ -71,9 +69,9 @@ const Write = () => {
           'http://localhost:8000/posts',
           {
             content: textValue,
-            category: categorys.filter(
-              (category) => category.selected === true
-            )[0].name,
+            category: categorys
+              .filter((category) => category.selected === true)[0]
+              .name.split('#')[1],
             images: photos.map((photo) => photo.file),
           },
           { headers: { Authorization: localStorage.getItem('token') } }

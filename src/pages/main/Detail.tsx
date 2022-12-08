@@ -95,12 +95,10 @@ const Detail = () => {
                 {save ? (
                   <BsFillBookmarkFill
                     className='checked'
-                    onClick={() => handleSaveFeed(setSave, save, param)}
+                    onClick={() => handleSaveFeed(setSave, param)}
                   />
                 ) : (
-                  <BsBookmark
-                    onClick={() => handleSaveFeed(setSave, save, param)}
-                  />
+                  <BsBookmark onClick={() => handleSaveFeed(setSave, param)} />
                 )}
               </div>
             </div>
@@ -114,7 +112,7 @@ const Detail = () => {
               <div className='interactionContainer'>
                 <div
                   className='likeCountBox'
-                  onClick={() => handleLikeHeart(setHeart, heart, param)}
+                  onClick={() => handleLikeHeart(setHeart, param)}
                 >
                   {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
                   <span>

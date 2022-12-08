@@ -65,17 +65,16 @@ type SetState = (setState: (prev: number | boolean) => boolean) => void;
 
 export const handleLikeHeart = (
   setHeart: SetState,
-  heart: number | boolean,
   id: string | number | undefined
 ) => {
   setHeart((prev) => !prev);
   axios
     .patch(
-      `http://localhost:8000/${id}/like`,
+      `http://localhost:8000/posts/${id}/like`,
+      {},
       {
-        is_liked: !heart ? 1 : 0,
-      },
-      { headers: { Authorization: localStorage.getItem('token') } }
+        headers: { Authorization: localStorage.getItem('token') },
+      }
     )
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
@@ -83,17 +82,16 @@ export const handleLikeHeart = (
 
 export const handleSaveFeed = (
   setSave: SetState,
-  save: number | boolean,
   id: string | number | undefined
 ) => {
   setSave((prev) => !prev);
   axios
     .patch(
-      `http://localhost:8000/${id}/is_marked`,
+      `http://localhost:8000/posts/${id}/bookmark`,
+      {},
       {
-        is_marked: !save ? 1 : 0,
-      },
-      { headers: { Authorization: localStorage.getItem('token') } }
+        headers: { Authorization: localStorage.getItem('token') },
+      }
     )
     .then((res) => console.log(res))
     .catch((err) => console.log(err));

@@ -51,7 +51,7 @@ const Feed = ({
         <div className='interactionContainer'>
           <div
             className='heartBox'
-            onClick={() => handleLikeHeart(setHeart, heart, id)}
+            onClick={() => handleLikeHeart(setHeart, id)}
           >
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
             <span>
@@ -77,12 +77,12 @@ const Feed = ({
           {save ? (
             <BsFillBookmarkFill
               className='bookmark checked'
-              onClick={() => handleSaveFeed(setSave, save, id)}
+              onClick={() => handleSaveFeed(setSave, id)}
             />
           ) : (
             <BsBookmark
               className='bookmark'
-              onClick={() => handleSaveFeed(setSave, save, id)}
+              onClick={() => handleSaveFeed(setSave, id)}
             />
           )}
         </div>
