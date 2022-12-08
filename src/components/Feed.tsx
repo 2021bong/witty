@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
@@ -9,8 +9,13 @@ import {
   BsBookmark,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
+import {
+  goEditMode,
+  removeFeed,
+  handleLikeHeart,
+  handleSaveFeed,
+} from '../utils/function';
 import { FeedProps } from '../utils/interface';
-import axios from 'axios';
 
 const Feed = ({
   id,
@@ -26,30 +31,6 @@ const Feed = ({
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
-  const navigate = useNavigate();
-
-  const handleLikeHeart = () => {
-    setHeart((prev) => !prev);
-  };
-
-  const handleSaveFeed = () => {
-    setSave((prev) => !prev);
-  };
-
-  const goEditMode = () => {
-    navigate(`/edit/${id}`);
-  };
-
-  const removeFeed = () => {
-    if (confirm('정말로 삭제하실 건가요?😭')) {
-      axios
-        .delete('url', { data: { id: id } })
-        .then((res) => alert('삭제되었습니다. ✨'))
-        .catch((err) =>
-          alert(`삭제에 실패했습니다. 잠시 뒤 다시 시도해주세요. 😭\n${err}`)
-        );
-    }
-  };
 
   return (
     <Container>
@@ -68,7 +49,10 @@ const Feed = ({
       </Link>
       <div className='reactionContainer'>
         <div className='interactionContainer'>
-          <div className='heartBox' onClick={handleLikeHeart}>
+          <div
+            className='heartBox'
+            onClick={() => handleLikeHeart(setHeart, heart, id)}
+          >
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
             <span>
               {like ? like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0}
@@ -84,15 +68,22 @@ const Feed = ({
           </div>
         </div>
         <div className='rightIconBox'>
-          {owner && <AiTwotoneEdit className='edit' onClick={goEditMode} />}
-          {owner && <AiFillDelete className='delete' onClick={removeFeed} />}
+          {owner && (
+            <AiTwotoneEdit className='edit' onClick={() => goEditMode(id)} />
+          )}
+          {owner && (
+            <AiFillDelete className='delete' onClick={() => removeFeed(id)} />
+          )}
           {save ? (
             <BsFillBookmarkFill
               className='bookmark checked'
-              onClick={handleSaveFeed}
+              onClick={() => handleSaveFeed(setSave, save, id)}
             />
           ) : (
-            <BsBookmark className='bookmark' onClick={handleSaveFeed} />
+            <BsBookmark
+              className='bookmark'
+              onClick={() => handleSaveFeed(setSave, save, id)}
+            />
           )}
         </div>
       </div>
