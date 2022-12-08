@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
   BsHeartFill,
   BsHeart,
@@ -9,6 +10,7 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 import { FeedProps } from '../utils/interface';
+import axios from 'axios';
 
 const Feed = ({
   id,
@@ -20,9 +22,11 @@ const Feed = ({
   comment,
   isLiked,
   isSaved,
+  owner,
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
+  const navigate = useNavigate();
 
   const handleLikeHeart = () => {
     setHeart((prev) => !prev);
@@ -32,12 +36,30 @@ const Feed = ({
     setSave((prev) => !prev);
   };
 
+  const goEditMode = () => {
+    navigate(`/edit/${id}`);
+  };
+
+  const removeFeed = () => {
+    if (confirm('정말로 삭제하실 건가요?😭')) {
+      axios
+        .delete('url', { data: { id: id } })
+        .then((res) => alert('삭제되었습니다. ✨'))
+        .catch((err) =>
+          alert(`삭제에 실패했습니다. 잠시 뒤 다시 시도해주세요. 😭\n${err}`)
+        );
+    }
+  };
+
   return (
     <Container>
-      <Link to={`/main/${id}`}>
+      <span className='category'>
         <Link to='/category' className='goCategory'>
-          <span className='category'>{'#' + category}</span>
+          {'#' + category}
         </Link>
+      </span>
+
+      <Link to={`/main/${id}`}>
         <div className='info'>
           <p className='user'>{user}</p>
           <p className='time'>{time}</p>
@@ -61,11 +83,16 @@ const Feed = ({
             </span>
           </div>
         </div>
-        <div className='bookmark'>
+        <div className='rightIconBox'>
+          {owner && <AiTwotoneEdit className='edit' onClick={goEditMode} />}
+          {owner && <AiFillDelete className='delete' onClick={removeFeed} />}
           {save ? (
-            <BsFillBookmarkFill className='checked' onClick={handleSaveFeed} />
+            <BsFillBookmarkFill
+              className='bookmark checked'
+              onClick={handleSaveFeed}
+            />
           ) : (
-            <BsBookmark onClick={handleSaveFeed} />
+            <BsBookmark className='bookmark' onClick={handleSaveFeed} />
           )}
         </div>
       </div>
@@ -82,24 +109,23 @@ const Container = styled.div`
     border: none;
   }
 
-  a {
-    display: block;
-    padding: 20px 20px 0 20px;
-    color: ${({ theme }) => theme.text};
+  .category {
+    display: inline-block;
+    margin: 20px 20px 15px 20px;
+    border-radius: 5px;
+    background-color: ${({ theme }) => theme.mainColor2};
+    font-size: 14px;
 
     .goCategory {
-      padding: 0;
-
-      .category {
-        display: inline-block;
-        margin-bottom: 15px;
-        padding: 5px;
-        border-radius: 5px;
-        background-color: ${({ theme }) => theme.mainColor2};
-        color: #fff;
-        font-size: 14px;
-      }
+      padding: 5px;
+      color: #fff;
     }
+  }
+
+  a {
+    display: block;
+    padding: 0 20px;
+    color: ${({ theme }) => theme.text};
 
     .info {
       display: flex;
@@ -129,7 +155,29 @@ const Container = styled.div`
     align-items: flex-end;
     padding: 0 20px 20px 20px;
 
+    .rightIconBox {
+      display: flex;
+      align-items: center;
+
+      .edit,
+      .delete {
+        margin-right: 8px;
+        font-size: 1.3rem;
+        color: ${({ theme }) => theme.subText};
+
+        &:hover {
+          color: ${({ theme }) => theme.text};
+        }
+
+        &:active {
+          color: ${({ theme }) => theme.mainColor2};
+        }
+      }
+    }
+
     .heartBox,
+    .edit,
+    .delete,
     .bookmark {
       cursor: pointer;
     }

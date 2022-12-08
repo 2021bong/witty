@@ -10,6 +10,8 @@ export interface MainFeedStateType {
   count_comments: number | null;
   is_liked?: number | null;
   is_marked?: number | null;
+  images?: string[] | null;
+  is_owner: boolean;
 }
 
 export interface FeedProps {
@@ -22,6 +24,17 @@ export interface FeedProps {
   comment: number | null;
   isLiked?: number | null;
   isSaved?: number | null;
+  images?: string[] | null;
+  owner: boolean;
+}
+
+interface Comment {
+  id: number;
+  user_id?: number;
+  nickname: string;
+  comment: string;
+  created_at: string;
+  is_owner: boolean;
 }
 
 export interface DetailFeedDataType {
@@ -34,11 +47,11 @@ export interface DetailFeedDataType {
   created_at: string;
   count_likes: number | null;
   count_comments: number | null;
-  comments?:
-    | { id: number; nickname: string; comment: string; created_at: string }[]
-    | null;
+  comments?: Comment[] | null;
   is_liked?: number | null;
   is_bookmarked?: number | null;
+  images?: string[] | null;
+  is_owner: boolean;
 }
 
 export interface GreetingProps {

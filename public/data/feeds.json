@@ -9,7 +9,9 @@
       "count_likes": 1,
       "count_comments": 0,
       "is_liked": null,
-      "is_marked": null
+      "is_marked": null,
+      "images": null,
+      "is_owner": true
     },
     {
       "id": 2,
@@ -20,7 +22,9 @@
       "count_likes": 2,
       "count_comments": 2,
       "is_liked": 0,
-      "is_marked": 0
+      "is_marked": 0,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 3,
@@ -31,7 +35,9 @@
       "count_likes": 100,
       "count_comments": 23,
       "is_liked": 1,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": true
     },
     {
       "id": 4,
@@ -42,7 +48,9 @@
       "count_likes": 34,
       "count_comments": 12,
       "is_liked": null,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 5,
@@ -53,7 +61,9 @@
       "count_likes": 100,
       "count_comments": 32,
       "is_liked": 1,
-      "is_marked": 0
+      "is_marked": 0,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 6,
@@ -62,7 +72,9 @@
       "content": "내일도 날씨가 좋았으면 좋겠다.",
       "created_at": "2022/11/29",
       "count_likes": 0,
-      "count_comments": 1
+      "count_comments": 1,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 7,
@@ -71,7 +83,9 @@
       "content": "뇌졸중을 조심합시다",
       "created_at": "2022/11/29",
       "count_likes": 32,
-      "count_comments": 0
+      "count_comments": 0,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 8,
@@ -91,7 +105,9 @@
       "count_likes": 10214,
       "count_comments": 34,
       "is_liked": 1,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 10,
@@ -102,7 +118,9 @@
       "count_likes": 53,
       "count_comments": 36,
       "is_liked": 0,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 11,
@@ -113,7 +131,9 @@
       "count_likes": 574,
       "count_comments": 14,
       "is_liked": 1,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": false
     },
     {
       "id": 12,
@@ -124,7 +144,9 @@
       "count_likes": 14,
       "count_comments": 4,
       "is_liked": 1,
-      "is_marked": 1
+      "is_marked": 1,
+      "images": null,
+      "is_owner": false
     }
   ]
 }

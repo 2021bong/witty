@@ -8,9 +8,10 @@ import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import SignUp from './pages/signup/SignUp';
 import LoadingLogin from './pages/signup/LoadingLogin';
-import Write from './pages/main/write/Write';
+import Write from './pages/write/Write';
 import Detail from './pages/main/Detail';
 import Category from './pages/category/Category';
+import Edit from './pages/edit/Edit';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -38,6 +39,7 @@ const Router = () => {
           <Route path='/write' element={<Write />} />
           <Route path='/main/:id' element={<Detail />} />
           <Route path='/category' element={<Category />} />
+          <Route path='/edit/:id' element={<Edit />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

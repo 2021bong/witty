@@ -15,9 +15,9 @@ const Main = () => {
   let offset = 0;
 
   useEffect(() => {
-    //   axios.get('data/feeds.json').then((res) => {
-    //     setFeeds(res.data.feeds);
-    // .  });
+    // axios.get('data/feeds.json').then((res) => {
+    //   setFeeds(res.data.feeds);
+    // });
 
     axios
       .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
@@ -52,6 +52,7 @@ const Main = () => {
             comment={el.count_comments}
             isLiked={el.is_liked}
             isSaved={el.is_marked}
+            owner={el.is_owner}
           />
         ))}
       </div>

@@ -4,13 +4,13 @@ import axios from 'axios';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
-import Dock from '../../../components/Dock';
-import Greeting from '../../../components/Greeting';
+import Dock from '../../components/Dock';
+import Greeting from '../../components/Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import { PhotosType } from '../../../utils/interface';
-import { PHOTO_INDEX } from '../../../utils/constant';
-import { setColor } from '../../../utils/function';
+import { PhotosType } from '../../utils/interface';
+import { PHOTO_INDEX } from '../../utils/constant';
+import { setColor } from '../../utils/function';
 
 const Write = () => {
   const [textValue, setTextValue] = useState('');
@@ -62,6 +62,8 @@ const Write = () => {
     setPhotos(newPhotos);
   };
 
+  console.log(photos.map((photo) => photo.file));
+
   const handleSubmit = () => {
     if (textValue.length) {
       axios
@@ -72,6 +74,7 @@ const Write = () => {
             category: categorys.filter(
               (category) => category.selected === true
             )[0].name,
+            images: photos.map((photo) => photo.file),
           },
           { headers: { Authorization: localStorage.getItem('token') } }
         )

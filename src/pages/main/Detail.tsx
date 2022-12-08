@@ -1,7 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import styled, { DefaultTheme } from 'styled-components';
+import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
   BsHeartFill,
   BsHeart,
@@ -22,23 +23,24 @@ const Detail = () => {
   const [commentValue, setCommentValue] = useState('');
   const [cmtIconColor, setCmtIconColor] = useState(false);
   const param = useParams().id;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('../data/detail.json').then((res) => {
-      setFeedData(res.data.feeds[Number(param) - 1]);
-      setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
-      setSave(res.data.feeds[Number(param) - 1].is_marked || false);
-    });
+    // axios.get('../data/detail.json').then((res) => {
+    //   setFeedData(res.data.feeds[Number(param) - 1]);
+    //   setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
+    //   setSave(res.data.feeds[Number(param) - 1].is_marked || false);
+    // });
 
-    // axios
-    //   .get(`http://localhost:8000/posts/${param}`, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => {
-    //     setFeedData(res.data[0]);
-    //     setHeart(res.data[0].is_liked || false);
-    //     setSave(res.data[0].is_marked || false);
-    //   });
+    axios
+      .get(`http://localhost:8000/posts/${param}`, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setFeedData(res.data[0]);
+        setHeart(res.data[0].is_liked || false);
+        setSave(res.data[0].is_marked || false);
+      });
   }, []);
 
   const handleWriteComment = (e: ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +99,21 @@ const Detail = () => {
     e.type === 'focus' ? setCmtIconColor(true) : setCmtIconColor(false);
   };
 
+  const goEditMode = () => {
+    navigate(`/edit/${feedData?.id}`);
+  };
+
+  const removeFeed = () => {
+    if (confirm('정말로 삭제하실 건가요?😭')) {
+      axios
+        .delete('url', { data: { id: feedData?.id } })
+        .then((res) => alert('삭제되었습니다. ✨'))
+        .catch((err) =>
+          alert(`삭제에 실패했습니다. 잠시 뒤 다시 시도해주세요. 😭\n${err}`)
+        );
+    }
+  };
+
   return (
     <Container>
       <Greeting text="What's happening now" />
@@ -124,20 +141,30 @@ const Detail = () => {
             <p className='content'>
               <b>{feedData.content}</b>
             </p>
-            <div className='interactionContainer'>
-              <div className='likeCountBox' onClick={handleLikeHeart}>
-                {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
-                <span>
-                  좋아요
-                  <b>{feedData.count_likes || 0}</b>
-                </span>
+            <div className='actionContainer'>
+              <div className='interactionContainer'>
+                <div className='likeCountBox' onClick={handleLikeHeart}>
+                  {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
+                  <span>
+                    좋아요
+                    <b>{feedData.count_likes || 0}</b>
+                  </span>
+                </div>
+                <div>
+                  <BsChat />
+                  <span>
+                    댓글
+                    <b>{feedData.count_comments || 0}</b>
+                  </span>
+                </div>
               </div>
-              <div>
-                <BsChat />
-                <span>
-                  댓글
-                  <b>{feedData.count_comments || 0}</b>
-                </span>
+              <div className='ownerContainer'>
+                {feedData.is_owner && (
+                  <AiTwotoneEdit className='edit' onClick={goEditMode} />
+                )}
+                {feedData.is_owner && (
+                  <AiFillDelete className='delete' onClick={removeFeed} />
+                )}
               </div>
             </div>
             <p className='date'>{getDetailTime(feedData.created_at)}</p>
@@ -210,6 +237,10 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
 
+    .checked {
+      color: ${({ theme }) => theme.mainColor};
+    }
+
     .detailFeedContainer {
       width: 100%;
       padding: 20px;
@@ -256,35 +287,57 @@ const Container = styled.div`
       }
     }
 
-    .interactionContainer {
+    .actionContainer {
       display: flex;
-      margin-bottom: 15px;
+      justify-content: space-between;
+      align-items: center;
 
-      .likeCountBox {
-        margin-right: 20px;
-        cursor: pointer;
-      }
+      .interactionContainer {
+        display: flex;
+        margin-bottom: 15px;
 
-      span {
-        margin: 0 5px;
+        .likeCountBox {
+          margin-right: 20px;
+          cursor: pointer;
+        }
 
-        b {
-          margin-left: 5px;
+        span {
+          margin: 0 5px;
+
+          b {
+            margin-left: 5px;
+          }
+        }
+
+        svg {
+          transform: translateY(2px);
         }
       }
 
-      svg {
-        transform: translateY(2px);
+      .date {
+        font-size: 14px;
+        color: ${({ theme }) => theme.subText};
       }
     }
 
-    .checked {
-      color: ${({ theme }) => theme.mainColor};
-    }
+    .ownerContainer {
+      font-size: 1.3rem;
 
-    .date {
-      font-size: 14px;
-      color: ${({ theme }) => theme.subText};
+      svg {
+        color: ${({ theme }) => theme.subText};
+
+        &:hover {
+          color: ${({ theme }) => theme.text};
+        }
+
+        &:active {
+          color: ${({ theme }) => theme.mainColor2};
+        }
+
+        &:first-child {
+          margin-right: 8px;
+        }
+      }
     }
   }
 
