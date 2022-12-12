@@ -28,6 +28,13 @@ export interface FeedProps {
   owner: boolean;
 }
 
+export interface CreateProps {
+  type: 'write' | 'edit';
+  id?: string | undefined;
+  category?: { id: number; name: string; selected: boolean }[];
+  content?: string;
+}
+
 interface Comment {
   id: number;
   user_id?: number;

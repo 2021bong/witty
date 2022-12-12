@@ -1,3 +1,16 @@
-const Edit = () => <h1>editmode</h1>;
+import { useParams } from 'react-router-dom';
+import Create from '../../components/create/Create';
+
+const Edit = () => {
+  const param = useParams().id;
+  return (
+    <Create
+      type='edit'
+      id={param}
+      category={[{ id: 1, name: '#오늘아무거나', selected: true }]}
+      content={'hi'}
+    />
+  );
+};
 
 export default Edit;
