@@ -30,8 +30,8 @@ const Write = () => {
     setCategorys((prev) =>
       prev.map((category) =>
         category.name === selectedName
-          ? { ...category, selected: true }
-          : { ...category, selected: false }
+          ? { ...category, selected: !category.selected }
+          : { ...category, selected: category.selected }
       )
     );
   };
@@ -70,8 +70,8 @@ const Write = () => {
           {
             content: textValue,
             category: categorys
-              .filter((category) => category.selected === true)[0]
-              .name.split('#')[1],
+              .filter((category) => category.selected === true)
+              .map((el) => el.name.split('#')[1]),
             images: photos.map((photo) => photo.file),
           },
           { headers: { Authorization: localStorage.getItem('token') } }
