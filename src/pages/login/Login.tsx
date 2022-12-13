@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SignUpBtn from '../signup/SignUpBtn';
-import { LoginProp } from '../../utils/interface';
+import { LoginoutProp } from '../../utils/interface';
 
 const { Kakao } = window as any;
 
-const Login = ({ getToken }: LoginProp) => {
+const Login = ({ getToken }: LoginoutProp) => {
   const [idValue, setIdValue] = useState('');
   const [pwValue, setPwValue] = useState('');
 
@@ -45,7 +45,7 @@ const Login = ({ getToken }: LoginProp) => {
   };
 
   return (
-    <Main>
+    <Container>
       <h3 className='greeting'>
         Hello, <span>Witty!</span> 🐹
       </h3>
@@ -84,7 +84,7 @@ const Login = ({ getToken }: LoginProp) => {
           <div className='imgBox'></div>
         </KakaoBtn>
       </div>
-    </Main>
+    </Container>
   );
 };
 
@@ -123,23 +123,18 @@ const KakaoBtn = styled.button`
   }
 `;
 
-const Main = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  min-height: 600px;
-  max-width: 500px;
-  margin: 100px auto;
-  padding: 3rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
+  width: 100%;
 
   .greeting {
-    font-size: 2rem;
     margin-bottom: 60px;
+    font-size: 2rem;
+    text-align: center;
+
     span {
       color: ${({ theme }) => theme.mainColor};
     }

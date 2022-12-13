@@ -42,23 +42,10 @@ export const Preview = styled.li`
 `;
 
 export const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  height: 90vh;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
-
   .mainContainer {
     width: 100%;
     height: 100%;
+    margin-top: 20px;
 
     .categoryContainer {
       display: flex;
@@ -81,12 +68,11 @@ export const Container = styled.div`
     }
 
     form {
-      height: 40%;
       margin-bottom: 10px;
 
       .writeBoard {
         width: 100%;
-        height: 100%;
+        height: 16rem;
         padding: 20px;
         border-radius: 10px;
         border: 1px solid ${({ theme }) => theme.border};

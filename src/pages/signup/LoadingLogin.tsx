@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import { LoginProp, HamsterProps } from '../../utils/interface';
+import { LoginoutProp } from '../../utils/interface';
 
-const LoadingLogin = ({ getToken }: LoginProp) => {
+const LoadingLogin = ({ getToken }: LoginoutProp) => {
   const [hAnimation, setHAnimation] = useState(false);
   const [title, setTitle] = useState('Loading');
   const authCode = location.search.split('=')[1];
@@ -56,8 +56,8 @@ const LoadingLogin = ({ getToken }: LoginProp) => {
 
 export default LoadingLogin;
 
-const Hamster = styled.img<HamsterProps>`
-  transform: ${({ hamsterAnimation }) =>
+const Hamster = styled.img`
+  transform: ${({ hamsterAnimation }: { hamsterAnimation: boolean }) =>
     hamsterAnimation ? 'scale(95%)' : 'scale(105%)'};
   transition: 0.3s ease-in-out;
 `;
@@ -67,14 +67,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  min-height: 600px;
-  max-width: 500px;
-  margin: 100px auto;
-  padding: 3rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
+  width: 100%;
 
   .img {
     width: 25%;

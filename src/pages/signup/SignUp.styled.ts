@@ -1,22 +1,15 @@
 import styled from 'styled-components';
 
-export const Main = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  min-height: 600px;
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 3rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
+  width: 100%;
 
   .title {
     font-size: 2rem;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     color: ${({ theme }) => theme.mainColor};
   }
 

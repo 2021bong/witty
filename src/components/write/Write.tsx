@@ -198,7 +198,6 @@ const Write = ({ type, id, category, content }: WriteProps) => {
           </div>
         </div>
       </main>
-      <Dock />
     </Container>
   );
 };

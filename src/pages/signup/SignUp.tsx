@@ -8,7 +8,7 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
-import { Main } from './SignUp.styled';
+import { Container } from './SignUp.styled';
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');
@@ -113,7 +113,7 @@ const SignUp = () => {
   };
 
   return (
-    <Main>
+    <Container>
       <h3 className='title'>🐹 회원가입</h3>
       <form className='formContainer' onSubmit={(e) => e.preventDefault()}>
         <div className='inputContainer'>
@@ -220,7 +220,7 @@ const SignUp = () => {
           <button className='cancelBtn'>취소</button>
         </Link>
       </div>
-    </Main>
+    </Container>
   );
 };
 

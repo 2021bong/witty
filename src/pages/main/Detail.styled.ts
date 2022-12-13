@@ -15,19 +15,7 @@ export const CommentIcon = styled(FaCommentAlt)`
 `;
 
 export const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  height: 90vh;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
+  width: 100%;
 
   .contentContainer {
     width: 100%;

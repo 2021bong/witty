@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Greeting from '../../components/Greeting';
-import Dock from '../../components/Dock';
 import Feed from '../../components/Feed';
 import { MainFeedStateType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
@@ -56,7 +55,6 @@ const Main = () => {
           />
         ))}
       </div>
-      <Dock />
     </Container>
   );
 };
@@ -64,28 +62,19 @@ const Main = () => {
 export default Main;
 
 const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  height: 90vh;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
+  overflow: scroll;
+  margin-bottom: 80px;
 
   .writeBtn {
     position: absolute;
     top: 3%;
     right: 5%;
     border: none;
+    border-radius: 50%;
     font-size: 3rem;
     color: ${({ theme }) => theme.mainColor};
     background-color: #fff;
+    z-index: 2;
 
     svg {
       &:hover {
@@ -100,12 +89,6 @@ const Container = styled.div`
   }
 
   .feedBox {
-    width: 100%;
-    height: 80%;
-    overflow: scroll;
-  }
-
-  .dock {
     width: 100%;
   }
 `;

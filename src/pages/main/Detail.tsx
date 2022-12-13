@@ -10,7 +10,6 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 
-import Dock from '../../components/Dock';
 import Greeting from '../../components/Greeting';
 import { DetailFeedDataType } from '../../utils/interface';
 import {
@@ -174,7 +173,6 @@ const Detail = () => {
           }
         </div>
       )}
-      <Dock />
     </Container>
   );
 };

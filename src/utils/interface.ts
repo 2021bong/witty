@@ -75,12 +75,8 @@ export interface KaKaoBtnProps {
   handleKaKaoLogin?: () => void;
 }
 
-export interface LoginProp {
+export interface LoginoutProp {
   getToken: () => void;
-}
-
-export interface HamsterProps {
-  hamsterAnimation: boolean;
 }
 
 interface HavePhoto {

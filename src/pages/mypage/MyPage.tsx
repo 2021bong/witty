@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { BsCreditCard2FrontFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import Greeting from '../../components/Greeting';
-import Dock from '../../components/Dock';
+import { LoginoutProp } from '../../utils/interface';
 
-const MyPage = () => {
+const MyPage = ({ getToken }: LoginoutProp) => {
   const [nickname, setNickname] = useState();
   const [userId, setUserId] = useState();
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get('data/mypage.json')
@@ -19,54 +21,46 @@ const MyPage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    getToken();
+    navigate('/');
+  };
+
   return (
     <Container>
-      <Greeting text='Look at the information about you.' />
-      <div className='wrap'>
-        <div className='infoContainer'>
-          <p className='hello'>Hello! 🐹</p>
-          <p className='nicknameBox'>
-            <span className='nickname'>{nickname && nickname}</span>
-            <span>@{userId && userId}</span>
-          </p>
-        </div>
-        <ul className='menuList'>
-          <div className='listBox'>
-            <BsCreditCard2FrontFill className='icon card' />
-            <li>내 게시글</li>
-            <li>북마크</li>
-          </div>
-          <div className='listBox'>
-            <AiTwotoneSetting className='icon' />
-            <li>닉네임 수정</li>
-            <li>회원탈퇴</li>
-          </div>
-        </ul>
+      <div className='infoContainer'>
+        <p className='hello'>Hello! 🐹</p>
+        <p className='nicknameBox'>
+          <span className='nickname'>{nickname && nickname}</span>
+          <span>@{userId && userId}</span>
+        </p>
       </div>
-      <Dock />
+      <ul className='menuList'>
+        <div className='listBox'>
+          <BsCreditCard2FrontFill className='icon card' />
+          <li className='bulet'>내 게시글</li>
+          <li className='bulet'>북마크</li>
+        </div>
+        <div className='listBox'>
+          <AiTwotoneSetting className='icon' />
+          <li className='bulet'>닉네임 수정</li>
+          <li className='bulet'>회원탈퇴</li>
+        </div>
+        <div className='listBox'>
+          <li className='logout' onClick={handleLogout}>
+            👉 로그아웃
+          </li>
+        </div>
+      </ul>
     </Container>
   );
 };
 export default MyPage;
 
 const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  height: 90vh;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  color: ${({ theme }) => theme.text};
-
-  .wrap {
-    width: 100%;
-  }
+  width: 100%;
+  margin-top: 50px;
 
   .infoContainer {
     display: flex;
@@ -74,10 +68,10 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
     .hello {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       color: ${({ theme }) => theme.mainColor};
       text-align: center;
       font-size: 1.5rem;
@@ -111,8 +105,8 @@ const Container = styled.div`
     width: 100%;
 
     .listBox {
-      width: 80%;
-      padding: 30px;
+      width: 100%;
+      padding: 30px 40px;
       border-bottom: 1px solid ${({ theme }) => theme.border};
 
       &:last-child {
@@ -130,7 +124,7 @@ const Container = styled.div`
         font-size: 2.2rem;
       }
 
-      li {
+      .bulet {
         position: relative;
         width: 30%;
         margin-bottom: 20px;
@@ -159,6 +153,20 @@ const Container = styled.div`
         &:last-child {
           margin-bottom: 0;
         }
+      }
+    }
+
+    .logout {
+      margin-top: 15px;
+      color: ${({ theme }) => theme.mainColor};
+      font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        color: ${({ theme }) => theme.mainColor};
+      }
+      &:active {
+        color: ${({ theme }) => theme.mainColor2};
       }
     }
   }

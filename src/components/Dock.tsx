@@ -10,8 +10,9 @@ const Dock = () => {
     { id: 'home', selected: true },
     { id: 'search', selected: false },
     { id: 'notification', selected: false },
-    { id: 'my', selected: false },
+    { id: 'mypage', selected: false },
   ]);
+  const [home, search, notification, mypage] = dockState;
 
   const handleDockMenu = (e: MouseEvent) => {
     const newDockState = [...dockState].map((state) =>
@@ -23,11 +24,11 @@ const Dock = () => {
   };
 
   return (
-    <Box className='dock'>
+    <Box>
       <Link to='/'>
         <button
           onClick={handleDockMenu}
-          className={dockState[0].selected ? 'selected' : 'iconBtn'}
+          className={home.selected ? 'selected' : 'iconBtn'}
           id='home'
         >
           <AiFillHome />
@@ -35,23 +36,23 @@ const Dock = () => {
       </Link>
       <button
         onClick={handleDockMenu}
-        className={dockState[1].selected ? 'selected' : 'iconBtn'}
+        className={search.selected ? 'selected' : 'iconBtn'}
         id='search'
       >
         <FaSearch />
       </button>
       <button
         onClick={handleDockMenu}
-        className={dockState[2].selected ? 'selected' : 'iconBtn'}
+        className={notification.selected ? 'selected' : 'iconBtn'}
         id='notification'
       >
         <BsBellFill />
       </button>
-      <Link to='/my'>
+      <Link to='/mypage'>
         <button
           onClick={handleDockMenu}
-          className={dockState[3].selected ? 'selected' : 'iconBtn'}
-          id='my'
+          className={mypage.selected ? 'selected' : 'iconBtn'}
+          id='mypage'
         >
           <FaUser />
         </button>
@@ -63,12 +64,15 @@ const Dock = () => {
 export default Dock;
 
 const Box = styled.div`
+  position: absolute;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-top: 20px;
+  padding: 20px 0;
   background-color: #fff;
+  z-index: 1;
 
   .iconBtn {
     border: none;
