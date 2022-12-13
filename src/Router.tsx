@@ -13,7 +13,7 @@ import Create from './pages/create/Create';
 import Detail from './pages/main/Detail';
 import Category from './pages/category/Category';
 import Edit from './pages/edit/Edit';
-import MyPage from './pages/my/MyPage';
+import MyPage from './pages/mypage/MyPage';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -42,7 +42,7 @@ const Router = () => {
           <Route path='/main/:id' element={<Detail />} />
           <Route path='/category' element={<Category />} />
           <Route path='/edit/:id' element={<Edit />} />
-          <Route path='/my' element={<MyPage />} />
+          <Route path='/mypage' element={<MyPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
