@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import Create from '../../components/create/Create';
+import Create from '../../components/write/Write';
 
 const Edit = () => {
   const param = useParams().id;

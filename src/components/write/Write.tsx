@@ -4,15 +4,15 @@ import axios from 'axios';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
-import Dock from '../../components/Dock';
-import Greeting from '../../components/Greeting';
-import { NoticeCurcle, Preview, Container } from './Create.styled';
+import Dock from '../Dock';
+import Greeting from '../Greeting';
+import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import { PhotosType, CreateProps } from '../../utils/interface';
+import { PhotosType, WriteProps } from '../../utils/interface';
 import { PHOTO_INDEX } from '../../utils/constant';
 import { setColor } from '../../utils/function';
 
-const Create = ({ type, id, category, content }: CreateProps) => {
+const Write = ({ type, id, category, content }: WriteProps) => {
   const [textValue, setTextValue] = useState(content || '');
   const [categorys, setCategorys] = useState(
     category || [
@@ -193,7 +193,7 @@ const Create = ({ type, id, category, content }: CreateProps) => {
               <button className='cancleBtn'>취소</button>
             </Link>
             <button className='completeBtn' onClick={handleSubmit}>
-              {type === 'write' ? '작성' : '수정'}
+              {type === 'create' ? '작성' : '수정'}
             </button>
           </div>
         </div>
@@ -203,4 +203,4 @@ const Create = ({ type, id, category, content }: CreateProps) => {
   );
 };
 
-export default Create;
+export default Write;

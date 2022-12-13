@@ -47,13 +47,15 @@ const Dock = () => {
       >
         <BsBellFill />
       </button>
-      <button
-        onClick={handleDockMenu}
-        className={dockState[3].selected ? 'selected' : 'iconBtn'}
-        id='my'
-      >
-        <FaUser />
-      </button>
+      <Link to='/my'>
+        <button
+          onClick={handleDockMenu}
+          className={dockState[3].selected ? 'selected' : 'iconBtn'}
+          id='my'
+        >
+          <FaUser />
+        </button>
+      </Link>
     </Box>
   );
 };

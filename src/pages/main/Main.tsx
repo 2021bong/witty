@@ -15,26 +15,26 @@ const Main = () => {
   let offset = 0;
 
   useEffect(() => {
-    // axios.get('data/feeds.json').then((res) => {
-    //   setFeeds(res.data.feeds);
-    // });
+    axios.get('data/feeds.json').then((res) => {
+      setFeeds(res.data.feeds);
+    });
 
-    axios
-      .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
-        headers: { Authorization: localStorage.getItem('token') },
-      })
-      .then((res) => {
-        const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
-          return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
-        });
-        setFeeds(dataForState);
-      });
+    // axios
+    //   .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
+    //     headers: { Authorization: localStorage.getItem('token') },
+    //   })
+    //   .then((res) => {
+    //     const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
+    //       return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
+    //     });
+    //     setFeeds(dataForState);
+    //   });
   }, []);
 
   return (
     <Container>
       <Greeting text="Hi, Witty! What's going on today?" />
-      <Link to='write'>
+      <Link to='/create'>
         <button className='writeBtn'>
           <AiFillPlusCircle />
         </button>

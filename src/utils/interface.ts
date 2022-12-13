@@ -28,8 +28,8 @@ export interface FeedProps {
   owner: boolean;
 }
 
-export interface CreateProps {
-  type: 'write' | 'edit';
+export interface WriteProps {
+  type: 'create' | 'edit';
   id?: string | undefined;
   category?: { id: number; name: string; selected: boolean }[];
   content?: string;
