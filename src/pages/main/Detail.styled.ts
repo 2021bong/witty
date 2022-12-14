@@ -51,7 +51,7 @@ export const Container = styled.div`
         justify-content: space-between;
 
         .goCategory {
-          margin: 0;
+          margin-right: 5px;
 
           .category {
             display: inline-block;
@@ -103,25 +103,23 @@ export const Container = styled.div`
         color: ${({ theme }) => theme.subText};
       }
     }
+  }
 
-    .ownerContainer {
-      font-size: 1.3rem;
+  .edit,
+  .delete {
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.subText};
 
-      svg {
-        color: ${({ theme }) => theme.subText};
+    &:hover {
+      color: ${({ theme }) => theme.text};
+    }
 
-        &:hover {
-          color: ${({ theme }) => theme.text};
-        }
+    &:active {
+      color: ${({ theme }) => theme.mainColor2};
+    }
 
-        &:active {
-          color: ${({ theme }) => theme.mainColor2};
-        }
-
-        &:first-child {
-          margin-right: 8px;
-        }
-      }
+    &:first-child {
+      margin-right: 8px;
     }
   }
 
@@ -187,6 +185,24 @@ export const Container = styled.div`
 
         .nickname {
           margin-right: 10px;
+        }
+      }
+
+      .commentActionBox {
+        display: flex;
+        align-items: center;
+
+        svg {
+          transform: translateY(-1px);
+        }
+
+        .heart {
+          margin-right: 5px;
+          cursor: pointer;
+        }
+
+        .delete {
+          margin-left: 10px;
         }
       }
     }

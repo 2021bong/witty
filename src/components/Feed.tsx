@@ -28,17 +28,20 @@ const Feed = ({
   isLiked,
   isSaved,
   owner,
+  images,
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
 
   return (
     <Container>
-      <span className='category'>
-        <Link to='/category' className='goCategory'>
-          {'#' + category}
-        </Link>
-      </span>
+      <div className='categoryContainer'>
+        {category?.map((cate) => (
+          <Link to='/category' className='goCategory' key={cate}>
+            <p className='category'>{'#' + cate}</p>
+          </Link>
+        ))}
+      </div>
 
       <Link to={`/main/${id}`}>
         <div className='info'>
@@ -100,16 +103,23 @@ const Container = styled.div`
     border: none;
   }
 
-  .category {
-    display: inline-block;
-    margin: 20px 20px 15px 20px;
-    border-radius: 5px;
-    background-color: ${({ theme }) => theme.mainColor2};
-    font-size: 14px;
+  .categoryContainer {
+    display: flex;
+    margin: 15px 0;
+    padding-left: 20px;
 
     .goCategory {
-      padding: 5px;
-      color: #fff;
+      margin: 0;
+      padding: 0;
+
+      .category {
+        margin-right: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: ${({ theme }) => theme.mainColor2};
+        font-size: 14px;
+        color: #fff;
+      }
     }
   }
 

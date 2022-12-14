@@ -3,7 +3,7 @@
     {
       "id": 1,
       "nickname": "2021bong",
-      "category": "오늘기분",
+      "category": ["오늘기분"],
       "content": "오늘은 날씨가 좋았다~",
       "created_at": "2022/11/19",
       "count_likes": 1,
@@ -16,7 +16,8 @@
     {
       "id": 2,
       "nickname": "jieun",
-      "category": "오늘아무거나",
+      "user_id": 17,
+      "category": ["오늘아무거나", "오늘잡담"],
       "content": "카카오톡 url 알려조",
       "created_at": "2022/11/29",
       "count_likes": 2,
@@ -26,24 +27,29 @@
           "id": 1,
           "nickname": "맛있으면우는사람",
           "comment": "ㅠㅠㅠㅠ",
-          "created_at": "2022/11/29"
+          "created_at": "2022/11/29",
+          "is_owner": true,
+          "count_likes": 45,
+          "is_liked": true
         },
         {
           "id": 4,
           "nickname": "와아이스크림",
           "comment": "와",
-          "created_at": "2022/11/29"
+          "created_at": "2022/11/29",
+          "count_likes": 124,
+          "is_liked": 0
         }
       ],
       "is_liked": 0,
       "is_marked": 0,
-      "images": null,
+      "images": ["url1", "url2", "url3"],
       "is_owner": false
     },
     {
       "id": 3,
       "nickname": "분노한 봉원희",
-      "category": "오늘기분",
+      "category": ["오늘기분"],
       "content": "타입스크립트를 없애버리고 싶다...",
       "created_at": "2022/11/29",
       "count_likes": 100,
@@ -53,19 +59,22 @@
           "id": 1,
           "nickname": "헤비스모커",
           "comment": "헤비헤비",
-          "created_at": "2022/11/29"
+          "created_at": "2022/11/29",
+          "count_likes": 10
         },
         {
           "id": 4,
           "nickname": "쇼큐트",
           "comment": "와!",
-          "created_at": "2022/11/29"
+          "created_at": "2022/11/29",
+          "count_likes": 2
         },
         {
           "id": 5,
           "nickname": "굿굿굿굿",
           "comment": "굿",
-          "created_at": "2022/11/29"
+          "created_at": "2022/11/29",
+          "count_likes": 0
         }
       ],
       "is_liked": 1,
@@ -76,7 +85,7 @@
     {
       "id": 4,
       "nickname": "힘내는 지은",
-      "category": "오늘잡담",
+      "category": ["오늘잡담"],
       "content": "화잍잉...",
       "created_at": "2022/11/29",
       "count_likes": 34,
@@ -109,7 +118,7 @@
     {
       "id": 5,
       "nickname": "분노한 이혦",
-      "category": "오늘아무거나",
+      "category": ["오늘아무거나"],
       "content": "타스랑 싸울 사람 구함 1/n",
       "created_at": "2022/11/29",
       "count_likes": 100,
@@ -142,7 +151,7 @@
     {
       "id": 6,
       "nickname": "2021bong",
-      "category": "오늘잡담",
+      "category": ["오늘잡담"],
       "content": "내일도 날씨가 좋았으면 좋겠다.",
       "created_at": "2022/11/29",
       "count_likes": 0,
@@ -153,7 +162,7 @@
     {
       "id": 7,
       "nickname": "화가 난 봉원희",
-      "category": "오늘아무거나",
+      "category": ["오늘아무거나"],
       "content": "뇌졸중을 조심합시다",
       "created_at": "2022/11/29",
       "count_likes": 32,
@@ -164,7 +173,7 @@
     {
       "id": 8,
       "nickname": "슬랙알림봇",
-      "category": "오늘아무거나",
+      "category": ["오늘아무거나"],
       "content": "오늘 오후 4시에 세션 있습니다~모두들 화이팅~~~~~문의사항이 있다면 디엠주세요!",
       "created_at": "2022/11/29",
       "count_likes": 25,
@@ -175,7 +184,7 @@
     {
       "id": 9,
       "nickname": "helloworld",
-      "category": "오늘아무거나",
+      "category": ["오늘아무거나"],
       "content": "hel loworld :)",
       "created_at": "2022/11/29",
       "count_likes": 10214,
@@ -188,7 +197,7 @@
     {
       "id": 10,
       "nickname": "error500",
-      "category": "오늘아무거나",
+      "category": ["오늘아무거나"],
       "content": "alert('error!')",
       "created_at": "2022/11/29",
       "count_likes": 53,
@@ -201,7 +210,7 @@
     {
       "id": 11,
       "nickname": "돼지꿀꿀이",
-      "category": "오늘먹은것",
+      "category": ["오늘먹은것"],
       "content": "누룽지 맛있당",
       "created_at": "2022/11/29",
       "count_likes": 574,
@@ -214,7 +223,7 @@
     {
       "id": 12,
       "nickname": "컨슈머23",
-      "category": "오늘소비",
+      "category": ["오늘소비"],
       "content": "가방샀는데 환불하고 싶음ㅠㅠ",
       "created_at": "2022/11/29",
       "count_likes": 14,

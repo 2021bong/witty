@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { DetailFeedDataType } from './interface';
 
 export const getTime = (time: string) => {
   const createdAt = new Date(time);
@@ -77,6 +78,39 @@ export const handleLikeHeart = (
       }
     )
     .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};
+
+type SetArrState = (
+  setState: (prev: DetailFeedDataType | undefined) => DetailFeedDataType
+) => void;
+
+export const handleLikeComment = (
+  setFeedData: SetArrState,
+  commentId: string | number | undefined
+) => {
+  axios
+    .patch(
+      `http://localhost:8000/posts/${commentId}/like`,
+      {},
+      {
+        headers: { Authorization: localStorage.getItem('token') },
+      }
+    )
+    .then((res) => {
+      setFeedData((prev) => {
+        const newComment = prev?.comments?.map((comment) =>
+          comment.id === commentId
+            ? {
+                ...comment,
+                is_liked: res.data.is_liked,
+                count_likes: res.data.count_likes,
+              }
+            : { ...comment }
+        );
+        return newComment;
+      });
+    })
     .catch((err) => console.log(err));
 };
 

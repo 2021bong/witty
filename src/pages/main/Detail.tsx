@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
@@ -17,6 +17,7 @@ import {
   handleIconcolor,
   handleLikeHeart,
   handleSaveFeed,
+  handleLikeComment,
   goEditMode,
   removeFeed,
 } from '../../utils/function';
@@ -50,6 +51,19 @@ const Detail = () => {
 
   const handleWriteComment = (e: ChangeEvent<HTMLInputElement>) => {
     setCommentValue(e.target.value);
+  };
+
+  const handleRemoveComment = (e: MouseEvent<SVGElement>) => {
+    if (confirm('정말로 삭제하실 건가요?😭')) {
+      axios
+        .delete(`http://localhost:8000/comments/${e.currentTarget.id}`, {
+          headers: { Authorization: localStorage.getItem('token') },
+        })
+        .then((res) => alert('삭제되었습니다. ✨'))
+        .catch((err) =>
+          alert(`삭제에 실패했습니다. 잠시 뒤 다시 시도해주세요. 😭\n${err}`)
+        );
+    }
   };
 
   const handleSubmit = () => {
@@ -87,9 +101,13 @@ const Detail = () => {
         <div className='contentContainer'>
           <main className='detailFeedContainer'>
             <div className='ctgrAndBmk'>
-              <Link to='/category' className='goCategory'>
-                <span className='category'>{'#' + feedData.category}</span>
-              </Link>
+              <div>
+                {feedData.category.map((cate) => (
+                  <Link to='/category' className='goCategory' key={cate}>
+                    <span className='category'>{'#' + cate}</span>
+                  </Link>
+                ))}
+              </div>
               <div className='bookmark'>
                 {save ? (
                   <BsFillBookmarkFill
@@ -127,7 +145,7 @@ const Detail = () => {
                   </span>
                 </div>
               </div>
-              <div className='ownerContainer'>
+              <div>
                 {feedData.is_owner && (
                   <AiTwotoneEdit
                     className='edit'
@@ -166,7 +184,27 @@ const Detail = () => {
                     </p>
                     <p className='date'>{getDetailTime(feedData.created_at)}</p>
                   </div>
-                  {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
+                  <div className='commentActionBox'>
+                    {el.is_liked ? (
+                      <BsHeartFill
+                        className='checked heart'
+                        onClick={() => handleLikeComment(setFeedData, el.id)}
+                      />
+                    ) : (
+                      <BsHeart
+                        className='heart'
+                        onClick={() => handleLikeComment(setFeedData, el.id)}
+                      />
+                    )}
+                    <span>{el.count_likes}</span>
+                    {el.is_owner && (
+                      <AiFillDelete
+                        className='delete'
+                        onClick={handleRemoveComment}
+                        id={el.id.toString()}
+                      />
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
