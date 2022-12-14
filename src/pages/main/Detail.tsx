@@ -1,5 +1,5 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
@@ -30,6 +30,7 @@ const Detail = () => {
   const [commentValue, setCommentValue] = useState('');
   const [cmtIconColor, setCmtIconColor] = useState(false);
   const param = useParams().id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('../data/detail.json').then((res) => {
@@ -149,7 +150,7 @@ const Detail = () => {
                 {feedData.is_owner && (
                   <AiTwotoneEdit
                     className='edit'
-                    onClick={() => goEditMode(feedData?.id)}
+                    onClick={() => goEditMode(feedData?.id, navigate)}
                   />
                 )}
                 {feedData.is_owner && (

@@ -31,8 +31,15 @@ export interface FeedProps {
 export interface WriteProps {
   type: 'create' | 'edit';
   id?: string | undefined;
-  category?: { id: number; name: string; selected: boolean }[];
-  content?: string;
+  category?: string[] | undefined;
+  content?: string | null;
+  images?: string[] | null | undefined;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  selected: boolean;
 }
 
 interface Comment {
@@ -81,9 +88,9 @@ export interface LoginoutProp {
   getToken: () => void;
 }
 
-interface HavePhoto {
+export interface HavePhoto {
   id: number;
-  file: FileList | null;
+  file?: FileList | null;
   previewUrl: string | null;
 }
 

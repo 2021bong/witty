@@ -4,6 +4,7 @@ export const NoticeCurcle = styled.span`
   display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
+  margin-right: 5px;
   border-radius: 50%;
   background-color: ${({ noticeColor }: { noticeColor: string }) =>
     noticeColor};

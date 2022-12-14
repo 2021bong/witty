@@ -8,24 +8,24 @@ import Dock from '../Dock';
 import Greeting from '../Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import { PhotosType, WriteProps } from '../../utils/interface';
-import { PHOTO_INDEX } from '../../utils/constant';
-import { setColor } from '../../utils/function';
+import { PhotosType, WriteProps, Category } from '../../utils/interface';
+import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
+import { getCategory, getImage, setColor } from '../../utils/function';
+import { useEffect } from 'react';
 
-const Write = ({ type, id, category, content }: WriteProps) => {
-  const [textValue, setTextValue] = useState(content || '');
-  const [categorys, setCategorys] = useState(
-    category || [
-      { id: 1, name: '#오늘아무거나', selected: true },
-      { id: 2, name: '#오늘기분', selected: false },
-      { id: 3, name: '#오늘소비', selected: false },
-      { id: 4, name: '#오늘잡담', selected: false },
-      { id: 5, name: '#오늘먹은것', selected: false },
-    ]
-  );
+const Write = ({ type, id, category, content, images }: WriteProps) => {
+  const [textValue, setTextValue] = useState<string>('');
+  const [categorys, setCategorys] = useState(CATEGORY);
   const [unqPhotoIndex, setUnqPhotoIndex] = useState(1);
   const [photos, setPhotos] = useState<PhotosType>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTextValue(content || '');
+    setCategorys(getCategory(category));
+    setPhotos(getImage(images, unqPhotoIndex));
+    setUnqPhotoIndex((prev) => prev + 1);
+  }, [content]);
 
   const handleSelectedCategory = (e: MouseEvent<HTMLLIElement>) => {
     const selectedName = e.currentTarget.textContent;
@@ -74,14 +74,18 @@ const Write = ({ type, id, category, content }: WriteProps) => {
             category: categorys
               .filter((category) => category.selected === true)
               .map((el) => el.name.split('#')[1]),
-            images: photos.map((photo) => photo.file),
+            images: photos.map((photo) => photo.previewUrl),
           },
           { headers: { Authorization: localStorage.getItem('token') } }
         )
         .then((res) => navigate('/'))
         .catch((err) => {
           alert(
-            '작성에 실패했습니다. 잠시 뒤 다시 시도해 주세요.🥲' + '\n' + err
+            `${
+              type === 'create' ? '작성' : '수정'
+            }에 실패했습니다. 잠시 뒤 다시 시도해 주세요.🥲` +
+              '\n' +
+              err
           );
           navigate('/');
         });
@@ -95,14 +99,14 @@ const Write = ({ type, id, category, content }: WriteProps) => {
       <Greeting text='What are you doing now?' />
       <main className='mainContainer'>
         <ul className='categoryContainer'>
-          {categorys.map((category) =>
+          {categorys?.map((category) =>
             category.selected ? (
               <li
                 key={category.id}
                 className='category selected'
                 onClick={handleSelectedCategory}
               >
-                {category.name}
+                {'#' + category.name}
               </li>
             ) : (
               <li
@@ -110,7 +114,7 @@ const Write = ({ type, id, category, content }: WriteProps) => {
                 className='category'
                 onClick={handleSelectedCategory}
               >
-                {category.name}
+                {'#' + category.name}
               </li>
             )
           )}
@@ -143,7 +147,7 @@ const Write = ({ type, id, category, content }: WriteProps) => {
           )}
           {
             <div className='inputAndLabelContainer'>
-              {photos[3]?.file ? (
+              {photos[3]?.previewUrl ? (
                 <>
                   <label htmlFor='upload'>
                     <IoMdPhotos className='photoIcon disabled' />
@@ -176,7 +180,9 @@ const Write = ({ type, id, category, content }: WriteProps) => {
                 <span
                   key={el}
                   className={
-                    photos[el]?.file ? 'countPhotoBox fill' : 'countPhotoBox'
+                    photos[el]?.previewUrl
+                      ? 'countPhotoBox fill'
+                      : 'countPhotoBox'
                   }
                 ></span>
               ))}
@@ -185,7 +191,7 @@ const Write = ({ type, id, category, content }: WriteProps) => {
         </div>
         <div className='propContainer'>
           <div className='lengthContainer'>
-            <NoticeCurcle noticeColor={setColor(textValue)} />{' '}
+            <NoticeCurcle noticeColor={setColor(textValue)} />
             {textValue.length} / 140
           </div>
           <div className='btnContainer'>

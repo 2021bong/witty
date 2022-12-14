@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
@@ -32,6 +32,7 @@ const Feed = ({
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -72,7 +73,10 @@ const Feed = ({
         </div>
         <div className='rightIconBox'>
           {owner && (
-            <AiTwotoneEdit className='edit' onClick={() => goEditMode(id)} />
+            <AiTwotoneEdit
+              className='edit'
+              onClick={() => goEditMode(id, navigate)}
+            />
           )}
           {owner && (
             <AiFillDelete className='delete' onClick={() => removeFeed(id)} />
