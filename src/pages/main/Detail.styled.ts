@@ -16,6 +16,8 @@ export const CommentIcon = styled(FaCommentAlt)`
 
 export const Container = styled.div`
   width: 100%;
+  overflow: scroll;
+  margin-bottom: 100px;
 
   .contentContainer {
     width: 100%;
@@ -67,6 +69,23 @@ export const Container = styled.div`
         .bookmark {
           text-align: right;
           cursor: pointer;
+        }
+      }
+    }
+
+    .photoContainer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      .photo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
         }
       }
     }

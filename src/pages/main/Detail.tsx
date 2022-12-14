@@ -126,6 +126,21 @@ const Detail = () => {
             <p className='content'>
               <b>{feedData.content}</b>
             </p>
+            {feedData.images && (
+              <div className='photoContainer'>
+                {feedData.images.map(
+                  (photo, i) =>
+                    !!photo && (
+                      <img
+                        alt={`photo${i + 1}`}
+                        src={photo}
+                        key={photo + i}
+                        className='photo'
+                      />
+                    )
+                )}
+              </div>
+            )}
             <div className='actionContainer'>
               <div className='interactionContainer'>
                 <div

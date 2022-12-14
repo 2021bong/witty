@@ -43,7 +43,11 @@
       ],
       "is_liked": 0,
       "is_marked": 0,
-      "images": ["url1", "url2", "url3"],
+      "images": [
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg"
+      ],
       "is_owner": false
     },
     {

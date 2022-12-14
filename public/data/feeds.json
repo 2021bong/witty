@@ -23,7 +23,12 @@
       "count_comments": 2,
       "is_liked": 0,
       "is_marked": 0,
-      "images": null,
+      "images": [
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg"
+      ],
       "is_owner": false
     },
     {
@@ -36,8 +41,10 @@
       "count_comments": 23,
       "is_liked": 1,
       "is_marked": 1,
-      "images": null,
-      "is_owner": true
+      "is_owner": true,
+      "images": [
+        "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg"
+      ]
     },
     {
       "id": 4,

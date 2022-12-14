@@ -52,6 +52,7 @@ const Main = () => {
             isLiked={el.is_liked}
             isSaved={el.is_marked}
             owner={el.is_owner}
+            images={el.images}
           />
         ))}
       </div>

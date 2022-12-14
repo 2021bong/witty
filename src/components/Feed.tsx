@@ -43,7 +43,6 @@ const Feed = ({
           </Link>
         ))}
       </div>
-
       <Link to={`/main/${id}`}>
         <div className='info'>
           <p className='user'>{user}</p>
@@ -51,6 +50,18 @@ const Feed = ({
         </div>
         <p className='content'>{content}</p>
       </Link>
+      {images && (
+        <div className='photoContainer'>
+          {images?.map((url, i) => (
+            <img
+              key={url + i}
+              alt={`photo${i + 1}}`}
+              src={url}
+              className='photo'
+            />
+          ))}
+        </div>
+      )}
       <div className='reactionContainer'>
         <div className='interactionContainer'>
           <div
@@ -151,6 +162,26 @@ const Container = styled.div`
     .content {
       margin-bottom: 10px;
       line-height: 1.2rem;
+    }
+  }
+
+  .photoContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 0 20px;
+    overflow-x: scroll;
+
+    .photo {
+      width: 50%;
+      border: 1px solid ${({ theme }) => theme.border};
+      border-radius: 10px;
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
