@@ -11,7 +11,7 @@ import {
 } from 'react-icons/bs';
 
 import Greeting from '../../components/Greeting';
-import { DetailFeedDataType } from '../../utils/interface';
+import { DetailFeedDataType, DetailCommentType } from '../../utils/interface';
 import {
   getDetailTime,
   handleIconcolor,
@@ -25,6 +25,10 @@ import { CommentIcon, Container } from './Detail.styled';
 
 const Detail = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType | undefined>();
+  const [commentData, setCommentData] = useState<
+    DetailCommentType[] | undefined
+  >();
+  const [countLikes, setCountLikes] = useState<number | undefined>();
   const [heart, setHeart] = useState(false);
   const [save, setSave] = useState(false);
   const [commentValue, setCommentValue] = useState('');
@@ -33,21 +37,23 @@ const Detail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('../data/detail.json').then((res) => {
-      setFeedData(res.data.feeds[Number(param) - 1]);
-      setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
-      setSave(res.data.feeds[Number(param) - 1].is_marked || false);
-    });
+    // axios.get('../data/detail.json').then((res) => {
+    //   setFeedData(res.data.feeds[Number(param) - 1]);
+    //   setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
+    //   setSave(res.data.feeds[Number(param) - 1].is_marked || false);
+    // });
 
-    // axios
-    //   .get(`http://localhost:8000/posts/${param}`, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => {
-    //     setFeedData(res.data[0]);
-    //     setHeart(res.data[0].is_liked || false);
-    //     setSave(res.data[0].is_marked || false);
-    //   });
+    axios
+      .get(`http://localhost:8000/posts/${param}`, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setFeedData(res.data.post);
+        setCommentData(res.data.comments);
+        setCountLikes(res.data.post.count_likes);
+        setSave(res.data.post.is_marked || false);
+        setHeart(res.data.post.is_liked || false);
+      });
   }, []);
 
   const handleWriteComment = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,14 +63,24 @@ const Detail = () => {
   const handleRemoveComment = (e: MouseEvent<SVGElement>) => {
     if (confirm('정말로 삭제하실 건가요?😭')) {
       axios
-        .delete(`http://localhost:8000/comments/${e.currentTarget.id}`, {
+        .delete(`http://localhost:8000/posts/${param}/${e.currentTarget.id}`, {
           headers: { Authorization: localStorage.getItem('token') },
         })
-        .then((res) => alert('삭제되었습니다. ✨'))
+        .then((res) => {
+          alert('삭제되었습니다. ✨');
+          setCommentData(res.data);
+        })
         .catch((err) =>
           alert(`삭제에 실패했습니다. 잠시 뒤 다시 시도해주세요. 😭\n${err}`)
         );
     }
+  };
+
+  const handleClickLike = () => {
+    heart
+      ? setCountLikes((prev) => prev && prev - 1)
+      : setCountLikes((prev) => prev && prev + 1);
+    handleLikeHeart(setHeart, param);
   };
 
   const handleSubmit = () => {
@@ -74,9 +90,9 @@ const Detail = () => {
     }
     axios
       .post(
-        `http://localhost:8000/${param}/comment`,
+        `http://localhost:8000/posts/${param}/comment`,
         {
-          content: commentValue,
+          comment: commentValue,
         },
         { headers: { Authorization: localStorage.getItem('token') } }
       )
@@ -84,15 +100,14 @@ const Detail = () => {
       .catch((err) => alert(`네트워크 통신이 원활하지 않습니다.🥲\n${err}`));
     setCommentValue('');
 
-    // axios
-    //   .get(`http://localhost:8000/posts/${param}`, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => {
-    //     setFeedData(res.data[0]);
-    //     setHeart(res.data[0].is_liked || false);
-    //     setSave(res.data[0].is_marked || false);
-    //   });
+    axios
+      .get(`http://localhost:8000/posts/${param}`, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setFeedData(res.data.post);
+        setCommentData(res.data.comments);
+      });
   };
 
   return (
@@ -143,21 +158,18 @@ const Detail = () => {
             )}
             <div className='actionContainer'>
               <div className='interactionContainer'>
-                <div
-                  className='likeCountBox'
-                  onClick={() => handleLikeHeart(setHeart, param)}
-                >
+                <div className='likeCountBox' onClick={handleClickLike}>
                   {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
                   <span>
                     좋아요
-                    <b>{feedData.count_likes || 0}</b>
+                    <b>{countLikes || 0}</b>
                   </span>
                 </div>
                 <div>
                   <BsChat />
                   <span>
                     댓글
-                    <b>{feedData.count_comments || 0}</b>
+                    <b>{commentData?.length || 0}</b>
                   </span>
                 </div>
               </div>
@@ -189,9 +201,9 @@ const Detail = () => {
             />
             <button onClick={handleSubmit}>작성</button>
           </form>
-          {
+          {commentData && (
             <ul className='commentsContainer'>
-              {feedData.comments?.map((el) => (
+              {commentData.map((el) => (
                 <li className='commentBox' key={el.id}>
                   <div>
                     <p className='nameAndContentBox'>
@@ -204,12 +216,12 @@ const Detail = () => {
                     {el.is_liked ? (
                       <BsHeartFill
                         className='checked heart'
-                        onClick={() => handleLikeComment(setFeedData, el.id)}
+                        onClick={() => handleLikeComment(setCommentData, el.id)}
                       />
                     ) : (
                       <BsHeart
                         className='heart'
-                        onClick={() => handleLikeComment(setFeedData, el.id)}
+                        onClick={() => handleLikeComment(setCommentData, el.id)}
                       />
                     )}
                     <span>{el.count_likes}</span>
@@ -224,7 +236,7 @@ const Detail = () => {
                 </li>
               ))}
             </ul>
-          }
+          )}
         </div>
       )}
     </Container>

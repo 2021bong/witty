@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
-import { DetailFeedDataType, PhotosType } from './interface';
+import { DetailCommentType } from './interface';
 import { CATEGORY } from './constant';
 
 export const getTime = (time: string) => {
@@ -81,44 +81,25 @@ export const removeFeed = (id: number | string | undefined) => {
   }
 };
 
-type SetState = (setState: (prev: number | boolean) => boolean) => void;
-
-export const handleLikeHeart = (
-  setHeart: SetState,
-  id: string | number | undefined
-) => {
-  setHeart((prev) => !prev);
-  axios
-    .patch(
-      `http://localhost:8000/posts/${id}/like`,
-      {},
-      {
-        headers: { Authorization: localStorage.getItem('token') },
-      }
-    )
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
-};
-
 type SetArrState = (
-  setState: (prev: DetailFeedDataType | undefined) => DetailFeedDataType
+  setState: (prev: DetailCommentType[] | undefined) => DetailCommentType[]
 ) => void;
 
 export const handleLikeComment = (
-  setFeedData: SetArrState,
+  setCommentData: SetArrState,
   commentId: string | number | undefined
 ) => {
   axios
     .patch(
-      `http://localhost:8000/posts/${commentId}/like`,
+      `http://localhost:8000/comments/${commentId}/like`,
       {},
       {
         headers: { Authorization: localStorage.getItem('token') },
       }
     )
     .then((res) => {
-      setFeedData((prev) => {
-        const newComment = prev?.comments?.map((comment) =>
+      setCommentData((prev) => {
+        const newComment = prev?.map((comment) =>
           comment.id === commentId
             ? {
                 ...comment,
@@ -130,6 +111,51 @@ export const handleLikeComment = (
         return newComment;
       });
     })
+    .catch((err) => console.log(err));
+};
+
+type SetState = (setState: (prev: number | boolean) => boolean) => void;
+
+export const handleLikeHeartInMain = (
+  setHeart: SetState,
+  id: string | number | undefined,
+  handleLikes: (
+    id: number | string | undefined,
+    newIsLike: number,
+    newLikeCount: number
+  ) => void
+) => {
+  setHeart((prev) => !prev);
+
+  axios
+    .patch(
+      `http://localhost:8000/posts/${id}/like`,
+      {},
+      {
+        headers: { Authorization: localStorage.getItem('token') },
+      }
+    )
+    .then((res) => {
+      handleLikes(id, res.data.is_liked, res.data.count_likes);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const handleLikeHeart = (
+  setHeart: SetState,
+  id: string | number | undefined
+) => {
+  setHeart((prev) => !prev);
+
+  axios
+    .patch(
+      `http://localhost:8000/posts/${id}/like`,
+      {},
+      {
+        headers: { Authorization: localStorage.getItem('token') },
+      }
+    )
+    .then()
     .catch((err) => console.log(err));
 };
 
@@ -146,6 +172,6 @@ export const handleSaveFeed = (
         headers: { Authorization: localStorage.getItem('token') },
       }
     )
-    .then((res) => console.log(res))
+    .then()
     .catch((err) => console.log(err));
 };

@@ -13,21 +13,36 @@ const Main = () => {
   let limit = 12;
   let offset = 0;
 
-  useEffect(() => {
-    axios.get('data/feeds.json').then((res) => {
-      setFeeds(res.data.feeds);
-    });
+  const handleLikes = (
+    id: number | string | undefined,
+    newIsLike: number,
+    newLikeCount: number
+  ) => {
+    const newFeeds =
+      feeds &&
+      [...feeds]?.map((feed) =>
+        feed.id === id
+          ? { ...feed, is_liked: newIsLike, count_likes: newLikeCount }
+          : { ...feed }
+      );
+    setFeeds(newFeeds);
+  };
 
-    // axios
-    //   .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => {
-    //     const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
-    //       return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
-    //     });
-    //     setFeeds(dataForState);
-    //   });
+  useEffect(() => {
+    // axios.get('data/feeds.json').then((res) => {
+    //   setFeeds(res.data.feeds);
+    // });
+
+    axios
+      .get(`http://localhost:8000/posts?limit=${limit}&offset=${offset}`, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
+          return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
+        });
+        setFeeds(dataForState);
+      });
   }, []);
 
   return (
@@ -53,6 +68,7 @@ const Main = () => {
             isSaved={el.is_marked}
             owner={el.is_owner}
             images={el.images}
+            handleLikes={handleLikes}
           />
         ))}
       </div>

@@ -12,7 +12,7 @@ import {
 import {
   goEditMode,
   removeFeed,
-  handleLikeHeart,
+  handleLikeHeartInMain,
   handleSaveFeed,
 } from '../utils/function';
 import { FeedProps } from '../utils/interface';
@@ -29,10 +29,15 @@ const Feed = ({
   isSaved,
   owner,
   images,
+  handleLikes,
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
   const navigate = useNavigate();
+
+  const handleClickLikes = () => {
+    handleLikeHeartInMain(setHeart, id, handleLikes);
+  };
 
   return (
     <Container>
@@ -64,10 +69,7 @@ const Feed = ({
       )}
       <div className='reactionContainer'>
         <div className='interactionContainer'>
-          <div
-            className='heartBox'
-            onClick={() => handleLikeHeart(setHeart, id)}
-          >
+          <div className='heartBox' onClick={handleClickLikes}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
             <span>
               {like ? like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0}
@@ -111,6 +113,7 @@ const Feed = ({
 export default Feed;
 
 const Container = styled.div`
+  width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.border};
   color: ${({ theme }) => theme.text};
 
@@ -167,14 +170,15 @@ const Container = styled.div`
 
   .photoContainer {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 0 20px;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 20px;
     overflow-x: scroll;
+    transform: translateX(20px);
 
     .photo {
-      width: 50%;
+      width: 40%;
+      height: 120px;
       border: 1px solid ${({ theme }) => theme.border};
       border-radius: 10px;
       margin-right: 10px;

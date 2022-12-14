@@ -26,6 +26,7 @@ export interface FeedProps {
   isSaved?: number | null;
   images?: string[] | null;
   owner: boolean;
+  handleLikes?: (id: number, newIsLike: number, newLikeCount: number) => void;
 }
 
 export interface WriteProps {
@@ -65,9 +66,20 @@ export interface DetailFeedDataType {
   count_comments: number | null;
   comments?: Comment[] | null;
   is_liked?: number | null;
-  is_bookmarked?: number | null;
+  is_marked?: number | null;
   images?: string[] | null;
   is_owner: boolean;
+}
+
+export interface DetailCommentType {
+  comment: string;
+  count_likes: number | null;
+  created_at: string;
+  id: number;
+  is_liked: number | null;
+  is_owner: boolean;
+  nickname: string;
+  user_id?: number;
 }
 
 export interface GreetingProps {

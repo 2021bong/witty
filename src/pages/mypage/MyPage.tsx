@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { BsCreditCard2FrontFill } from 'react-icons/bs';
@@ -12,11 +12,21 @@ const MyPage = ({ getToken }: LoginoutProp) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // axios
+    //   .get('data/mypage.json')
+    //   .then((res) => {
+    //     setNickname(res.data.data.nickname);
+    //     setUserId(res.data.data.user_id);
+    //   })
+    //   .catch((err) => console.log(err));
+
     axios
-      .get('data/mypage.json')
+      .get('http://localhost:8000/users/my', {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
       .then((res) => {
-        setNickname(res.data.data.nickname);
-        setUserId(res.data.data.user_id);
+        setNickname(res.data.nickname);
+        setUserId(res.data.account);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -44,7 +54,9 @@ const MyPage = ({ getToken }: LoginoutProp) => {
         </div>
         <div className='listBox'>
           <AiTwotoneSetting className='icon' />
-          <li className='bulet'>닉네임 수정</li>
+          <Link to='/mypage/nickname'>
+            <li className='bulet'>닉네임 수정</li>
+          </Link>
           <li className='bulet'>회원탈퇴</li>
         </div>
         <div className='listBox'>

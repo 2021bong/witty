@@ -16,6 +16,7 @@ import Category from './pages/category/Category';
 import Edit from './pages/edit/Edit';
 import MyPage from './pages/mypage/MyPage';
 import Dock from './components/Dock';
+import EditNickname from './pages/mypage/components/EditNickname';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -51,6 +52,7 @@ const Router = () => {
               <Route path='/category' element={<Category />} />
               <Route path='/edit/:id' element={<Edit />} />
               <Route path='/mypage' element={<MyPage getToken={getToken} />} />
+              <Route path='/mypage/nickname' element={<EditNickname />} />
             </Routes>
             <Dock />
           </Container>
