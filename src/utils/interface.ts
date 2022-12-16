@@ -1,22 +1,32 @@
+import { SetStateAction } from 'react';
+
 export interface MainFeedStateType {
   id: number;
   nickname: string;
-  user_id?: string;
+  user_id?: string | undefined;
   category: string[];
-  category_id?: number;
+  category_id?: number | undefined;
   content: string;
   created_at: string;
   count_likes: number | null;
   count_comments: number | null;
-  is_liked?: number | null;
-  is_marked?: number | null;
-  images?: string[] | null;
+  is_liked: number | null;
+  is_marked: number | null;
+  images: string[] | [] | null;
   is_owner: boolean;
 }
 
+export type SetArrState = (
+  setState: SetStateAction<DetailCommentType[] | undefined>
+) => void;
+
+type SetFeedsType = (
+  setState: SetStateAction<MainFeedStateType[] | undefined>
+) => void;
+
 export interface FeedProps {
   id: number;
-  user: string;
+  nickname: string;
   category: string[];
   content: string;
   time: string;
@@ -26,7 +36,7 @@ export interface FeedProps {
   isSaved?: number | null;
   images?: string[] | null;
   owner: boolean;
-  handleLikes?: (id: number, newIsLike: number, newLikeCount: number) => void;
+  setFeeds: SetFeedsType;
 }
 
 export interface WriteProps {
@@ -79,7 +89,7 @@ export interface DetailCommentType {
   is_liked: number | null;
   is_owner: boolean;
   nickname: string;
-  user_id?: number;
+  user_id?: number | undefined;
 }
 
 export interface GreetingProps {

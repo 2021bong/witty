@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
 import {
@@ -9,17 +10,12 @@ import {
   BsBookmark,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
-import {
-  goEditMode,
-  removeFeed,
-  handleLikeHeartInMain,
-  handleSaveFeed,
-} from '../utils/function';
-import { FeedProps } from '../utils/interface';
+import { goEditMode, removeFeed, handleSaveFeed } from '../utils/function';
+import { FeedProps, MainFeedStateType } from '../utils/interface';
 
 const Feed = ({
   id,
-  user,
+  nickname,
   category,
   content,
   time,
@@ -29,14 +25,39 @@ const Feed = ({
   isSaved,
   owner,
   images,
-  handleLikes,
+  setFeeds,
 }: FeedProps) => {
   const [heart, setHeart] = useState(isLiked || false);
   const [save, setSave] = useState(isSaved || false);
   const navigate = useNavigate();
 
-  const handleClickLikes = () => {
-    handleLikeHeartInMain(setHeart, id, handleLikes);
+  const handleLikeHeart = () => {
+    axios
+      .patch(
+        `http://localhost:8000/posts/${id}/like`,
+        {},
+        {
+          headers: { Authorization: localStorage.getItem('token') },
+        }
+      )
+      .then((res) => {
+        setHeart((prev) => !prev);
+        setFeeds((prev) => {
+          const newData =
+            prev &&
+            [...prev].map((feedData) => {
+              return feedData.id === id
+                ? {
+                    ...feedData,
+                    count_likes: feedData.count_likes,
+                    is_liked: feedData.is_liked,
+                  }
+                : { ...feedData };
+            });
+          return newData;
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -50,7 +71,7 @@ const Feed = ({
       </div>
       <Link to={`/main/${id}`}>
         <div className='info'>
-          <p className='user'>{user}</p>
+          <p className='user'>{nickname}</p>
           <p className='time'>{time}</p>
         </div>
         <p className='content'>{content}</p>
@@ -69,7 +90,7 @@ const Feed = ({
       )}
       <div className='reactionContainer'>
         <div className='interactionContainer'>
-          <div className='heartBox' onClick={handleClickLikes}>
+          <div className='heartBox' onClick={handleLikeHeart}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
             <span>
               {like ? like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0}

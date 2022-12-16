@@ -15,7 +15,6 @@ import { DetailFeedDataType, DetailCommentType } from '../../utils/interface';
 import {
   getDetailTime,
   handleIconcolor,
-  handleLikeHeart,
   handleSaveFeed,
   handleLikeComment,
   goEditMode,
@@ -76,11 +75,21 @@ const Detail = () => {
     }
   };
 
-  const handleClickLike = () => {
+  const handleLikeHeart = () => {
     heart
       ? setCountLikes((prev) => prev && prev - 1)
       : setCountLikes((prev) => prev && prev + 1);
-    handleLikeHeart(setHeart, param);
+
+    axios
+      .patch(
+        `http://localhost:8000/posts/${param}/like`,
+        {},
+        {
+          headers: { Authorization: localStorage.getItem('token') },
+        }
+      )
+      .then((res) => setHeart((prev) => !prev))
+      .catch((err) => console.log(err));
   };
 
   const handleSubmit = () => {
@@ -158,7 +167,7 @@ const Detail = () => {
             )}
             <div className='actionContainer'>
               <div className='interactionContainer'>
-                <div className='likeCountBox' onClick={handleClickLike}>
+                <div className='likeCountBox' onClick={handleLikeHeart}>
                   {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
                   <span>
                     좋아요

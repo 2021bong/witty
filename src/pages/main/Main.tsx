@@ -13,21 +13,6 @@ const Main = () => {
   let limit = 12;
   let offset = 0;
 
-  const handleLikes = (
-    id: number | string | undefined,
-    newIsLike: number,
-    newLikeCount: number
-  ) => {
-    const newFeeds =
-      feeds &&
-      [...feeds]?.map((feed) =>
-        feed.id === id
-          ? { ...feed, is_liked: newIsLike, count_likes: newLikeCount }
-          : { ...feed }
-      );
-    setFeeds(newFeeds);
-  };
-
   useEffect(() => {
     // axios.get('data/feeds.json').then((res) => {
     //   setFeeds(res.data.feeds);
@@ -58,7 +43,7 @@ const Main = () => {
           <Feed
             key={el.id}
             id={el.id}
-            user={el.nickname}
+            nickname={el.nickname}
             category={el.category}
             content={el.content}
             time={el.created_at}
@@ -68,7 +53,7 @@ const Main = () => {
             isSaved={el.is_marked}
             owner={el.is_owner}
             images={el.images}
-            handleLikes={handleLikes}
+            setFeeds={setFeeds}
           />
         ))}
       </div>

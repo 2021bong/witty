@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
-import { DetailCommentType } from './interface';
+import { SetArrState } from './interface';
 import { CATEGORY } from './constant';
 
 export const getTime = (time: string) => {
@@ -81,10 +81,6 @@ export const removeFeed = (id: number | string | undefined) => {
   }
 };
 
-type SetArrState = (
-  setState: (prev: DetailCommentType[] | undefined) => DetailCommentType[]
-) => void;
-
 export const handleLikeComment = (
   setCommentData: SetArrState,
   commentId: string | number | undefined
@@ -114,53 +110,8 @@ export const handleLikeComment = (
     .catch((err) => console.log(err));
 };
 
-type SetState = (setState: (prev: number | boolean) => boolean) => void;
-
-export const handleLikeHeartInMain = (
-  setHeart: SetState,
-  id: string | number | undefined,
-  handleLikes: (
-    id: number | string | undefined,
-    newIsLike: number,
-    newLikeCount: number
-  ) => void
-) => {
-  setHeart((prev) => !prev);
-
-  axios
-    .patch(
-      `http://localhost:8000/posts/${id}/like`,
-      {},
-      {
-        headers: { Authorization: localStorage.getItem('token') },
-      }
-    )
-    .then((res) => {
-      handleLikes(id, res.data.is_liked, res.data.count_likes);
-    })
-    .catch((err) => console.log(err));
-};
-
-export const handleLikeHeart = (
-  setHeart: SetState,
-  id: string | number | undefined
-) => {
-  setHeart((prev) => !prev);
-
-  axios
-    .patch(
-      `http://localhost:8000/posts/${id}/like`,
-      {},
-      {
-        headers: { Authorization: localStorage.getItem('token') },
-      }
-    )
-    .then()
-    .catch((err) => console.log(err));
-};
-
 export const handleSaveFeed = (
-  setSave: SetState,
+  setSave: (setState: (prev: number | boolean) => boolean) => void,
   id: string | number | undefined
 ) => {
   setSave((prev) => !prev);
