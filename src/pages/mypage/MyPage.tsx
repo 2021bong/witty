@@ -49,15 +49,21 @@ const MyPage = ({ getToken }: LoginoutProp) => {
       <ul className='menuList'>
         <div className='listBox'>
           <BsCreditCard2FrontFill className='icon card' />
-          <li className='bulet'>내 게시글</li>
-          <li className='bulet'>북마크</li>
+          <Link to='/mypage/feeds' className='link'>
+            <li className='bulet'>내 게시글</li>
+          </Link>
+          <Link to='/mypage/bookmarks' className='link'>
+            <li className='bulet'>북마크</li>
+          </Link>
         </div>
         <div className='listBox'>
           <AiTwotoneSetting className='icon' />
-          <Link to='/mypage/nickname'>
+          <Link to='/mypage/nickname' className='link'>
             <li className='bulet'>닉네임 수정</li>
           </Link>
-          <li className='bulet'>회원탈퇴</li>
+          <Link to='/mypage/withdrawal' className='link'>
+            <li className='bulet'>회원탈퇴</li>
+          </Link>
         </div>
         <div className='listBox'>
           <li className='logout' onClick={handleLogout}>
@@ -136,34 +142,39 @@ const Container = styled.div`
         font-size: 2.2rem;
       }
 
-      .bulet {
-        position: relative;
+      .link {
+        display: block;
         width: 30%;
         margin-bottom: 20px;
         margin-left: 5px;
+        color: ${({ theme }) => theme.text};
         cursor: pointer;
 
-        &:before {
-          content: '';
-          position: absolute;
-          left: -13px;
-          top: 3px;
-          width: 5px;
-          height: 5px;
-          border-radius: 1px;
-          background-color: ${({ theme }) => theme.mainColor2};
-        }
+        .bulet {
+          position: relative;
 
-        &:hover {
-          font-weight: 700;
-          color: ${({ theme }) => theme.mainColor};
-        }
-        &:active {
-          color: ${({ theme }) => theme.mainColor2};
-        }
+          &:before {
+            content: '';
+            position: absolute;
+            left: -13px;
+            top: 3px;
+            width: 5px;
+            height: 5px;
+            border-radius: 1px;
+            background-color: ${({ theme }) => theme.mainColor2};
+          }
 
-        &:last-child {
-          margin-bottom: 0;
+          &:hover {
+            font-weight: 700;
+            color: ${({ theme }) => theme.mainColor};
+          }
+          &:active {
+            color: ${({ theme }) => theme.mainColor2};
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }

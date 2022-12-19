@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const EditNickname = () => {
+const Nickname = () => {
   const [textValue, setTextValue] = useState('');
   const navigate = useNavigate();
   const handleWriteText = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +42,6 @@ const EditNickname = () => {
   );
 };
 
-export default EditNickname;
+export default Nickname;
 
 const Container = styled.div``;
