@@ -1,14 +1,34 @@
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { checkName } from '../../../utils/validation';
 
 const Nickname = () => {
+  const [nickname, setNickname] = useState('');
   const [textValue, setTextValue] = useState('');
   const navigate = useNavigate();
   const handleWriteText = (e: ChangeEvent<HTMLInputElement>) => {
     setTextValue(e.target.value);
   };
+
+  useEffect(() => {
+    axios
+      .get('../data/mypage.json')
+      .then((res) => {
+        setNickname(res.data.data.nickname);
+      })
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .get('http://localhost:8000/users/my', {
+    //     headers: { Authorization: localStorage.getItem('token') },
+    //   })
+    //   .then((res) => {
+    //     setNickname(res.data.nickname);
+    //   })
+    //   .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = () => {
     axios
@@ -29,6 +49,11 @@ const Nickname = () => {
 
   return (
     <Container>
+      <div className='titleContainer'>
+        <h4>닉네임 수정</h4>
+        <p className='nickname'>지금은</p>
+        <p className='nickname'>{nickname && nickname}</p>
+      </div>
       <form onClick={(e) => e.preventDefault()}>
         <input
           type='text'
@@ -36,12 +61,88 @@ const Nickname = () => {
           onChange={handleWriteText}
           placeholder='변경하실 닉네임을 적어주세요!'
         />
-        <button onClick={handleSubmit}>변경하기</button>
+        {checkName(textValue) ? (
+          <p className='true desc'>사용가능한 이름입니다.😀</p>
+        ) : (
+          <p className='desc'>🚨 8자 이하의 이름만 설정가능합니다.</p>
+        )}
       </form>
+      <button onClick={handleSubmit}>변경하기</button>
     </Container>
   );
 };
 
 export default Nickname;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 90%;
+  text-align: center;
+
+  .titleContainer {
+    margin-bottom: 50px;
+
+    h4 {
+      margin-bottom: 30px;
+      color: ${({ theme }) => theme.mainColor2};
+      font-size: 1.5rem;
+    }
+
+    .nickname {
+      &:first-of-type {
+        margin-bottom: 10px;
+      }
+
+      &:last-of-type {
+        color: ${({ theme }) => theme.mainColor};
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  form {
+    width: 80%;
+    margin-bottom: 50px;
+
+    input {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .desc {
+      margin-bottom: 50px;
+      font-weight: 400;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: ${({ theme }) => theme.subColor};
+    }
+
+    .true {
+      color: ${({ theme }) => theme.mainColor2};
+    }
+  }
+
+  button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    background-color: ${({ theme }) => theme.mainColor};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.subColor};
+    }
+
+    &:active {
+      background-color: ${({ theme }) => theme.mainColor2};
+    }
+  }
+`;
