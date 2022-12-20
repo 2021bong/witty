@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ChangeEvent, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkName } from '../../../utils/validation';
 
@@ -68,6 +68,9 @@ const Nickname = () => {
         )}
       </form>
       <button onClick={handleSubmit}>변경하기</button>
+      <Link to='/mypage'>
+        <button className='cancel'>취소하기</button>
+      </Link>
     </Container>
   );
 };
@@ -143,6 +146,34 @@ const Container = styled.div`
 
     &:active {
       background-color: ${({ theme }) => theme.mainColor2};
+    }
+
+    &:first-of-type {
+      margin-bottom: 10px;
+    }
+  }
+
+  a {
+    display: inline-block;
+    width: 100%;
+
+    .cancel {
+      border: 1px solid ${({ theme }) => theme.border};
+      border-radius: 12px;
+      background-color: #fff;
+      color: ${({ theme }) => theme.text};
+
+      &:hover {
+        border: none;
+        background-color: ${({ theme }) => theme.mainColor};
+        color: #fff;
+      }
+
+      &:active {
+        border: none;
+        background-color: ${({ theme }) => theme.mainColor2};
+        color: #fff;
+      }
     }
   }
 `;
