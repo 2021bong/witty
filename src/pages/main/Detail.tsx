@@ -128,7 +128,7 @@ const Detail = () => {
             <div className='ctgrAndBmk'>
               <div>
                 {feedData.category.map((cate) => (
-                  <Link to='/category' className='goCategory' key={cate}>
+                  <Link to='/search/category' className='goCategory' key={cate}>
                     <span className='category'>{'#' + cate}</span>
                   </Link>
                 ))}

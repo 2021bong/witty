@@ -1,18 +1,24 @@
-import { useState, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, MouseEvent, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaSearch, FaUser } from 'react-icons/fa';
 import { BsBellFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
+interface DockState {
+  id: string;
+  selected: boolean;
+}
+
 const Dock = () => {
-  const [dockState, setDockState] = useState([
+  const [dockState, setDockState] = useState<DockState[]>([
     { id: 'home', selected: true },
     { id: 'search', selected: false },
     { id: 'notification', selected: false },
     { id: 'mypage', selected: false },
   ]);
   const [home, search, notification, mypage] = dockState;
+  const locate = useLocation();
 
   const handleDockMenu = (e: MouseEvent) => {
     const newDockState = [...dockState].map((state) =>
@@ -22,6 +28,18 @@ const Dock = () => {
     );
     setDockState(newDockState);
   };
+
+  useEffect(() => {
+    if (locate.pathname === '/search/category') {
+      setDockState((prev: DockState[]) =>
+        prev.map((dock) =>
+          dock.id === 'search'
+            ? { id: dock.id, selected: true }
+            : { id: dock.id, selected: false }
+        )
+      );
+    }
+  }, [locate]);
 
   return (
     <Box>
@@ -34,13 +52,15 @@ const Dock = () => {
           <AiFillHome />
         </button>
       </Link>
-      <button
-        onClick={handleDockMenu}
-        className={search.selected ? 'selected' : 'iconBtn'}
-        id='search'
-      >
-        <FaSearch />
-      </button>
+      <Link to='/search'>
+        <button
+          onClick={handleDockMenu}
+          className={search.selected ? 'selected' : 'iconBtn'}
+          id='search'
+        >
+          <FaSearch />
+        </button>
+      </Link>
       <button
         onClick={handleDockMenu}
         className={notification.selected ? 'selected' : 'iconBtn'}

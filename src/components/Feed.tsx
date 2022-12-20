@@ -64,7 +64,7 @@ const Feed = ({
     <Container>
       <div className='categoryContainer'>
         {category?.map((cate) => (
-          <Link to='/category' className='goCategory' key={cate}>
+          <Link to='/search/category' className='goCategory' key={cate}>
             <p className='category'>{'#' + cate}</p>
           </Link>
         ))}
