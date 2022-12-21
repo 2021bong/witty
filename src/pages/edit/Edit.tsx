@@ -5,6 +5,7 @@ import Create from '../../components/write/Write';
 import { DetailFeedDataType } from '../../utils/interface';
 import { getCategory } from '../../utils/function';
 import { CATEGORY } from '../../utils/constant';
+import { URL_GET_DETAIL_POST } from '../../utils/url';
 
 const Edit = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType>();
@@ -16,7 +17,7 @@ const Edit = () => {
     });
 
     // axios
-    //   .get(`http://localhost:8000/posts/${param}`, {
+    //   .get(URL_GET_DETAIL_POST(param), {
     //     headers: { Authorization: localStorage.getItem('token') },
     //   })
     //   .then((res) => {

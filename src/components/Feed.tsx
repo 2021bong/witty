@@ -11,7 +11,8 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 import { goEditMode, removeFeed, handleSaveFeed } from '../utils/function';
-import { FeedProps, MainFeedStateType } from '../utils/interface';
+import { FeedProps } from '../utils/interface';
+import { URL_PATCH_POST_LIKE } from '../utils/url';
 
 const Feed = ({
   id,
@@ -34,7 +35,7 @@ const Feed = ({
   const handleLikeHeart = () => {
     axios
       .patch(
-        `http://localhost:8000/posts/${id}/like`,
+        URL_PATCH_POST_LIKE(id),
         {},
         {
           headers: { Authorization: localStorage.getItem('token') },

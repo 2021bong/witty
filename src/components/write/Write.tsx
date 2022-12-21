@@ -9,6 +9,7 @@ import Greeting from '../Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
 import { PhotosType, WriteProps, Category } from '../../utils/interface';
+import { URL_CREATE_POST } from '../../utils/url';
 import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
 import { getCategory, getImage, setColor } from '../../utils/function';
 import { useEffect } from 'react';
@@ -68,7 +69,7 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
     if (textValue.length) {
       axios
         .post(
-          'http://localhost:8000/posts',
+          URL_CREATE_POST,
           {
             content: textValue,
             category: categorys

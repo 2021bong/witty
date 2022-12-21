@@ -20,6 +20,12 @@ import {
   goEditMode,
   removeFeed,
 } from '../../utils/function';
+import {
+  URL_GET_DETAIL_POST,
+  URL_DELETE_COMMENT,
+  URL_PATCH_POST_LIKE,
+  URL_CREATE_COMMENT,
+} from '../../utils/url';
 import { CommentIcon, Container } from './Detail.styled';
 
 const Detail = () => {
@@ -43,7 +49,7 @@ const Detail = () => {
     // });
 
     axios
-      .get(`http://localhost:8000/posts/${param}`, {
+      .get(URL_GET_DETAIL_POST(param), {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {
@@ -62,7 +68,7 @@ const Detail = () => {
   const handleRemoveComment = (e: MouseEvent<SVGElement>) => {
     if (confirm('정말로 삭제하실 건가요?😭')) {
       axios
-        .delete(`http://localhost:8000/posts/${param}/${e.currentTarget.id}`, {
+        .delete(URL_DELETE_COMMENT(param, e.currentTarget.id), {
           headers: { Authorization: localStorage.getItem('token') },
         })
         .then((res) => {
@@ -82,7 +88,7 @@ const Detail = () => {
 
     axios
       .patch(
-        `http://localhost:8000/posts/${param}/like`,
+        URL_PATCH_POST_LIKE(param),
         {},
         {
           headers: { Authorization: localStorage.getItem('token') },
@@ -99,7 +105,7 @@ const Detail = () => {
     }
     axios
       .post(
-        `http://localhost:8000/posts/${param}/comment`,
+        URL_CREATE_COMMENT(param),
         {
           comment: commentValue,
         },
@@ -110,7 +116,7 @@ const Detail = () => {
     setCommentValue('');
 
     axios
-      .get(`http://localhost:8000/posts/${param}`, {
+      .get(URL_GET_DETAIL_POST(param), {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {

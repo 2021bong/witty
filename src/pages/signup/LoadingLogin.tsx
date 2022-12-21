@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { LoginoutProp } from '../../utils/interface';
+import { URL_KAKAO_LOGIN } from '../../utils/url';
 
 const LoadingLogin = ({ getToken }: LoginoutProp) => {
   const [hAnimation, setHAnimation] = useState(false);
@@ -26,7 +27,7 @@ const LoadingLogin = ({ getToken }: LoginoutProp) => {
 
   useEffect(() => {
     axios
-      .post('http://localhost:8000/users/kakaoLogin', {
+      .post(URL_KAKAO_LOGIN, {
         authorizationCode: authCode,
       })
       .then((res) => {

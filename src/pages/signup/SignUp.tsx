@@ -8,6 +8,7 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
+import { URL_CHECK_USER, URL_SIGNUP } from '../../utils/url';
 import { Container } from './SignUp.styled';
 
 const SignUp = () => {
@@ -43,7 +44,7 @@ const SignUp = () => {
   const checkingEmail = () => {
     if (checkEmail(emailValue)) {
       axios
-        .post('http://localhost:8000/users/duplication', {
+        .post(URL_CHECK_USER, {
           email: emailValue,
         })
         .then((res) => {
@@ -62,7 +63,7 @@ const SignUp = () => {
   const checkingId = () => {
     if (checkId(idValue)) {
       axios
-        .post('http://localhost:8000/users/duplication', {
+        .post(URL_CHECK_USER, {
           account: idValue,
         })
         .then((res) => {
@@ -89,7 +90,7 @@ const SignUp = () => {
       idCheckDuplicate
     ) {
       axios
-        .post('http://localhost:8000/users/signup', {
+        .post(URL_SIGNUP, {
           account: idValue,
           password: pwValue,
           nickname: nameValue,

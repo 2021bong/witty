@@ -5,6 +5,7 @@ import { AiTwotoneSetting } from 'react-icons/ai';
 import { BsCreditCard2FrontFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { LoginoutProp } from '../../utils/interface';
+import { URL_MYPAGE } from '../../utils/url';
 
 const MyPage = ({ getToken }: LoginoutProp) => {
   const [nickname, setNickname] = useState();
@@ -21,7 +22,7 @@ const MyPage = ({ getToken }: LoginoutProp) => {
     //   .catch((err) => console.log(err));
 
     axios
-      .get('http://localhost:8000/users/my', {
+      .get(URL_MYPAGE, {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {

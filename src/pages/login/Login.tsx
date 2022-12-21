@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import SignUpBtn from '../signup/SignUpBtn';
 import { LoginoutProp } from '../../utils/interface';
+import { URL_SIGNIN } from '../../utils/url';
 
 const { Kakao } = window as any;
 
@@ -22,7 +23,7 @@ const Login = ({ getToken }: LoginoutProp) => {
   const onLogin = () => {
     if (idValue.length !== 0 && pwValue.length !== 0) {
       axios
-        .post('http://localhost:8000/users/signin', {
+        .post(URL_SIGNIN, {
           account: idValue,
           password: pwValue,
         })

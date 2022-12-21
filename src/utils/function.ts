@@ -3,6 +3,7 @@ import { NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
 import { SetArrState } from './interface';
 import { CATEGORY } from './constant';
+import { URL_DELETE_POST, URL_PATCH_COMMENT_LIKE, URL_SAVE_POST } from './url';
 
 export const getTime = (time: string) => {
   const createdAt = new Date(time);
@@ -71,7 +72,7 @@ export const goEditMode = (
 export const removeFeed = (id: number | string | undefined) => {
   if (confirm('정말로 삭제하실 건가요?😭')) {
     axios
-      .delete(`http://localhost:8000/posts/${id}`, {
+      .delete(URL_DELETE_POST(id), {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => alert('삭제되었습니다. ✨'))
@@ -87,7 +88,7 @@ export const handleLikeComment = (
 ) => {
   axios
     .patch(
-      `http://localhost:8000/comments/${commentId}/like`,
+      URL_PATCH_COMMENT_LIKE(commentId),
       {},
       {
         headers: { Authorization: localStorage.getItem('token') },
@@ -117,7 +118,7 @@ export const handleSaveFeed = (
   setSave((prev) => !prev);
   axios
     .patch(
-      `http://localhost:8000/posts/${id}/bookmark`,
+      URL_SAVE_POST(id),
       {},
       {
         headers: { Authorization: localStorage.getItem('token') },

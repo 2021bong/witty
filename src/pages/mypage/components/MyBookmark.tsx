@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { MainFeedStateType } from '../../../utils/interface';
+import { URL_MYPAGE } from '../../../utils/url';
 
 const MyFeeds = () => {
   const [myBookmarks, setmyBookmarks] = useState<
@@ -15,7 +16,7 @@ const MyFeeds = () => {
       .catch((err) => console.log(err));
 
     // axios
-    //   .get('http://localhost:8000/users/my', {
+    //   .get(URL_MYPAGE, {
     //     headers: { Authorization: localStorage.getItem('token') },
     //   })
     //   .then((res) => setmyBookmarks(res.data))

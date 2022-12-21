@@ -3,6 +3,7 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkName } from '../../../utils/validation';
+import { URL_MYPAGE_NAME } from '../../../utils/url';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
@@ -33,7 +34,7 @@ const Nickname = () => {
   const handleSubmit = () => {
     axios
       .patch(
-        'http://localhost:8000/users/my/name',
+        URL_MYPAGE_NAME,
         { nickname: textValue },
         { headers: { Authorization: localStorage.getItem('token') } }
       )
