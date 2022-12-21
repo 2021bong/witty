@@ -1,38 +1,38 @@
 import { useState, MouseEvent, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
-import Dock from '../Dock';
 import Greeting from '../Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import { PhotosType, WriteProps, Category } from '../../utils/interface';
-import { URL_CREATE_POST } from '../../utils/url';
+import { PhotosType, WriteProps } from '../../utils/interface';
 import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
-import { getCategory, getImage, setColor } from '../../utils/function';
+import { getCategory, setColor } from '../../utils/function';
 import { useEffect } from 'react';
+import { createNewPost, uploadPhotos } from '../../api/createPost';
 
 const Write = ({ type, id, category, content, images }: WriteProps) => {
   const [textValue, setTextValue] = useState<string>('');
   const [categorys, setCategorys] = useState(CATEGORY);
   const [unqPhotoIndex, setUnqPhotoIndex] = useState(1);
   const [photos, setPhotos] = useState<PhotosType>([]);
+  const [uploadImgUrls, setUploadImgUrls] = useState<string[] | []>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTextValue(content || '');
-    setCategorys(getCategory(category));
-    setPhotos(getImage(images, unqPhotoIndex));
-    setUnqPhotoIndex((prev) => prev + 1);
-  }, [content]);
+  if (type === 'edit') {
+    useEffect(() => {
+      setTextValue(content || '');
+      setCategorys(getCategory(category));
+      setUnqPhotoIndex((prev) => prev + 1);
+    }, [content]);
+  }
 
   const handleSelectedCategory = (e: MouseEvent<HTMLLIElement>) => {
     const selectedName = e.currentTarget.textContent;
     setCategorys((prev) =>
       prev.map((category) =>
-        category.name === selectedName
+        '#' + category.name === selectedName
           ? { ...category, selected: !category.selected }
           : { ...category, selected: category.selected }
       )
@@ -48,15 +48,18 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
   };
 
   const handleGetPhotos = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
     const newFiles = {
       id: unqPhotoIndex,
-      file: e.target.files,
-      previewUrl: e.target.files
-        ? URL.createObjectURL(e.target.files[0])
-        : null,
+      file: e.target.files[0],
+      previewUrl: URL.createObjectURL(e.target.files[0]),
     };
     setPhotos((prev) => [...prev, newFiles]);
     setUnqPhotoIndex((prev) => prev + 1);
+  };
+
+  const handleResetValue = (e: MouseEvent<HTMLInputElement>) => {
+    e.currentTarget.value = '';
   };
 
   const removePhoto = (e: MouseEvent<SVGElement>) => {
@@ -65,31 +68,18 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
     setPhotos(newPhotos);
   };
 
+  useEffect(() => {
+    if (!!!uploadImgUrls.length) return;
+    if (photos.length === uploadImgUrls.length) {
+      createNewPost(textValue, categorys, navigate, type, uploadImgUrls);
+    }
+  }, [uploadImgUrls]);
+
   const handleSubmit = () => {
-    if (textValue.length) {
-      axios
-        .post(
-          URL_CREATE_POST,
-          {
-            content: textValue,
-            category: categorys
-              .filter((category) => category.selected === true)
-              .map((el) => el.name.split('#')[1]),
-            images: photos.map((photo) => photo.previewUrl),
-          },
-          { headers: { Authorization: localStorage.getItem('token') } }
-        )
-        .then((res) => navigate('/'))
-        .catch((err) => {
-          alert(
-            `${
-              type === 'create' ? '작성' : '수정'
-            }에 실패했습니다. 잠시 뒤 다시 시도해 주세요.🥲` +
-              '\n' +
-              err
-          );
-          navigate('/');
-        });
+    if (textValue.length && !!photos.length) {
+      uploadPhotos(photos, setUploadImgUrls);
+    } else if (textValue.length) {
+      createNewPost(textValue, categorys, navigate, type);
     } else {
       alert('내용을 작성해 주세요!🥺');
     }
@@ -174,6 +164,7 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
                     name='upload'
                     accept='image/png, image/jpeg'
                     onChange={handleGetPhotos}
+                    onClick={handleResetValue}
                   />
                 </>
               )}

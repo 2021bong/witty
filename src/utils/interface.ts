@@ -16,6 +16,15 @@ export interface MainFeedStateType {
   is_owner: boolean;
 }
 
+export interface BookmarkType {
+  post_id: number;
+  category: string[];
+  content: string;
+  images: number | null;
+  count_likes: number;
+  count_comments: number;
+}
+
 export type SetArrState = (
   setState: SetStateAction<DetailCommentType[] | undefined>
 ) => void;
@@ -110,10 +119,15 @@ export interface LoginoutProp {
   getToken: () => void;
 }
 
-export interface HavePhoto {
+export interface CreatePhoto {
   id: number;
-  file?: FileList | null;
+  file: string | Blob;
   previewUrl: string | null;
 }
 
-export type PhotosType = HavePhoto[] | [];
+export interface EditPhoto {
+  id: number;
+  previewUrl: string | null;
+}
+
+export type PhotosType = CreatePhoto[] | [];

@@ -10,9 +10,10 @@ import {
   BsBookmark,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
-import { goEditMode, removeFeed, handleSaveFeed } from '../utils/function';
+import { goEditMode } from '../utils/function';
+import { removePost, handleSavePost } from '../api/communicate';
 import { FeedProps } from '../utils/interface';
-import { URL_PATCH_POST_LIKE } from '../utils/url';
+import { URL_PATCH_POST_LIKE } from '../api/url';
 
 const Feed = ({
   id,
@@ -114,17 +115,17 @@ const Feed = ({
             />
           )}
           {owner && (
-            <AiFillDelete className='delete' onClick={() => removeFeed(id)} />
+            <AiFillDelete className='delete' onClick={() => removePost(id)} />
           )}
           {save ? (
             <BsFillBookmarkFill
               className='bookmark checked'
-              onClick={() => handleSaveFeed(setSave, id)}
+              onClick={() => handleSavePost(setSave, id)}
             />
           ) : (
             <BsBookmark
               className='bookmark'
-              onClick={() => handleSaveFeed(setSave, id)}
+              onClick={() => handleSavePost(setSave, id)}
             />
           )}
         </div>

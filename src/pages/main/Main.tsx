@@ -7,7 +7,7 @@ import Greeting from '../../components/Greeting';
 import Feed from '../../components/Feed';
 import { MainFeedStateType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
-import { URL_GET_MAIN_POSTS } from '../../utils/url';
+import { URL_GET_MAIN_POSTS } from '../../api/url';
 
 const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();

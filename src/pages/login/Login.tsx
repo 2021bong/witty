@@ -4,7 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import SignUpBtn from '../signup/SignUpBtn';
 import { LoginoutProp } from '../../utils/interface';
-import { URL_SIGNIN } from '../../utils/url';
+import { URL_SIGNIN } from '../../api/url';
 
 const { Kakao } = window as any;
 

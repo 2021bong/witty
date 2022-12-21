@@ -15,17 +15,19 @@ import { DetailFeedDataType, DetailCommentType } from '../../utils/interface';
 import {
   getDetailTime,
   handleIconcolor,
-  handleSaveFeed,
-  handleLikeComment,
   goEditMode,
-  removeFeed,
 } from '../../utils/function';
+import {
+  removePost,
+  handleSavePost,
+  handleLikeComment,
+} from '../../api/communicate';
 import {
   URL_GET_DETAIL_POST,
   URL_DELETE_COMMENT,
   URL_PATCH_POST_LIKE,
   URL_CREATE_COMMENT,
-} from '../../utils/url';
+} from '../../api/url';
 import { CommentIcon, Container } from './Detail.styled';
 
 const Detail = () => {
@@ -143,10 +145,10 @@ const Detail = () => {
                 {save ? (
                   <BsFillBookmarkFill
                     className='checked'
-                    onClick={() => handleSaveFeed(setSave, param)}
+                    onClick={() => handleSavePost(setSave, param)}
                   />
                 ) : (
-                  <BsBookmark onClick={() => handleSaveFeed(setSave, param)} />
+                  <BsBookmark onClick={() => handleSavePost(setSave, param)} />
                 )}
               </div>
             </div>
@@ -198,7 +200,7 @@ const Detail = () => {
                 {feedData.is_owner && (
                   <AiFillDelete
                     className='delete'
-                    onClick={() => removeFeed(param)}
+                    onClick={() => removePost(param)}
                   />
                 )}
               </div>

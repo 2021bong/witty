@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { MainFeedStateType } from '../../../utils/interface';
-import { URL_MYPAGE } from '../../../utils/url';
+import { URL_MYPAGE_POSTS } from '../../../api/url';
 
 const MyFeeds = () => {
   const [myFeeds, setMyFeeds] = useState<MainFeedStateType[] | undefined>();
 
   useEffect(() => {
-    axios
-      .get('../data/feeds.json')
-      .then((res) => setMyFeeds(res.data.feeds))
-      .catch((err) => console.log(err));
-
     // axios
-    //   .get(URL_MYPAGE, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => setMyFeeds(res.data))
+    //   .get('../data/feeds.json')
+    //   .then((res) => setMyFeeds(res.data.feeds))
     //   .catch((err) => console.log(err));
+
+    axios
+      .get(URL_MYPAGE_POSTS, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => setMyFeeds(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (

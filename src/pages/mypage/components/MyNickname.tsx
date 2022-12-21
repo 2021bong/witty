@@ -3,7 +3,7 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkName } from '../../../utils/validation';
-import { URL_MYPAGE_NAME } from '../../../utils/url';
+import { URL_MYPAGE_NAME, URL_MYPAGE } from '../../../api/url';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
@@ -14,21 +14,21 @@ const Nickname = () => {
   };
 
   useEffect(() => {
-    axios
-      .get('../data/mypage.json')
-      .then((res) => {
-        setNickname(res.data.data.nickname);
-      })
-      .catch((err) => console.log(err));
-
     // axios
-    //   .get('http://localhost:8000/users/my', {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
+    //   .get('../data/mypage.json')
     //   .then((res) => {
-    //     setNickname(res.data.nickname);
+    //     setNickname(res.data.data.nickname);
     //   })
     //   .catch((err) => console.log(err));
+
+    axios
+      .get(URL_MYPAGE, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setNickname(res.data.nickname);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleSubmit = () => {

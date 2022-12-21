@@ -29,16 +29,19 @@ export const URL_DELETE_COMMENT = (
   commentId: string
 ) => `http://localhost:8000/posts/${postId}/${commentId}`;
 
+// search
+export const URL_SEARCH_USER = (text: string) => {
+  return `http://localhost:8000/search/user?q=${text}`;
+};
+
 // mypage
 export const URL_MYPAGE = 'http://localhost:8000/users/my';
-
+export const URL_MYPAGE_POSTS = 'http://localhost:8000/users/my/posts';
+export const URL_MYPAGE_BOOKMARKS = 'http://localhost:8000/users/my/bookmarks';
 export const URL_MYPAGE_NAME = 'http://localhost:8000/users/my/name';
 
 // signup & login
 export const URL_CHECK_USER = 'http://localhost:8000/users/duplication';
-
 export const URL_SIGNUP = 'http://localhost:8000/users/signup';
-
 export const URL_SIGNIN = 'http://localhost:8000/users/signin';
-
 export const URL_KAKAO_LOGIN = 'http://localhost:8000/users/kakaoLogin';

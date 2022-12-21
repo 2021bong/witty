@@ -8,7 +8,8 @@ import {
   checkId,
   checkPw,
 } from '../../utils/validation';
-import { URL_CHECK_USER, URL_SIGNUP } from '../../utils/url';
+import { URL_SIGNUP } from '../../api/url';
+import { checkUser } from '../../api/communicate';
 import { Container } from './SignUp.styled';
 
 const SignUp = () => {
@@ -42,41 +43,11 @@ const SignUp = () => {
   };
 
   const checkingEmail = () => {
-    if (checkEmail(emailValue)) {
-      axios
-        .post(URL_CHECK_USER, {
-          email: emailValue,
-        })
-        .then((res) => {
-          alert('사용 가능한 이메일입니다.😀');
-          setEmailCheckDuplicate(true);
-        })
-        .catch((err) => {
-          alert('이미 존재하는 이메일입니다.😅');
-          setEmailValue('');
-        });
-    } else {
-      alert('이메일을 바르게 입력해주세요.🥺');
-    }
+    checkUser('email', emailValue, setEmailCheckDuplicate, setEmailValue);
   };
 
   const checkingId = () => {
-    if (checkId(idValue)) {
-      axios
-        .post(URL_CHECK_USER, {
-          account: idValue,
-        })
-        .then((res) => {
-          alert('사용 가능한 아이디입니다.😀');
-          setIdCheckDuplicate(true);
-        })
-        .catch((err) => {
-          alert('이미 존재하는 아이디입니다.😅');
-          setIdValue('');
-        });
-    } else {
-      alert('아이디를 바르게 입력해주세요.🥺');
-    }
+    checkUser('id', idValue, setIdCheckDuplicate, setIdValue);
   };
 
   const checkSignUp = () => {

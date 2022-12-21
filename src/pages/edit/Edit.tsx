@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Create from '../../components/write/Write';
 import { DetailFeedDataType } from '../../utils/interface';
-import { getCategory } from '../../utils/function';
-import { CATEGORY } from '../../utils/constant';
-import { URL_GET_DETAIL_POST } from '../../utils/url';
+import { URL_GET_DETAIL_POST } from '../../api/url';
 
 const Edit = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType>();
