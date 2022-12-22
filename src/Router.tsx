@@ -13,7 +13,6 @@ import LoadingLogin from './pages/signup/LoadingLogin';
 import Create from './pages/create/Create';
 import Detail from './pages/main/Detail';
 import Search from './pages/search/Search';
-import Category from './pages/category/Category';
 import Edit from './pages/edit/Edit';
 import MyPage from './pages/mypage/MyPage';
 import Dock from './components/Dock';
@@ -54,7 +53,7 @@ const Router = () => {
               <Route path='/create' element={<Create />} />
               <Route path='/main/:id' element={<Detail />} />
               <Route path='/search' element={<Search />} />
-              <Route path='/search/category' element={<Category />} />
+              <Route path='/search/category' element={<Search />} />
               <Route path='/edit/:id' element={<Edit />} />
               <Route path='/mypage' element={<MyPage getToken={getToken} />} />
               <Route path='/mypage/nickname' element={<MyNickname />} />

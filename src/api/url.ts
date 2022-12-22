@@ -30,8 +30,36 @@ export const URL_DELETE_COMMENT = (
 ) => `http://localhost:8000/posts/${postId}/${commentId}`;
 
 // search
+export const URL_SEARCH = (text: string) => {
+  return `http://localhost:8000/search?q=${text}`;
+};
+
 export const URL_SEARCH_USER = (text: string) => {
   return `http://localhost:8000/search/user?q=${text}`;
+};
+
+export const URL_SEARCH_CATEGORY = (category: string) => {
+  let text = 0;
+  switch (category) {
+    case '오늘먹은것':
+      text = 1;
+      break;
+    case '오늘기분':
+      text = 2;
+      break;
+    case '오늘소비':
+      text = 3;
+      break;
+    case '오늘잡담':
+      text = 4;
+      break;
+    case '오늘아무거나':
+      text = 5;
+      break;
+    default:
+      text = 0;
+  }
+  return `http://localhost:8000/search?category=${text}`;
 };
 
 // mypage
