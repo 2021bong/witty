@@ -55,12 +55,10 @@ export const uploadPhotos = (
     formData.append('file', photos[i].file);
     formData.append(
       'upload_preset',
-      import.meta.env.VITE_CLOUDINARY_UNSIGINED_KEY
+      import.meta.env.VITE_CLOUDINARY_PRESET_KEY
     );
-    formData.append('api_key', import.meta.env.VITE_CLOUDINARY_API_KEY);
-    formData.append('timestamp', Date.now().toString());
 
-    fetch(import.meta.env.VITE_CLOUDINARY_URL_UPLOAD, {
+    fetch(import.meta.env.VITE_CLOUDINARY_UPLOAD_URL, {
       method: 'POST',
       body: formData,
     })

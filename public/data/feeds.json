@@ -11,7 +11,8 @@
       "is_liked": null,
       "is_marked": null,
       "images": null,
-      "is_owner": true
+      "is_owner": true,
+      "post_id": 1
     },
     {
       "id": 2,
@@ -29,7 +30,8 @@
         "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg",
         "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg"
       ],
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 2
     },
     {
       "id": 3,
@@ -44,7 +46,8 @@
       "is_owner": true,
       "images": [
         "https://pds.joongang.co.kr/news/component/joongang_sunday/202104/05/2436b8aa-188d-46aa-9578-b8f118f9ca13.jpg"
-      ]
+      ],
+      "post_id": 3
     },
     {
       "id": 4,
@@ -57,7 +60,8 @@
       "is_liked": null,
       "is_marked": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 4
     },
     {
       "id": 5,
@@ -70,7 +74,8 @@
       "is_liked": 1,
       "is_marked": 0,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 5
     },
     {
       "id": 6,
@@ -81,7 +86,8 @@
       "count_likes": 0,
       "count_comments": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 6
     },
     {
       "id": 7,
@@ -92,7 +98,8 @@
       "count_likes": 32,
       "count_comments": 0,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 7
     },
     {
       "id": 8,
@@ -101,7 +108,8 @@
       "content": "오늘 오후 4시에 세션 있습니다~모두들 화이팅~~~~~문의사항이 있다면 디엠주세요!",
       "created_at": "2022/11/29",
       "count_likes": 25,
-      "count_comments": 3
+      "count_comments": 3,
+      "post_id": 8
     },
     {
       "id": 9,
@@ -114,7 +122,8 @@
       "is_liked": 1,
       "is_marked": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 9
     },
     {
       "id": 10,
@@ -127,7 +136,8 @@
       "is_liked": 0,
       "is_marked": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 10
     },
     {
       "id": 11,
@@ -140,7 +150,8 @@
       "is_liked": 1,
       "is_marked": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 11
     },
     {
       "id": 12,
@@ -153,7 +164,8 @@
       "is_liked": 1,
       "is_marked": 1,
       "images": null,
-      "is_owner": false
+      "is_owner": false,
+      "post_id": 12
     }
   ]
 }
