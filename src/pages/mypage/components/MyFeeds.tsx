@@ -7,22 +7,23 @@ import { BsHeartFill, BsHeart, BsChat } from 'react-icons/bs';
 
 import { MainFeedStateType } from '../../../utils/interface';
 import { URL_MYPAGE_POSTS } from '../../../api/url';
+import { getTime } from '../../../utils/function';
 
 const MyFeeds = () => {
   const [myFeeds, setMyFeeds] = useState<MainFeedStateType[] | undefined>();
 
   useEffect(() => {
-    axios
-      .get('../data/feeds.json')
-      .then((res) => setMyFeeds(res.data.feeds))
-      .catch((err) => console.log(err));
-
     // axios
-    //   .get(URL_MYPAGE_POSTS, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => setMyFeeds(res.data))
+    //   .get('../data/feeds.json')
+    //   .then((res) => setMyFeeds(res.data.feeds))
     //   .catch((err) => console.log(err));
+
+    axios
+      .get(URL_MYPAGE_POSTS, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => setMyFeeds(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -48,7 +49,9 @@ const MyFeeds = () => {
                   {!!feed.count_likes ? (
                     <p>
                       <BsHeartFill className='heart icon' />
-                      {feed.count_likes}
+                      {feed.count_likes
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     </p>
                   ) : (
                     <p>
@@ -58,10 +61,14 @@ const MyFeeds = () => {
                   )}
                   <p>
                     <BsChat className='icon' />
-                    {feed.count_comments}
+                    {!!feed.count_comments
+                      ? feed.count_comments
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                      : feed.count_comments}
                   </p>
                 </div>
-                <p className='date'>{feed.created_at}</p>
+                <p className='date'>{getTime(feed.created_at)}</p>
               </Link>
             </li>
           ))}
@@ -108,6 +115,7 @@ const Container = styled.div`
       justify-content: space-between;
       margin: 0 0 10px 0;
       padding-top: 20px;
+      color: ${({ theme }) => theme.text};
 
       .content {
         width: 80%;
@@ -125,10 +133,12 @@ const Container = styled.div`
     .reactionBox {
       display: flex;
       margin-bottom: 10px;
+      color: ${({ theme }) => theme.text};
 
       .heart {
         color: ${({ theme }) => theme.mainColor};
       }
+
       p:first-child {
         margin-right: 10px;
       }

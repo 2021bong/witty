@@ -32,6 +32,14 @@ const Nickname = () => {
   }, []);
 
   const handleSubmit = () => {
+    if (!textValue.length) {
+      alert('닉네임을 입력해주세요. 😢');
+      return;
+    }
+    if (textValue.length > 8) {
+      alert('닉네임은 8자까지 가능합니다. 🥺');
+      return;
+    }
     axios
       .patch(
         URL_MYPAGE_NAME,
@@ -61,6 +69,7 @@ const Nickname = () => {
           value={textValue}
           onChange={handleWriteText}
           placeholder='변경하실 닉네임을 적어주세요!'
+          required
         />
         {checkName(textValue) ? (
           <p className='true desc'>사용가능한 이름입니다.😀</p>

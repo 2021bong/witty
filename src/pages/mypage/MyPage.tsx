@@ -125,7 +125,7 @@ const Container = styled.div`
 
     .listBox {
       width: 100%;
-      padding: 30px 40px;
+      padding: 20px 40px;
       border-bottom: 1px solid ${({ theme }) => theme.border};
 
       &:last-child {

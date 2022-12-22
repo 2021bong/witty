@@ -25,6 +25,12 @@ export interface BookmarkType {
   count_comments: number;
 }
 
+export interface SearchUseType {
+  id: number;
+  account: number;
+  nickname: string;
+}
+
 export type SetArrState = (
   setState: SetStateAction<DetailCommentType[] | undefined>
 ) => void;

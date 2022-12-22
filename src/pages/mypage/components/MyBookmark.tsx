@@ -19,17 +19,17 @@ const MyFeeds = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get('../data/feeds.json')
-      .then((res) => setmyBookmarks(res.data.feeds))
-      .catch((err) => console.log(err));
-
     // axios
-    //   .get(URL_MYPAGE_BOOKMARKS, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => setmyBookmarks(res.data))
+    //   .get('../data/feeds.json')
+    //   .then((res) => setmyBookmarks(res.data.feeds))
     //   .catch((err) => console.log(err));
+
+    axios
+      .get(URL_MYPAGE_BOOKMARKS, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => setmyBookmarks(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   const handleMoveDetail = (e: MouseEvent) => {
@@ -45,17 +45,17 @@ const MyFeeds = () => {
   ) => {
     handleSavePost(setSave, e.currentTarget.id);
 
-    await axios
-      .get('../data/feeds.json')
-      .then((res) => setmyBookmarks(res.data.feeds))
-      .catch((err) => console.log(err));
-
     // await axios
-    //   .get(URL_MYPAGE_BOOKMARKS, {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => setmyBookmarks(res.data))
+    //   .get('../data/feeds.json')
+    //   .then((res) => setmyBookmarks(res.data.feeds))
     //   .catch((err) => console.log(err));
+
+    await axios
+      .get(URL_MYPAGE_BOOKMARKS, {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => setmyBookmarks(res.data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -88,7 +88,9 @@ const MyFeeds = () => {
                     {!!feed.count_likes ? (
                       <p>
                         <BsHeartFill className='heart icon' />
-                        {feed.count_likes}
+                        {feed.count_likes
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       </p>
                     ) : (
                       <p>
@@ -98,7 +100,9 @@ const MyFeeds = () => {
                     )}
                     <p>
                       <BsChat className='icon' />
-                      {feed.count_comments}
+                      {feed.count_comments
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     </p>
                   </div>
                   <BsFillBookmarkFill
@@ -160,6 +164,7 @@ const Container = styled.div`
 
       .content {
         width: 80%;
+        color: ${({ theme }) => theme.text};
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -188,6 +193,7 @@ const Container = styled.div`
       .heart {
         color: ${({ theme }) => theme.mainColor};
       }
+
       p:first-child {
         margin-right: 10px;
       }

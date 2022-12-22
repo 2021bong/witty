@@ -7,11 +7,17 @@ import {
   URL_SEARCH_USER,
   URL_SEARCH_CATEGORY,
 } from '../../api/url';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingLogin from '../signup/LoadingLogin';
+import Feed from '../../components/Feed';
+import { MainFeedStateType, SearchUseType } from '../../utils/interface';
+import { getTime } from '../../utils/function';
 
 const Search = () => {
-  const [searchData, setSearchData] = useState();
+  const [searchFeeds, setSearchFeeds] = useState<
+    MainFeedStateType[] | undefined
+  >();
+  const [searchUsers, setSearchUsers] = useState<SearchUseType[] | undefined>();
   const [textValue, setTextValue] = useState('');
   const [tabMenu, setTabMenu] = useState([
     {
@@ -30,7 +36,10 @@ const Search = () => {
       selected: false,
     },
   ]);
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const [posts, user, cate] = tabMenu;
 
   useEffect(() => {
     if (location.pathname === '/search/category') {
@@ -42,15 +51,24 @@ const Search = () => {
         )
       );
       axios
-        .get(URL_SEARCH_CATEGORY(textValue))
-        .then((res) => setSearchData(res.data))
+        .get(URL_SEARCH_CATEGORY(textValue), {
+          headers: { Authorization: localStorage.getItem('token') },
+        })
+        .then((res) => setSearchFeeds(res.data))
         .catch((err) => console.log(err));
       return;
     }
 
+    if (!textValue) return;
+
     axios
-      .get(URL_SEARCH(textValue))
-      .then((res) => setSearchData(res.data))
+      .get(URL_SEARCH(textValue), {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSearchFeeds(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -69,12 +87,47 @@ const Search = () => {
     );
   };
 
-  useEffect(() => {}, [tabMenu]);
+  useEffect(() => {
+    if (!cate.selected) {
+      navigate('/search');
+    }
+  }, [tabMenu]);
 
   const handleSearch = () => {
+    if (user.selected) {
+      axios
+        .get(URL_SEARCH_USER(textValue), {
+          headers: { Authorization: localStorage.getItem('token') },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setSearchUsers(res.data);
+        })
+        .catch((err) => console.log(err));
+      return;
+    }
+
+    if (cate.selected) {
+      axios
+        .get(URL_SEARCH_CATEGORY(textValue), {
+          headers: { Authorization: localStorage.getItem('token') },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setSearchFeeds(res.data);
+        })
+        .catch((err) => console.log(err));
+      return;
+    }
+
     axios
-      .get(URL_SEARCH_USER(textValue))
-      .then((res) => setSearchData(res.data))
+      .get(URL_SEARCH(textValue), {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSearchFeeds(res.data);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -103,7 +156,55 @@ const Search = () => {
           </li>
         ))}
       </ul>
-      <ul></ul>
+      {posts.selected && (
+        <div>
+          {searchFeeds?.map((data) => (
+            <Feed
+              key={data.id}
+              id={data.id}
+              nickname={data.nickname}
+              category={data.category}
+              content={data.content}
+              time={getTime(data.created_at)}
+              like={data.count_likes}
+              comment={data.count_comments}
+              isLiked={data.is_liked}
+              isSaved={data.is_marked}
+              owner={data.is_owner}
+              images={data.images}
+              setFeeds={setSearchFeeds}
+            />
+          ))}
+        </div>
+      )}
+      {user.selected &&
+        searchUsers?.map((data) => (
+          <div key={data.id}>
+            <p>{data.nickname}</p>
+            <p>{data.account}</p>
+          </div>
+        ))}
+      {cate.selected && (
+        <div>
+          {searchFeeds?.map((data) => (
+            <Feed
+              key={data.id}
+              id={data.id}
+              nickname={data.nickname}
+              category={data.category}
+              content={data.content}
+              time={getTime(data.created_at)}
+              like={data.count_likes}
+              comment={data.count_comments}
+              isLiked={data.is_liked}
+              isSaved={data.is_marked}
+              owner={data.is_owner}
+              images={data.images}
+              setFeeds={setSearchFeeds}
+            />
+          ))}
+        </div>
+      )}
     </Container>
   );
 };
@@ -112,6 +213,7 @@ export default Search;
 
 const Container = styled.div`
   width: 100%;
+  overflow: scroll;
 
   .formContainer {
     width: 80%;
