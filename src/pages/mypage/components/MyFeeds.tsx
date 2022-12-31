@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { IoMdPhotos } from 'react-icons/io';
 import { BsHeartFill, BsHeart, BsChat } from 'react-icons/bs';
 
+import Feed from '../../../components/Feed';
 import { MainFeedStateType } from '../../../utils/interface';
 import { URL_MYPAGE_POSTS } from '../../../api/url';
 import { getTime } from '../../../utils/function';
@@ -31,46 +32,22 @@ const MyFeeds = () => {
       <h4>내 게시글</h4>
       {myFeeds && (
         <ul>
-          {myFeeds.map((feed) => (
-            <li className='listBox' key={feed.id}>
-              <div>
-                {feed.category?.map((cate) => (
-                  <Link to='/search/category' key={cate}>
-                    <span className='category'>{'#' + cate}</span>
-                  </Link>
-                ))}
-              </div>
-              <Link to={`/main/${feed.id}`}>
-                <div className='contentBox'>
-                  <p className='content'>{feed.content}</p>
-                  {feed.images ? <IoMdPhotos className='photo icon' /> : null}
-                </div>
-                <div className='reactionBox'>
-                  {!!feed.count_likes ? (
-                    <p>
-                      <BsHeartFill className='heart icon' />
-                      {feed.count_likes
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </p>
-                  ) : (
-                    <p>
-                      <BsHeart className='icon' />
-                      {feed.count_likes}
-                    </p>
-                  )}
-                  <p>
-                    <BsChat className='icon' />
-                    {!!feed.count_comments
-                      ? feed.count_comments
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                      : feed.count_comments}
-                  </p>
-                </div>
-                <p className='date'>{getTime(feed.created_at)}</p>
-              </Link>
-            </li>
+          {myFeeds?.map((el) => (
+            <Feed
+              key={el.id}
+              id={el.id}
+              nickname={el.nickname}
+              category={el.category}
+              content={el.content}
+              time={el.created_at}
+              like={el.count_likes}
+              comment={el.count_comments}
+              isLiked={el.is_liked}
+              isSaved={el.is_marked}
+              owner={el.is_owner}
+              images={el.images}
+              setFeeds={setMyFeeds}
+            />
           ))}
         </ul>
       )}

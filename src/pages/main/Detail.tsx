@@ -16,6 +16,7 @@ import {
   getDetailTime,
   handleIconcolor,
   goEditMode,
+  AddComma,
 } from '../../utils/function';
 import {
   removePost,
@@ -241,7 +242,7 @@ const Detail = () => {
                         onClick={() => handleLikeComment(setCommentData, el.id)}
                       />
                     )}
-                    <span>{el.count_likes}</span>
+                    <span>{AddComma(el.count_likes)}</span>
                     {el.is_owner && (
                       <AiFillDelete
                         className='delete'

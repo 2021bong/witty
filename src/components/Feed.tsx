@@ -10,7 +10,7 @@ import {
   BsBookmark,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
-import { goEditMode } from '../utils/function';
+import { AddComma, goEditMode } from '../utils/function';
 import { removePost, handleSavePost } from '../api/communicate';
 import { FeedProps } from '../utils/interface';
 import { URL_PATCH_POST_LIKE } from '../api/url';
@@ -94,17 +94,11 @@ const Feed = ({
         <div className='interactionContainer'>
           <div className='heartBox' onClick={handleLikeHeart}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
-            <span>
-              {like ? like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0}
-            </span>
+            <span>{like ? AddComma(like) : 0}</span>
           </div>
           <div>
             <BsChat />
-            <span>
-              {comment
-                ? comment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                : 0}
-            </span>
+            <span>{comment ? AddComma(comment) : 0}</span>
           </div>
         </div>
         <div className='rightIconBox'>
