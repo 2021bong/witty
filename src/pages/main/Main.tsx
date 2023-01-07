@@ -65,6 +65,7 @@ const Main = () => {
 export default Main;
 
 const Container = styled.div`
+  width: 100%;
   overflow: scroll;
   margin-bottom: 80px;
 

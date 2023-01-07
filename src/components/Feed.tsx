@@ -77,19 +77,23 @@ const Feed = ({
           <p className='time'>{time}</p>
         </div>
         <p className='content'>{content}</p>
-      </Link>
-      {images && (
         <div className='photoContainer'>
-          {images?.map((url, i) => (
-            <img
-              key={url + i}
-              alt={`photo${i + 1}}`}
-              src={url}
-              className='photo'
-            />
-          ))}
+          {images && (
+            <div
+              className={images.length >= 3 ? 'longPhotoBox' : 'shortPhotoBox'}
+            >
+              {images?.map((url, i) => (
+                <img
+                  key={url + i}
+                  alt={`photo${i + 1}}`}
+                  src={url}
+                  className='photo'
+                />
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </Link>
       <div className='reactionContainer'>
         <div className='interactionContainer'>
           <div className='heartBox' onClick={handleLikeHeart}>
@@ -131,6 +135,7 @@ export default Feed;
 
 const Container = styled.div`
   width: 100%;
+  padding: 0 20px;
   border-bottom: 1px solid ${({ theme }) => theme.border};
   color: ${({ theme }) => theme.text};
 
@@ -141,7 +146,6 @@ const Container = styled.div`
   .categoryContainer {
     display: flex;
     margin: 15px 0;
-    padding-left: 20px;
 
     .goCategory {
       margin: 0;
@@ -160,8 +164,9 @@ const Container = styled.div`
 
   a {
     display: block;
-    padding: 0 20px;
+    margin-bottom: 20px;
     color: ${({ theme }) => theme.text};
+    overflow-x: scroll;
 
     .info {
       display: flex;
@@ -183,25 +188,41 @@ const Container = styled.div`
       margin-bottom: 10px;
       line-height: 1.2rem;
     }
-  }
 
-  .photoContainer {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    margin-bottom: 20px;
-    overflow-x: scroll;
-    transform: translateX(20px);
+    .photoContainer {
+      overflow-x: scroll;
+      width: 100%;
 
-    .photo {
-      width: 40%;
-      height: 120px;
-      border: 1px solid ${({ theme }) => theme.border};
-      border-radius: 10px;
-      margin-right: 10px;
+      .longPhotoBox {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 140%;
 
-      &:last-child {
-        margin-right: 0;
+        .photo {
+          width: 40%;
+        }
+      }
+
+      .shortPhotoBox {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .photo {
+          width: 50%;
+        }
+      }
+
+      .photo {
+        height: 120px;
+        border: 1px solid ${({ theme }) => theme.border};
+        border-radius: 10px;
+        margin-right: 10px;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }
@@ -210,7 +231,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 20px 20px 20px;
+    padding-bottom: 20px;
 
     .rightIconBox {
       display: flex;

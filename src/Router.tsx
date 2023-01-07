@@ -79,10 +79,9 @@ const Container = styled.div`
     isLogin ? 'space-between' : 'center'};
   align-items: center;
   width: 100%;
-  height: 90vh;
-  min-height: 600px;
+  height: 95vh;
   max-width: 500px;
-  margin: 50px auto;
+  margin: 20px auto;
   padding: ${({ isLogin }: { isLogin: boolean }) =>
     isLogin ? '2rem' : '3rem'};
   border: 1px solid #ddd;
