@@ -201,7 +201,10 @@ const Detail = () => {
                 {feedData.is_owner && (
                   <AiFillDelete
                     className='delete'
-                    onClick={() => removePost(param)}
+                    onClick={() => {
+                      removePost(param);
+                      navigate('/');
+                    }}
                   />
                 )}
               </div>

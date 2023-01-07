@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Greeting from '../../components/Greeting';
 import Feed from '../../components/Feed';
 import { MainFeedStateType } from '../../utils/interface';
-import { getTime } from '../../utils/function';
-import { URL_GET_MAIN_POSTS } from '../../api/url';
+import { getAllPosts } from '../../api/communicate';
 
 const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
-  let limit = 12;
   let offset = 0;
 
   useEffect(() => {
@@ -19,16 +16,7 @@ const Main = () => {
     //   setFeeds(res.data.feeds);
     // });
 
-    axios
-      .get(URL_GET_MAIN_POSTS(limit, offset), {
-        headers: { Authorization: localStorage.getItem('token') },
-      })
-      .then((res) => {
-        const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
-          return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
-        });
-        setFeeds(dataForState);
-      });
+    getAllPosts(setFeeds, offset);
   }, []);
 
   return (

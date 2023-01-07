@@ -1,6 +1,6 @@
 // posts
-export const URL_GET_MAIN_POSTS = (limit: number, offset: number) =>
-  `http://localhost:8000/posts?limit=${limit}&offset=${offset}`;
+export const URL_GET_MAIN_POSTS = (offset: number) =>
+  `http://localhost:8000/posts?offset=${offset}`;
 
 export const URL_GET_DETAIL_POST = (postId: string | undefined) =>
   `http://localhost:8000/posts/${postId}`;

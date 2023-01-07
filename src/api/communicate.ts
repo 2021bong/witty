@@ -1,15 +1,20 @@
 import axios from 'axios';
-import { SetArrState } from '../utils/interface';
+import { MainFeedStateType, SetArrState } from '../utils/interface';
 import { checkEmail, checkId } from '../utils/validation';
 import {
   URL_CHECK_USER,
+  URL_GET_MAIN_POSTS,
   URL_DELETE_POST,
   URL_PATCH_COMMENT_LIKE,
   URL_SAVE_POST,
 } from './url';
+import { getTime } from '../utils/function';
 
 type setIdValue = (value: React.SetStateAction<string>) => void;
 type SetDuplicate = (value: React.SetStateAction<boolean>) => void;
+type SetFeeds = (
+  value: React.SetStateAction<MainFeedStateType[] | undefined>
+) => void;
 
 export const checkUser = (
   type: string,
@@ -44,9 +49,22 @@ export const checkUser = (
   }
 };
 
-export const removePost = (id: number | string | undefined) => {
+export const getAllPosts = async (setFeeds: SetFeeds, offset: number) => {
+  await axios
+    .get(URL_GET_MAIN_POSTS(offset), {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
+    .then((res) => {
+      const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
+        return { ...feedInfo, created_at: getTime(feedInfo.created_at) };
+      });
+      setFeeds(dataForState);
+    });
+};
+
+export const removePost = async (id: number | string | undefined) => {
   if (confirm('정말로 삭제하실 건가요?😭')) {
-    axios
+    await axios
       .delete(URL_DELETE_POST(id), {
         headers: { Authorization: localStorage.getItem('token') },
       })

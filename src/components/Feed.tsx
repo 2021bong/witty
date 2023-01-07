@@ -11,7 +11,7 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 import { AddComma, goEditMode } from '../utils/function';
-import { removePost, handleSavePost } from '../api/communicate';
+import { getAllPosts, removePost, handleSavePost } from '../api/communicate';
 import { FeedProps } from '../utils/interface';
 import { URL_PATCH_POST_LIKE } from '../api/url';
 
@@ -60,6 +60,10 @@ const Feed = ({
         });
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleRefreshMain = async () => {
+    await getAllPosts(setFeeds, 0);
   };
 
   return (
@@ -117,7 +121,13 @@ const Feed = ({
             />
           )}
           {owner && (
-            <AiFillDelete className='delete' onClick={() => removePost(id)} />
+            <AiFillDelete
+              className='delete'
+              onClick={async () => {
+                await removePost(id);
+                await handleRefreshMain();
+              }}
+            />
           )}
           {save ? (
             <BsFillBookmarkFill
