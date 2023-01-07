@@ -36,7 +36,7 @@ const Detail = () => {
   const [commentData, setCommentData] = useState<
     DetailCommentType[] | undefined
   >();
-  const [countLikes, setCountLikes] = useState<number | undefined>();
+  const [countLikes, setCountLikes] = useState<number>();
   const [heart, setHeart] = useState(false);
   const [save, setSave] = useState(false);
   const [commentValue, setCommentValue] = useState('');
@@ -59,8 +59,8 @@ const Detail = () => {
         setFeedData(res.data.post);
         setCommentData(res.data.comments);
         setCountLikes(res.data.post.count_likes);
-        setSave(res.data.post.is_marked || false);
-        setHeart(res.data.post.is_liked || false);
+        setSave(!!res.data.post.is_marked || false);
+        setHeart(!!res.data.post.is_liked || false);
       });
   }, []);
 
@@ -86,8 +86,8 @@ const Detail = () => {
 
   const handleLikeHeart = () => {
     heart
-      ? setCountLikes((prev) => prev && prev - 1)
-      : setCountLikes((prev) => prev && prev + 1);
+      ? setCountLikes((prev) => (prev || 1) - 1)
+      : setCountLikes((prev) => (prev || 0) + 1);
 
     axios
       .patch(

@@ -98,7 +98,11 @@ const Feed = ({
         <div className='interactionContainer'>
           <div className='heartBox' onClick={handleLikeHeart}>
             {heart ? <BsHeartFill className='checked' /> : <BsHeart />}
-            <span>{like ? AddComma(like) : 0}</span>
+            {heart ? (
+              <span>{like ? AddComma(like) : 1}</span>
+            ) : (
+              <span>{like ? AddComma(like - 1) : 0}</span>
+            )}
           </div>
           <div>
             <BsChat />
