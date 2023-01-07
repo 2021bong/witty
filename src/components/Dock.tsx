@@ -39,6 +39,15 @@ const Dock = () => {
         )
       );
     }
+    if (locate.pathname.includes('/mypage')) {
+      setDockState((prev: DockState[]) =>
+        prev.map((dock) =>
+          dock.id === 'mypage'
+            ? { id: dock.id, selected: true }
+            : { id: dock.id, selected: false }
+        )
+      );
+    }
   }, [locate]);
 
   return (

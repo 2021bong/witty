@@ -61,61 +61,67 @@ const MyFeeds = () => {
   return (
     <Container>
       <h4>북마크</h4>
-      {myBookmarks && (
-        <ul>
-          {myBookmarks.map((feed) => (
-            <li className='listBox' key={feed.post_id}>
-              <div>
-                {feed.category?.map((cate) => (
-                  <Link to='/search/category' key={cate}>
-                    <span className='category' key={cate}>
-                      {'#' + cate}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-              <div
-                className='linkBox'
-                id={feed.post_id.toString()}
-                onClick={handleMoveDetail}
-              >
-                <div className='contentBox'>
-                  <p className='content'>{feed.content}</p>
-                  {feed.images ? <IoMdPhotos className='photo icon' /> : null}
+      <div className='wrapContainer'>
+        {myBookmarks && myBookmarks.length > 0 ? (
+          <ul>
+            {myBookmarks.map((feed) => (
+              <li className='listBox' key={feed.post_id}>
+                <div>
+                  {feed.category?.map((cate) => (
+                    <Link to='/search/category' key={cate}>
+                      <span className='category' key={cate}>
+                        {'#' + cate}
+                      </span>
+                    </Link>
+                  ))}
                 </div>
-                <div className='reactionBox'>
-                  <div className='likesAndComments'>
-                    {!!feed.count_likes ? (
+                <div
+                  className='linkBox'
+                  id={feed.post_id.toString()}
+                  onClick={handleMoveDetail}
+                >
+                  <div className='contentBox'>
+                    <p className='content'>{feed.content}</p>
+                    {feed.images ? <IoMdPhotos className='photo icon' /> : null}
+                  </div>
+                  <div className='reactionBox'>
+                    <div className='likesAndComments'>
+                      {!!feed.count_likes ? (
+                        <p>
+                          <BsHeartFill className='heart icon' />
+                          {feed.count_likes
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        </p>
+                      ) : (
+                        <p>
+                          <BsHeart className='icon' />
+                          {feed.count_likes}
+                        </p>
+                      )}
                       <p>
-                        <BsHeartFill className='heart icon' />
-                        {feed.count_likes
+                        <BsChat className='icon' />
+                        {feed.count_comments
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       </p>
-                    ) : (
-                      <p>
-                        <BsHeart className='icon' />
-                        {feed.count_likes}
-                      </p>
-                    )}
-                    <p>
-                      <BsChat className='icon' />
-                      {feed.count_comments
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </p>
+                    </div>
+                    <BsFillBookmarkFill
+                      id={feed.post_id.toString()}
+                      className='bookmark icon'
+                      onClick={handleUnsaveBookmark}
+                    />
                   </div>
-                  <BsFillBookmarkFill
-                    id={feed.post_id.toString()}
-                    className='bookmark icon'
-                    onClick={handleUnsaveBookmark}
-                  />
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className='noData'>
+            <p>저장한 북마크가 없습니다.</p>
+          </div>
+        )}
+      </div>
     </Container>
   );
 };
@@ -124,7 +130,9 @@ export default MyFeeds;
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   margin-bottom: 100px;
+  padding: 0 20px;
   overflow: scroll;
 
   h4 {
@@ -134,75 +142,90 @@ const Container = styled.div`
     text-align: center;
   }
 
-  .listBox {
-    padding: 20px 0;
-    border-bottom: 1px solid ${({ theme }) => theme.border};
+  .wrapContainer {
+    width: 100%;
+    height: 85%;
 
-    &:last-child {
-      border-bottom: none;
-    }
+    .listBox {
+      padding: 20px 0;
+      border-bottom: 1px solid ${({ theme }) => theme.border};
 
-    .category {
-      display: inline-block;
-      margin-right: 5px;
-      padding: 5px;
-      border-radius: 5px;
-      background-color: ${({ theme }) => theme.mainColor2};
-      color: #fff;
-    }
-
-    .linkBox {
-      cursor: pointer;
-    }
-
-    .contentBox {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin: 0 0 10px 0;
-      padding-top: 20px;
-
-      .content {
-        width: 80%;
-        color: ${({ theme }) => theme.text};
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      &:last-child {
+        border-bottom: none;
       }
 
-      .photo {
-        margin: 0;
-        color: ${({ theme }) => theme.mainColor2};
+      .category {
+        display: inline-block;
+        margin-right: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: ${({ theme }) => theme.mainColor2};
+        color: #fff;
       }
-    }
 
-    .reactionBox {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      .linkBox {
+        cursor: pointer;
+      }
 
-      .likesAndComments {
+      .contentBox {
+        width: 100%;
         display: flex;
+        justify-content: space-between;
+        margin: 0 0 10px 0;
+        padding-top: 20px;
+
+        .content {
+          width: 80%;
+          color: ${({ theme }) => theme.text};
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .photo {
+          margin: 0;
+          color: ${({ theme }) => theme.mainColor2};
+        }
       }
 
-      .bookmark {
-        transform: translate(4px, 3px);
-        color: ${({ theme }) => theme.mainColor};
+      .reactionBox {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .likesAndComments {
+          display: flex;
+        }
+
+        .bookmark {
+          transform: translate(4px, 3px);
+          color: ${({ theme }) => theme.mainColor};
+        }
+
+        .heart {
+          color: ${({ theme }) => theme.mainColor};
+        }
+
+        p:first-child {
+          margin-right: 10px;
+        }
       }
 
-      .heart {
-        color: ${({ theme }) => theme.mainColor};
-      }
-
-      p:first-child {
-        margin-right: 10px;
+      .icon {
+        margin-right: 5px;
+        font-size: 1.2rem;
+        transform: translateY(3px);
       }
     }
 
-    .icon {
-      margin-right: 5px;
-      font-size: 1.2rem;
-      transform: translateY(3px);
+    .noData {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: ${({ theme }) => theme.subText};
+      font-size: 1rem;
     }
   }
 `;
