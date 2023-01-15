@@ -10,7 +10,7 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 
-import Greeting from '../../components/Greeting';
+import Greeting from '../../components/common/Greeting';
 import { DetailFeedDataType, DetailCommentType } from '../../utils/interface';
 import {
   getDetailTime,

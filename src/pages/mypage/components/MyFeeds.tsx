@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { IoMdPhotos } from 'react-icons/io';
-import { BsHeartFill, BsHeart, BsChat } from 'react-icons/bs';
 
-import Feed from '../../../components/Feed';
+import Feed from '../../../components/common/Feed';
 import { MainFeedStateType } from '../../../utils/interface';
 import { URL_MYPAGE_POSTS } from '../../../api/url';
 import { getTime } from '../../../utils/function';

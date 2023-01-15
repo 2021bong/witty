@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import Greeting from '../../components/Greeting';
-import Feed from '../../components/Feed';
+import Greeting from '../../components/common/Greeting';
+import Feed from '../../components/common/Feed';
 import { MainFeedStateType } from '../../utils/interface';
 import { getAllPosts } from '../../api/communicate';
 

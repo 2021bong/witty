@@ -15,7 +15,7 @@ import Detail from './pages/main/Detail';
 import Search from './pages/search/Search';
 import Edit from './pages/edit/Edit';
 import MyPage from './pages/mypage/MyPage';
-import Dock from './components/Dock';
+import Dock from './components/common/Dock';
 import MyNickname from './pages/mypage/components/MyNickname';
 import MyFeeds from './pages/mypage/components/MyFeeds';
 import MyBookmark from './pages/mypage/components/MyBookmark';

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
-import Greeting from '../Greeting';
+import Greeting from '../common/Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
 import { PhotosType, WriteProps } from '../../utils/interface';

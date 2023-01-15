@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GreetingProps } from '../utils/interface';
+import { GreetingProps } from '../../utils/interface';
 
 const Greeting = ({ text }: GreetingProps) => <Container>{text}</Container>;
 

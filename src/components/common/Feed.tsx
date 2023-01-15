@@ -10,10 +10,10 @@ import {
   BsBookmark,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
-import { AddComma, goEditMode } from '../utils/function';
-import { getAllPosts, removePost, handleSavePost } from '../api/communicate';
-import { FeedProps } from '../utils/interface';
-import { URL_PATCH_POST_LIKE } from '../api/url';
+import { AddComma, goEditMode } from '../../utils/function';
+import { getAllPosts, removePost, handleSavePost } from '../../api/communicate';
+import { FeedProps } from '../../utils/interface';
+import { URL_PATCH_POST_LIKE } from '../../api/url';
 
 const Feed = ({
   id,

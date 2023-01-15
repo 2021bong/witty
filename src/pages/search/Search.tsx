@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
 import styled from 'styled-components';
-import Greeting from '../../components/Greeting';
+import Greeting from '../../components/common/Greeting';
 import {
   URL_SEARCH,
   URL_SEARCH_USER,
@@ -9,7 +9,7 @@ import {
 } from '../../api/url';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingLogin from '../signup/LoadingLogin';
-import Feed from '../../components/Feed';
+import Feed from '../../components/common/Feed';
 import { MainFeedStateType, SearchUseType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
 
