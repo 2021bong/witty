@@ -7,6 +7,9 @@ export const URL_GET_DETAIL_POST = (postId: string | undefined) =>
 
 export const URL_CREATE_POST = 'http://localhost:8000/posts';
 
+export const URL_EDIT_POST = (postId: string | undefined) =>
+  `http://localhost:8000/posts/update/${postId}`;
+
 export const URL_PATCH_POST_LIKE = (postId: string | number | undefined) =>
   `http://localhost:8000/posts/${postId}/like`;
 

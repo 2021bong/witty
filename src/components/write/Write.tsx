@@ -6,11 +6,17 @@ import { IoMdPhotos } from 'react-icons/io';
 import Greeting from '../common/Greeting';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import { PhotosType, WriteProps } from '../../utils/interface';
+import {
+  CreatePhoto,
+  EditPhoto,
+  PhotosType,
+  WriteProps,
+} from '../../utils/interface';
 import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
 import { getCategory, setColor } from '../../utils/function';
 import { useEffect } from 'react';
 import { createNewPost, uploadPhotos } from '../../api/createPost';
+import { modifyPost } from '../../api/modifyPost';
 
 const Write = ({ type, id, category, content, images }: WriteProps) => {
   const [textValue, setTextValue] = useState<string>('');
@@ -25,6 +31,13 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
       setTextValue(content || '');
       setCategorys(getCategory(category));
       setUnqPhotoIndex((prev) => prev + 1);
+      if (images) {
+        const imagesObj = images.map((url, i) => {
+          return { id: i + 1, previewUrl: url };
+        });
+        setPhotos(imagesObj);
+        setUnqPhotoIndex(images.length + 1);
+      }
     }, [content]);
   }
 
@@ -70,18 +83,36 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
 
   useEffect(() => {
     if (!!!uploadImgUrls.length) return;
-    if (photos.length === uploadImgUrls.length) {
-      createNewPost(textValue, categorys, navigate, type, uploadImgUrls);
+    if (type === 'create' && photos.length === uploadImgUrls.length) {
+      createNewPost(textValue, categorys, navigate, uploadImgUrls);
+    }
+    if (type === 'edit' && photos.length === uploadImgUrls.length) {
+      modifyPost(textValue, categorys, navigate, id, uploadImgUrls);
     }
   }, [uploadImgUrls]);
 
   const handleSubmit = () => {
-    if (textValue.length && !!photos.length) {
-      uploadPhotos(photos, setUploadImgUrls);
-    } else if (textValue.length) {
-      createNewPost(textValue, categorys, navigate, type);
+    if (type === 'create') {
+      if (textValue.length && !!photos.length) {
+        uploadPhotos(photos, setUploadImgUrls);
+      } else if (textValue.length) {
+        createNewPost(textValue, categorys, navigate);
+      } else {
+        alert('내용을 작성해 주세요!🥺');
+      }
     } else {
-      alert('내용을 작성해 주세요!🥺');
+      // 'edit'
+      if (photos[photos.length - 1].file) {
+        const changedPhoto: PhotosType = photos.filter((photo) => !!photo.file);
+        uploadPhotos(changedPhoto, setUploadImgUrls);
+      }
+      if (textValue.length) {
+        modifyPost(textValue, categorys, navigate, id, uploadImgUrls);
+      } else if (textValue.length) {
+        modifyPost(textValue, categorys, navigate, id);
+      } else {
+        alert('내용을 작성해 주세요!🥺');
+      }
     }
   };
 

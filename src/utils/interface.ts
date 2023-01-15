@@ -133,7 +133,8 @@ export interface CreatePhoto {
 
 export interface EditPhoto {
   id: number;
+  file?: string | Blob;
   previewUrl: string | null;
 }
 
-export type PhotosType = CreatePhoto[] | [];
+export type PhotosType = CreatePhoto[] | EditPhoto[] | [];

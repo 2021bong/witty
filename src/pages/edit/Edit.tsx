@@ -10,17 +10,17 @@ const Edit = () => {
   const param = useParams().id;
 
   useEffect(() => {
-    axios.get('../data/detail.json').then((res) => {
-      setFeedData(res.data.feeds[Number(param) - 1]);
-    });
+    // axios.get('../data/detail.json').then((res) => {
+    //   setFeedData(res.data.feeds[Number(param) - 1]);
+    // });
 
-    // axios
-    //   .get(URL_GET_DETAIL_POST(param), {
-    //     headers: { Authorization: localStorage.getItem('token') },
-    //   })
-    //   .then((res) => {
-    //     setFeedData(res.data[0]);
-    //   });
+    axios
+      .get(URL_GET_DETAIL_POST(param), {
+        headers: { Authorization: localStorage.getItem('token') },
+      })
+      .then((res) => {
+        setFeedData(res.data.post);
+      });
   }, []);
 
   return (
