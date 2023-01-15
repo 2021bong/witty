@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Greeting from '../../components/common/Greeting';
 import {
@@ -8,10 +9,10 @@ import {
   URL_SEARCH_CATEGORY,
 } from '../../api/url';
 import { useLocation, useNavigate } from 'react-router-dom';
-import LoadingLogin from '../signup/LoadingLogin';
 import Feed from '../../components/common/Feed';
 import { MainFeedStateType, SearchUseType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
+import { CATEGORY } from '../../utils/constant';
 
 const Search = () => {
   const [searchFeeds, setSearchFeeds] = useState<
@@ -27,19 +28,19 @@ const Search = () => {
     },
     {
       id: 2,
-      name: '유저',
+      name: '카테고리',
       selected: false,
     },
     {
       id: 3,
-      name: '카테고리',
+      name: '유저',
       selected: false,
     },
   ]);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [posts, user, cate] = tabMenu;
+  const [posts, cate, user] = tabMenu;
 
   useEffect(() => {
     if (location.pathname === '/search/category') {
@@ -85,6 +86,7 @@ const Search = () => {
           : { ...menu, selected: false }
       )
     );
+    setTextValue('');
   };
 
   useEffect(() => {
@@ -126,6 +128,25 @@ const Search = () => {
       })
       .then((res) => {
         console.log(res.data);
+        setSearchFeeds(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleSearchCategory = (e: MouseEvent) => {
+    const li = e.target as HTMLLIElement;
+    setTextValue(li.textContent || '');
+
+    axios
+      .get(
+        URL_SEARCH_CATEGORY(
+          li.textContent?.slice(1, li.textContent.length) ?? ''
+        ),
+        {
+          headers: { Authorization: localStorage.getItem('token') },
+        }
+      )
+      .then((res) => {
         setSearchFeeds(res.data);
       })
       .catch((err) => console.log(err));
@@ -177,13 +198,6 @@ const Search = () => {
           ))}
         </div>
       )}
-      {user.selected &&
-        searchUsers?.map((data) => (
-          <div key={data.id}>
-            <p>{data.nickname}</p>
-            <p>{data.account}</p>
-          </div>
-        ))}
       {cate.selected && (
         <div>
           {searchFeeds?.map((data) => (
@@ -203,8 +217,28 @@ const Search = () => {
               setFeeds={setSearchFeeds}
             />
           ))}
+          {!searchFeeds && (
+            <ul className='categoryContainer'>
+              {CATEGORY.map((cate) => (
+                <li
+                  key={cate.id}
+                  className='category'
+                  onClick={handleSearchCategory}
+                >
+                  {'#' + cate.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
+      {user.selected &&
+        searchUsers?.map((data) => (
+          <div key={data.id}>
+            <p>{data.nickname}</p>
+            <p>{data.account}</p>
+          </div>
+        ))}
     </Container>
   );
 };
@@ -249,7 +283,7 @@ const Container = styled.div`
   .tabContainer {
     width: 90%;
     display: flex;
-    margin: 20px auto;
+    margin: 20px auto 0 auto;
     font-size: 0.8rem;
 
     .tabMenu {
@@ -265,6 +299,33 @@ const Container = styled.div`
       background-color: ${({ theme }) => theme.mainColor};
       border: none;
       color: #fff;
+    }
+  }
+
+  .categoryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .category {
+      width: 90%;
+      padding: 40px 0;
+      border-bottom: 1px solid ${({ theme }) => theme.border};
+      color: ${({ theme }) => theme.mainColor2};
+      font-weight: 700;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        color: ${({ theme }) => theme.mainColor};
+      }
+
+      &:active {
+        color: ${({ theme }) => theme.subColor};
+      }
     }
   }
 `;

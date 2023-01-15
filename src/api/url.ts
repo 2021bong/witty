@@ -42,27 +42,27 @@ export const URL_SEARCH_USER = (text: string) => {
 };
 
 export const URL_SEARCH_CATEGORY = (category: string) => {
-  let text = 0;
+  let cateId = 0;
   switch (category) {
     case '오늘먹은것':
-      text = 1;
+      cateId = 1;
       break;
     case '오늘기분':
-      text = 2;
+      cateId = 2;
       break;
     case '오늘소비':
-      text = 3;
+      cateId = 3;
       break;
     case '오늘잡담':
-      text = 4;
+      cateId = 4;
       break;
     case '오늘아무거나':
-      text = 5;
+      cateId = 5;
       break;
     default:
-      text = 0;
+      cateId = 0;
   }
-  return `http://localhost:8000/search?category=${text}`;
+  return `http://localhost:8000/search?category=${cateId}`;
 };
 
 // mypage
