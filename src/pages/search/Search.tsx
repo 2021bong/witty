@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Greeting from '../../components/common/Greeting';
 import {
   URL_SEARCH,
+  URL_SEARCH_POST,
   URL_SEARCH_USER,
   URL_SEARCH_CATEGORY,
 } from '../../api/url';
@@ -63,11 +64,10 @@ const Search = () => {
     if (!textValue) return;
 
     axios
-      .get(URL_SEARCH(textValue), {
+      .get(URL_SEARCH, {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {
-        console.log(res.data);
         setSearchFeeds(res.data);
       })
       .catch((err) => console.log(err));
@@ -123,7 +123,7 @@ const Search = () => {
     }
 
     axios
-      .get(URL_SEARCH(textValue), {
+      .get(URL_SEARCH_POST(textValue), {
         headers: { Authorization: localStorage.getItem('token') },
       })
       .then((res) => {

@@ -31,7 +31,10 @@ const Login = ({ getToken }: LoginoutProp) => {
           localStorage.setItem('token', res.data.result.token);
           getToken();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          alert('아이디 또는 비밀번호가 틀렸습니다.');
+          console.log(err);
+        });
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
     }

@@ -36,7 +36,7 @@ const MyFeeds = () => {
               nickname={el.nickname}
               category={el.category}
               content={el.content}
-              time={el.created_at}
+              time={getTime(el.created_at)}
               like={el.count_likes}
               comment={el.count_comments}
               isLiked={el.is_liked}
