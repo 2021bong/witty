@@ -5,7 +5,7 @@ import { FaRegSadTear } from 'react-icons/fa';
 const Chat = () => {
   return (
     <Container>
-      <FaRegSadTear className='icon' size={'50px'} />
+      <FaRegSadTear className='icon' size='50px' />
       <p className='desc'>준비 중인 서비스입니다.</p>
       <Link to='/' className='link'>
         메인으로

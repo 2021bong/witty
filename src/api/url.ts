@@ -80,3 +80,4 @@ export const URL_CHECK_USER = 'http://localhost:8000/users/duplication';
 export const URL_SIGNUP = 'http://localhost:8000/users/signup';
 export const URL_SIGNIN = 'http://localhost:8000/users/signin';
 export const URL_KAKAO_LOGIN = 'http://localhost:8000/users/kakaoLogin';
+export const URL_DELETE_USER = 'http://localhost:8000/users/my';

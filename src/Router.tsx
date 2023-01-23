@@ -61,7 +61,10 @@ const Router = () => {
               <Route path='/mypage/nickname' element={<MyNickname />} />
               <Route path='/mypage/feeds' element={<MyFeeds />} />
               <Route path='/mypage/bookmarks' element={<MyBookmark />} />
-              <Route path='/mypage/withdrawal' element={<MyWithdrawal />} />
+              <Route
+                path='/mypage/withdrawal'
+                element={<MyWithdrawal getToken={getToken} />}
+              />
             </Routes>
             <Dock />
           </Container>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import SignUpBtn from '../signup/SignUpBtn';
 import { LoginoutProp } from '../../utils/interface';
 import { URL_SIGNIN } from '../../api/url';
+import { checkId, checkPw } from '../../utils/validation';
 
 const { Kakao } = window as any;
 
@@ -32,8 +33,12 @@ const Login = ({ getToken }: LoginoutProp) => {
           getToken();
         })
         .catch((err) => {
-          alert('아이디 또는 비밀번호가 틀렸습니다.');
           console.log(err);
+          if (err.err === 'User_Not_Existed') {
+            alert('존재하지 않는 유저입니다.');
+            return;
+          }
+          alert('아이디 또는 비밀번호가 틀렸습니다.');
         });
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
@@ -74,7 +79,7 @@ const Login = ({ getToken }: LoginoutProp) => {
       <div className='btnContainer'>
         <button
           className={
-            idValue.length >= 6 && pwValue.length >= 8 ? 'btn' : 'disbledBtn'
+            checkId(idValue) && checkPw(pwValue) ? 'btn' : 'disbledBtn'
           }
           onClick={onLogin}
         >

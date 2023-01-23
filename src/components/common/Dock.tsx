@@ -2,7 +2,7 @@ import { useState, MouseEvent, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaSearch, FaUser } from 'react-icons/fa';
-import { HiChatBubbleLeftRight } from 'react-icons/hi2';
+import { IoChatbubblesSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 
 interface DockState {
@@ -85,7 +85,7 @@ const Dock = () => {
           className={chatting.selected ? 'selected' : 'iconBtn'}
           id='chatting'
         >
-          <HiChatBubbleLeftRight className='chat' />
+          <IoChatbubblesSharp className='chat' />
         </button>
       </Link>
       <Link to='/mypage'>
@@ -137,6 +137,6 @@ const Box = styled.div`
   }
 
   .chat {
-    transform: scale(118%);
+    transform: scale(110%) translateY(-2px);
   }
 `;
