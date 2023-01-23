@@ -2,7 +2,7 @@ import { useState, MouseEvent, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaSearch, FaUser } from 'react-icons/fa';
-import { BsBellFill } from 'react-icons/bs';
+import { HiChatBubbleLeftRight } from 'react-icons/hi2';
 import styled from 'styled-components';
 
 interface DockState {
@@ -14,10 +14,10 @@ const Dock = () => {
   const [dockState, setDockState] = useState<DockState[]>([
     { id: 'home', selected: true },
     { id: 'search', selected: false },
-    { id: 'notification', selected: false },
+    { id: 'chatting', selected: false },
     { id: 'mypage', selected: false },
   ]);
-  const [home, search, notification, mypage] = dockState;
+  const [home, search, chatting, mypage] = dockState;
   const locate = useLocation();
 
   const handleDockMenu = (e: MouseEvent) => {
@@ -30,6 +30,15 @@ const Dock = () => {
   };
 
   useEffect(() => {
+    if (locate.pathname === '/') {
+      setDockState((prev: DockState[]) =>
+        prev.map((dock) =>
+          dock.id === 'home'
+            ? { id: dock.id, selected: true }
+            : { id: dock.id, selected: false }
+        )
+      );
+    }
     if (locate.pathname === '/search/category') {
       setDockState((prev: DockState[]) =>
         prev.map((dock) =>
@@ -70,13 +79,15 @@ const Dock = () => {
           <FaSearch />
         </button>
       </Link>
-      <button
-        onClick={handleDockMenu}
-        className={notification.selected ? 'selected' : 'iconBtn'}
-        id='notification'
-      >
-        <BsBellFill />
-      </button>
+      <Link to='/chat'>
+        <button
+          onClick={handleDockMenu}
+          className={chatting.selected ? 'selected' : 'iconBtn'}
+          id='chatting'
+        >
+          <HiChatBubbleLeftRight className='chat' />
+        </button>
+      </Link>
       <Link to='/mypage'>
         <button
           onClick={handleDockMenu}
@@ -123,5 +134,9 @@ const Box = styled.div`
     &:first-child {
       font-size: 2.6rem;
     }
+  }
+
+  .chat {
+    transform: scale(118%);
   }
 `;

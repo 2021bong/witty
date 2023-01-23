@@ -20,6 +20,7 @@ import MyNickname from './pages/mypage/components/MyNickname';
 import MyFeeds from './pages/mypage/components/MyFeeds';
 import MyBookmark from './pages/mypage/components/MyBookmark';
 import MyWithdrawal from './pages/mypage/components/MyWithdrawal';
+import Chat from './pages/chat/Chat';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
@@ -54,6 +55,7 @@ const Router = () => {
               <Route path='/main/:id' element={<Detail />} />
               <Route path='/search' element={<Search />} />
               <Route path='/search/category' element={<Search />} />
+              <Route path='/chat' element={<Chat />} />
               <Route path='/edit/:id' element={<Edit />} />
               <Route path='/mypage' element={<MyPage getToken={getToken} />} />
               <Route path='/mypage/nickname' element={<MyNickname />} />
