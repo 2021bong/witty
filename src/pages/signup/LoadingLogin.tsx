@@ -31,7 +31,7 @@ const LoadingLogin = ({ getToken }: LoginoutProp) => {
         authorizationCode: authCode,
       })
       .then((res) => {
-        localStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('token', res.data.token);
         getToken();
         navigate('/');
       })

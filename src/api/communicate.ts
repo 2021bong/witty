@@ -9,6 +9,7 @@ import {
   URL_SAVE_POST,
 } from './url';
 import { getTime } from '../utils/function';
+import token from './token';
 
 type setIdValue = (value: React.SetStateAction<string>) => void;
 type SetDuplicate = (value: React.SetStateAction<boolean>) => void;
@@ -52,7 +53,7 @@ export const checkUser = (
 export const getAllPosts = async (setFeeds: SetFeeds, offset: number) => {
   await axios
     .get(URL_GET_MAIN_POSTS(offset), {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: sessionStorage.getItem('token') },
     })
     .then((res) => {
       const dataForState = res.data.map((feedInfo: MainFeedStateType) => {
@@ -66,7 +67,7 @@ export const removePost = async (id: number | string | undefined) => {
   if (confirm('정말로 삭제하실 건가요?😭')) {
     await axios
       .delete(URL_DELETE_POST(id), {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => alert('삭제되었습니다. ✨'))
       .catch((err) =>
@@ -84,7 +85,7 @@ export const handleLikeComment = (
       URL_PATCH_COMMENT_LIKE(commentId),
       {},
       {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       }
     )
     .then((res) => {
@@ -114,7 +115,7 @@ export const handleSavePost = (
       URL_SAVE_POST(id),
       {},
       {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       }
     )
     .then()

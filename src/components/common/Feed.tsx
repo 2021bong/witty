@@ -14,6 +14,7 @@ import { AddComma, goEditMode } from '../../utils/function';
 import { getAllPosts, removePost, handleSavePost } from '../../api/communicate';
 import { FeedProps } from '../../utils/interface';
 import { URL_PATCH_POST_LIKE } from '../../api/url';
+import token from '../../api/token';
 
 const Feed = ({
   id,
@@ -39,7 +40,7 @@ const Feed = ({
         URL_PATCH_POST_LIKE(id),
         {},
         {
-          headers: { Authorization: localStorage.getItem('token') },
+          headers: token,
         }
       )
       .then((res) => {

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkName } from '../../../utils/validation';
 import { URL_MYPAGE_NAME, URL_MYPAGE } from '../../../api/url';
+import token from '../../../api/token';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
@@ -23,7 +24,7 @@ const Nickname = () => {
 
     axios
       .get(URL_MYPAGE, {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
         setNickname(res.data.nickname);
@@ -41,11 +42,7 @@ const Nickname = () => {
       return;
     }
     axios
-      .patch(
-        URL_MYPAGE_NAME,
-        { nickname: textValue },
-        { headers: { Authorization: localStorage.getItem('token') } }
-      )
+      .patch(URL_MYPAGE_NAME, { nickname: textValue }, { headers: token })
       .then((res) => {
         alert('변경되었습니다. 😀');
         navigate('/mypage');

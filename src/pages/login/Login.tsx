@@ -29,7 +29,7 @@ const Login = ({ getToken }: LoginoutProp) => {
           password: pwValue,
         })
         .then((res) => {
-          localStorage.setItem('token', res.data.result.token);
+          sessionStorage.setItem('token', res.data.result.token);
           getToken();
         })
         .catch((err) => {

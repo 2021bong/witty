@@ -11,7 +11,11 @@ import {
 } from 'react-icons/bs';
 import { BookmarkType } from '../../../utils/interface';
 import { handleSavePost } from '../../../api/communicate';
-import { URL_MYPAGE_BOOKMARKS } from '../../../api/url';
+import {
+  URL_MYPAGE_BOOKMARKS,
+  URL_MYPAGE_BOOKMARKS_PATCH,
+} from '../../../api/url';
+import token from '../../../api/token';
 
 const MyFeeds = () => {
   const [myBookmarks, setmyBookmarks] = useState<BookmarkType[] | undefined>();
@@ -26,7 +30,7 @@ const MyFeeds = () => {
 
     axios
       .get(URL_MYPAGE_BOOKMARKS, {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => setmyBookmarks(res.data))
       .catch((err) => console.log(err));
@@ -44,16 +48,20 @@ const MyFeeds = () => {
     e: MouseEvent<HTMLElement | SVGElement>
   ) => {
     handleSavePost(setSave, e.currentTarget.id);
-
+    const id = e.currentTarget.id;
     // await axios
     //   .get('../data/feeds.json')
     //   .then((res) => setmyBookmarks(res.data.feeds))
     //   .catch((err) => console.log(err));
 
     await axios
-      .get(URL_MYPAGE_BOOKMARKS, {
-        headers: { Authorization: localStorage.getItem('token') },
-      })
+      .patch(
+        URL_MYPAGE_BOOKMARKS_PATCH(id),
+        { post_id: id },
+        {
+          headers: token,
+        }
+      )
       .then((res) => setmyBookmarks(res.data))
       .catch((err) => console.log(err));
   };

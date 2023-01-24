@@ -24,11 +24,11 @@ import Chat from './pages/chat/Chat';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(
-    localStorage.getItem('token')
+    sessionStorage.getItem('token')
   );
 
   const getToken = () => {
-    setIsLogin(localStorage.getItem('token'));
+    setIsLogin(sessionStorage.getItem('token'));
   };
 
   return (

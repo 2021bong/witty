@@ -2,6 +2,7 @@ import axios from 'axios';
 import { MouseEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import token from '../../../api/token';
 import { URL_DELETE_USER } from '../../../api/url';
 import { LoginoutProp } from '../../../utils/interface';
 
@@ -11,10 +12,10 @@ const MyWithdrawal = ({ getToken }: LoginoutProp) => {
   const handleWithdrawal = (e: MouseEvent) => {
     axios
       .delete('URL_DELETE_USER', {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         alert('탈퇴되었습니다.\n이용해주셔서 감사합니다.');
         getToken();
         navigate('/');

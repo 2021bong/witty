@@ -6,6 +6,7 @@ import Feed from '../../../components/common/Feed';
 import { MainFeedStateType } from '../../../utils/interface';
 import { URL_MYPAGE_POSTS } from '../../../api/url';
 import { getTime } from '../../../utils/function';
+import token from '../../../api/token';
 
 const MyFeeds = () => {
   const [myFeeds, setMyFeeds] = useState<MainFeedStateType[] | undefined>();
@@ -18,7 +19,7 @@ const MyFeeds = () => {
 
     axios
       .get(URL_MYPAGE_POSTS, {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => setMyFeeds(res.data))
       .catch((err) => console.log(err));

@@ -6,6 +6,7 @@ import { BsCreditCard2FrontFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { LoginoutProp } from '../../utils/interface';
 import { URL_MYPAGE } from '../../api/url';
+import token from '../../api/token';
 
 const MyPage = ({ getToken }: LoginoutProp) => {
   const [nickname, setNickname] = useState();
@@ -23,7 +24,7 @@ const MyPage = ({ getToken }: LoginoutProp) => {
 
     axios
       .get(URL_MYPAGE, {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
         setNickname(res.data.nickname);
@@ -33,7 +34,7 @@ const MyPage = ({ getToken }: LoginoutProp) => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     getToken();
     navigate('/');
   };

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Create from '../../components/write/Write';
 import { DetailFeedDataType } from '../../utils/interface';
 import { URL_GET_DETAIL_POST } from '../../api/url';
+import token from '../../api/token';
 
 const Edit = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType>();
@@ -16,7 +17,7 @@ const Edit = () => {
 
     axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
         setFeedData(res.data.post);

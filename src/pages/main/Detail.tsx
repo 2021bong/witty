@@ -30,6 +30,7 @@ import {
   URL_CREATE_COMMENT,
 } from '../../api/url';
 import { CommentIcon, Container } from './Detail.styled';
+import token from '../../api/token';
 
 const Detail = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType | undefined>();
@@ -53,7 +54,7 @@ const Detail = () => {
 
     axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
         setFeedData(res.data.post);
@@ -72,7 +73,7 @@ const Detail = () => {
     if (confirm('정말로 삭제하실 건가요?😭')) {
       axios
         .delete(URL_DELETE_COMMENT(param, e.currentTarget.id), {
-          headers: { Authorization: localStorage.getItem('token') },
+          headers: token,
         })
         .then((res) => {
           alert('삭제되었습니다. ✨');
@@ -94,7 +95,7 @@ const Detail = () => {
         URL_PATCH_POST_LIKE(param),
         {},
         {
-          headers: { Authorization: localStorage.getItem('token') },
+          headers: token,
         }
       )
       .then((res) => setHeart((prev) => !prev))
@@ -112,7 +113,7 @@ const Detail = () => {
         {
           comment: commentValue,
         },
-        { headers: { Authorization: localStorage.getItem('token') } }
+        { headers: token }
       )
       .then()
       .catch((err) => alert(`네트워크 통신이 원활하지 않습니다.🥲\n${err}`));
@@ -120,7 +121,7 @@ const Detail = () => {
 
     axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: token,
       })
       .then((res) => {
         setFeedData(res.data.post);
