@@ -33,8 +33,7 @@ const Login = ({ getToken }: LoginoutProp) => {
           getToken();
         })
         .catch((err) => {
-          console.log(err);
-          if (err.err === 'User_Not_Existed') {
+          if (err.response.data.err === 'User_Not_Existed') {
             alert('존재하지 않는 유저입니다.');
             return;
           }

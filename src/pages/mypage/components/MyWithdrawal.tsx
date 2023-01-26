@@ -11,10 +11,10 @@ const MyWithdrawal = ({ getToken }: LoginoutProp) => {
 
   const handleWithdrawal = (e: MouseEvent) => {
     axios
-      .delete('URL_DELETE_USER', {
+      .delete(URL_DELETE_USER, {
         headers: token,
       })
-      .then((res) => {
+      .then(() => {
         sessionStorage.removeItem('token');
         alert('탈퇴되었습니다.\n이용해주셔서 감사합니다.');
         getToken();
