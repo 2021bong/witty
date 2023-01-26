@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { FiPlus } from 'react-icons/fi';
 import Greeting from '../../components/common/Greeting';
 import Feed from '../../components/common/Feed';
 import { MainFeedStateType } from '../../utils/interface';
@@ -9,24 +9,23 @@ import { getAllPosts } from '../../api/communicate';
 
 const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
+  const navigate = useNavigate();
   let offset = 0;
 
   useEffect(() => {
-    // axios.get('data/feeds.json').then((res) => {
-    //   setFeeds(res.data.feeds);
-    // });
-
     getAllPosts(setFeeds, offset);
   }, []);
+
+  const moveCreate = () => {
+    navigate('/create');
+  };
 
   return (
     <Container>
       <Greeting text="Hi, Witty! What's going on today?" />
-      <Link to='/create'>
-        <button className='writeBtn'>
-          <AiFillPlusCircle />
-        </button>
-      </Link>
+      <button className='writeBtn' onClick={moveCreate}>
+        <FiPlus />
+      </button>
       <div className='feedBox'>
         {feeds?.map((el) => (
           <Feed
@@ -59,24 +58,27 @@ const Container = styled.div`
 
   .writeBtn {
     position: absolute;
-    top: 3%;
-    right: 5%;
+    top: 5%;
+    right: 6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
     border: none;
     border-radius: 50%;
-    font-size: 3rem;
-    color: ${({ theme }) => theme.mainColor};
-    background-color: #fff;
+    font-size: 2.2rem;
+    color: #fff;
+    background-color: ${({ theme }) => theme.mainColor};
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     z-index: 2;
 
-    svg {
-      &:hover {
-        transform: scale(107%);
-      }
+    &:hover {
+      transform: scale(1.1);
+    }
 
-      &:active {
-        transform: scale(1);
-        color: ${({ theme }) => theme.subColor};
-      }
+    &:active {
+      background-color: ${({ theme }) => theme.subColor};
     }
   }
 
