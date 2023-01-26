@@ -15,6 +15,7 @@ import { MainFeedStateType, SearchUseType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
 import { CATEGORY } from '../../utils/constant';
 import token from '../../api/token';
+import NoResult from '../../components/common/NoResult';
 
 const Search = () => {
   const [searchFeeds, setSearchFeeds] = useState<
@@ -153,6 +154,8 @@ const Search = () => {
       .catch((err) => console.log(err));
   };
 
+  console.log(searchFeeds);
+
   return (
     <Container>
       <Greeting text='There are various things happening.' />
@@ -179,28 +182,34 @@ const Search = () => {
         ))}
       </ul>
       {posts.selected && (
-        <div>
-          {searchFeeds?.map((data) => (
-            <Feed
-              key={data.id}
-              id={data.id}
-              nickname={data.nickname}
-              category={data.category}
-              content={data.content}
-              time={getTime(data.created_at)}
-              like={data.count_likes}
-              comment={data.count_comments}
-              isLiked={data.is_liked}
-              isSaved={data.is_marked}
-              owner={data.is_owner}
-              images={data.images}
-              setFeeds={setSearchFeeds}
-            />
-          ))}
+        <div className='feedBox'>
+          {searchFeeds?.length ? (
+            searchFeeds.map((data) => (
+              <Feed
+                key={data.id}
+                id={data.id}
+                nickname={data.nickname}
+                category={data.category}
+                content={data.content}
+                time={getTime(data.created_at)}
+                like={data.count_likes}
+                comment={data.count_comments}
+                isLiked={data.is_liked}
+                isSaved={data.is_marked}
+                owner={data.is_owner}
+                images={data.images}
+                setFeeds={setSearchFeeds}
+              />
+            ))
+          ) : (
+            <div className='noResult'>
+              <NoResult type='search' />
+            </div>
+          )}
         </div>
       )}
       {cate.selected && (
-        <div>
+        <div className='feedBox'>
           {searchFeeds?.map((data) => (
             <Feed
               key={data.id}
@@ -219,7 +228,7 @@ const Search = () => {
             />
           ))}
           {!searchFeeds && (
-            <ul className='categoryContainer'>
+            <ul className='categoryList'>
               {CATEGORY.map((cate) => (
                 <li
                   key={cate.id}
@@ -249,6 +258,7 @@ export default Search;
 const Container = styled.div`
   width: 100%;
   overflow: scroll;
+  margin-bottom: 100px;
 
   .formContainer {
     width: 80%;
@@ -303,7 +313,7 @@ const Container = styled.div`
     }
   }
 
-  .categoryContainer {
+  .categoryList {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -328,5 +338,13 @@ const Container = styled.div`
         color: ${({ theme }) => theme.subColor};
       }
     }
+  }
+
+  .feedBox {
+    width: 100%;
+  }
+
+  .noResult {
+    height: 70vh;
   }
 `;

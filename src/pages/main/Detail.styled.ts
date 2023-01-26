@@ -51,13 +51,14 @@ export const Container = styled.div`
       .ctgrAndBmk {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 10px;
 
         .goCategory {
           margin-right: 5px;
 
           .category {
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             padding: 5px;
             border-radius: 5px;
             background-color: ${({ theme }) => theme.mainColor};

@@ -4,14 +4,10 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
 import Greeting from '../common/Greeting';
+import Spinner from '../../components/write/Spinner';
 import { NoticeCurcle, Preview, Container } from './Write.styled';
 
-import {
-  CreatePhoto,
-  EditPhoto,
-  PhotosType,
-  WriteProps,
-} from '../../utils/interface';
+import { PhotosType, WriteProps } from '../../utils/interface';
 import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
 import { getCategory, setColor } from '../../utils/function';
 import { useEffect } from 'react';
@@ -24,6 +20,7 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
   const [unqPhotoIndex, setUnqPhotoIndex] = useState(1);
   const [photos, setPhotos] = useState<PhotosType>([]);
   const [uploadImgUrls, setUploadImgUrls] = useState<string[] | []>([]);
+  const [getUrlLoading, setGetUrlLoading] = useState(false);
   const navigate = useNavigate();
 
   if (type === 'edit') {
@@ -95,21 +92,21 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
     if (type === 'create') {
       if (textValue.length && !!photos.length) {
         uploadPhotos(photos, setUploadImgUrls);
+        setGetUrlLoading(true);
       } else if (textValue.length) {
         createNewPost(textValue, categorys, navigate);
+        setGetUrlLoading(true);
       } else {
         alert('내용을 작성해 주세요!🥺');
       }
     } else {
-      // 'edit'
-      if (photos[photos.length - 1].file) {
+      if (!!!photos.length && photos?.[photos.length - 1].file) {
         const changedPhoto: PhotosType = photos.filter((photo) => !!photo.file);
         uploadPhotos(changedPhoto, setUploadImgUrls);
-      }
-      if (textValue.length) {
-        modifyPost(textValue, categorys, navigate, id, uploadImgUrls);
+        setGetUrlLoading(true);
       } else if (textValue.length) {
         modifyPost(textValue, categorys, navigate, id);
+        setGetUrlLoading(true);
       } else {
         alert('내용을 작성해 주세요!🥺');
       }
@@ -118,6 +115,7 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
 
   return (
     <Container>
+      {getUrlLoading && <Spinner />}
       <Greeting text='What are you doing now?' />
       <main className='mainContainer'>
         <ul className='categoryContainer'>

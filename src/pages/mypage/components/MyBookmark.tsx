@@ -10,7 +10,7 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 import { BookmarkType } from '../../../utils/interface';
-import { handleSavePost } from '../../../api/communicate';
+import { handleSaveBookmarks } from '../../../api/communicate';
 import {
   URL_MYPAGE_BOOKMARKS,
   URL_MYPAGE_BOOKMARKS_PATCH,
@@ -19,7 +19,6 @@ import token from '../../../api/token';
 
 const MyFeeds = () => {
   const [myBookmarks, setmyBookmarks] = useState<BookmarkType[] | undefined>();
-  const [save, setSave] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,26 +43,9 @@ const MyFeeds = () => {
     navigate(`/main/${e.currentTarget.id}`);
   };
 
-  const handleUnsaveBookmark = async (
-    e: MouseEvent<HTMLElement | SVGElement>
-  ) => {
-    handleSavePost(setSave, e.currentTarget.id);
+  const unsaveBookmark = (e: MouseEvent<HTMLElement | SVGElement>) => {
     const id = e.currentTarget.id;
-    // await axios
-    //   .get('../data/feeds.json')
-    //   .then((res) => setmyBookmarks(res.data.feeds))
-    //   .catch((err) => console.log(err));
-
-    await axios
-      .patch(
-        URL_MYPAGE_BOOKMARKS_PATCH(id),
-        { post_id: id },
-        {
-          headers: token,
-        }
-      )
-      .then((res) => setmyBookmarks(res.data))
-      .catch((err) => console.log(err));
+    handleSaveBookmarks(setmyBookmarks, id);
   };
 
   return (
@@ -97,9 +79,7 @@ const MyFeeds = () => {
                       {!!feed.count_likes ? (
                         <p>
                           <BsHeartFill className='heart icon' />
-                          {feed.count_likes
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          {feed.count_likes.toLocaleString()}
                         </p>
                       ) : (
                         <p>
@@ -109,15 +89,13 @@ const MyFeeds = () => {
                       )}
                       <p>
                         <BsChat className='icon' />
-                        {feed.count_comments
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        {feed.count_comments.toLocaleString()}
                       </p>
                     </div>
                     <BsFillBookmarkFill
                       id={feed.post_id.toString()}
                       className='bookmark icon'
-                      onClick={handleUnsaveBookmark}
+                      onClick={unsaveBookmark}
                     />
                   </div>
                 </div>
@@ -165,6 +143,7 @@ const Container = styled.div`
       .category {
         display: inline-block;
         margin-right: 5px;
+        margin-bottom: 5px;
         padding: 5px;
         border-radius: 5px;
         background-color: ${({ theme }) => theme.mainColor2};
@@ -180,11 +159,12 @@ const Container = styled.div`
         display: flex;
         justify-content: space-between;
         margin: 0 0 10px 0;
-        padding-top: 20px;
+        padding-top: 10px;
 
         .content {
           width: 80%;
           color: ${({ theme }) => theme.text};
+          line-height: 1.2rem;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

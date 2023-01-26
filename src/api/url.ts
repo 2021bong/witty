@@ -33,14 +33,14 @@ export const URL_DELETE_COMMENT = (
 ) => `http://localhost:8000/posts/${postId}/${commentId}`;
 
 // search
-export const URL_SEARCH = 'http://localhost:8000/search/like';
+export const URL_SEARCH = 'http://localhost:8000/search/like?offset=0';
 
 export const URL_SEARCH_POST = (text: string) => {
-  return `http://localhost:8000/search?q=${text}`;
+  return `http://localhost:8000/search?q=${text}&offset=0`;
 };
 
 export const URL_SEARCH_USER = (text: string) => {
-  return `http://localhost:8000/search/user?q=${text}`;
+  return `http://localhost:8000/search/user?q=${text}&offset=0`;
 };
 
 export const URL_SEARCH_CATEGORY = (category: string) => {
@@ -64,7 +64,7 @@ export const URL_SEARCH_CATEGORY = (category: string) => {
     default:
       cateId = 0;
   }
-  return `http://localhost:8000/search?category=${cateId}`;
+  return `http://localhost:8000/search?category=${cateId}&offset=0`;
 };
 
 // mypage

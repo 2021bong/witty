@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { MainFeedStateType, SetArrState } from '../utils/interface';
+import {
+  MainFeedStateType,
+  BookmarkType,
+  SetArrState,
+} from '../utils/interface';
 import { checkEmail, checkId } from '../utils/validation';
 import {
   URL_CHECK_USER,
@@ -7,6 +11,7 @@ import {
   URL_DELETE_POST,
   URL_PATCH_COMMENT_LIKE,
   URL_SAVE_POST,
+  URL_MYPAGE_BOOKMARKS_PATCH,
 } from './url';
 import { getTime } from '../utils/function';
 import token from './token';
@@ -15,6 +20,9 @@ type setIdValue = (value: React.SetStateAction<string>) => void;
 type SetDuplicate = (value: React.SetStateAction<boolean>) => void;
 type SetFeeds = (
   value: React.SetStateAction<MainFeedStateType[] | undefined>
+) => void;
+type SetBookmarks = (
+  value: React.SetStateAction<BookmarkType[] | undefined>
 ) => void;
 
 export const checkUser = (
@@ -119,5 +127,21 @@ export const handleSavePost = (
       }
     )
     .then()
+    .catch((err) => console.log(err));
+};
+
+export const handleSaveBookmarks = (
+  setmyBookmarks: SetBookmarks,
+  id: string
+) => {
+  axios
+    .patch(
+      URL_MYPAGE_BOOKMARKS_PATCH(id),
+      { post_id: id },
+      {
+        headers: token,
+      }
+    )
+    .then((res) => setmyBookmarks(res.data))
     .catch((err) => console.log(err));
 };

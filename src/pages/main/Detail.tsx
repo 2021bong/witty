@@ -102,12 +102,12 @@ const Detail = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleSubmit = () => {
+  const handleCommentSubmit = async () => {
     if (!commentValue) {
       alert('댓글 내용을 작성해주세요! 🥲');
       return;
     }
-    axios
+    await axios
       .post(
         URL_CREATE_COMMENT(param),
         {
@@ -119,7 +119,7 @@ const Detail = () => {
       .catch((err) => alert(`네트워크 통신이 원활하지 않습니다.🥲\n${err}`));
     setCommentValue('');
 
-    axios
+    await axios
       .get(URL_GET_DETAIL_POST(param), {
         headers: token,
       })
@@ -221,7 +221,7 @@ const Detail = () => {
               onFocus={(e) => handleIconcolor(e, setCmtIconColor)}
               onBlur={(e) => handleIconcolor(e, setCmtIconColor)}
             />
-            <button onClick={handleSubmit}>작성</button>
+            <button onClick={handleCommentSubmit}>작성</button>
           </form>
           {commentData && (
             <ul className='commentsContainer'>
