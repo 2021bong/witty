@@ -11,25 +11,16 @@ import {
 } from 'react-icons/bs';
 import { BookmarkType } from '../../../utils/interface';
 import { handleSaveBookmarks } from '../../../api/communicate';
-import {
-  URL_MYPAGE_BOOKMARKS,
-  URL_MYPAGE_BOOKMARKS_PATCH,
-} from '../../../api/url';
-import token from '../../../api/token';
+import { URL_MYPAGE_BOOKMARKS } from '../../../api/url';
 
 const MyFeeds = () => {
   const [myBookmarks, setmyBookmarks] = useState<BookmarkType[] | undefined>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // axios
-    //   .get('../data/feeds.json')
-    //   .then((res) => setmyBookmarks(res.data.feeds))
-    //   .catch((err) => console.log(err));
-
     axios
       .get(URL_MYPAGE_BOOKMARKS, {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => setmyBookmarks(res.data))
       .catch((err) => console.log(err));

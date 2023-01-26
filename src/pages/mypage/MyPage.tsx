@@ -6,7 +6,6 @@ import { BsCreditCard2FrontFill } from 'react-icons/bs';
 import styled from 'styled-components';
 import { LoginoutProp } from '../../utils/interface';
 import { URL_MYPAGE } from '../../api/url';
-import token from '../../api/token';
 
 const MyPage = ({ getToken }: LoginoutProp) => {
   const [nickname, setNickname] = useState();
@@ -14,17 +13,9 @@ const MyPage = ({ getToken }: LoginoutProp) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // axios
-    //   .get('data/mypage.json')
-    //   .then((res) => {
-    //     setNickname(res.data.data.nickname);
-    //     setUserId(res.data.data.user_id);
-    //   })
-    //   .catch((err) => console.log(err));
-
     axios
       .get(URL_MYPAGE, {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setNickname(res.data.nickname);

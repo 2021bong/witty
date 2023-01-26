@@ -6,20 +6,14 @@ import Feed from '../../../components/common/Feed';
 import { MainFeedStateType } from '../../../utils/interface';
 import { URL_MYPAGE_POSTS } from '../../../api/url';
 import { getTime } from '../../../utils/function';
-import token from '../../../api/token';
 
 const MyFeeds = () => {
   const [myFeeds, setMyFeeds] = useState<MainFeedStateType[] | undefined>();
 
   useEffect(() => {
-    // axios
-    //   .get('../data/feeds.json')
-    //   .then((res) => setMyFeeds(res.data.feeds))
-    //   .catch((err) => console.log(err));
-
     axios
       .get(URL_MYPAGE_POSTS, {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => setMyFeeds(res.data))
       .catch((err) => console.log(err));

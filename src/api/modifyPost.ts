@@ -2,7 +2,6 @@ import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
 import { Category } from '../utils/interface';
 import { Data } from './createPost';
-import token from './token';
 import { URL_EDIT_POST } from './url';
 
 export const modifyPost = async (
@@ -25,7 +24,7 @@ export const modifyPost = async (
 
   await axios
     .patch(URL_EDIT_POST(postId), data, {
-      headers: token,
+      headers: { Authorization: sessionStorage.getItem('token') },
     })
     .then((res) => navigate('/'))
     .catch((err) => {

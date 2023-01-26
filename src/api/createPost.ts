@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
 import { Category, PhotosType } from '../utils/interface';
-import token from './token';
 import { URL_CREATE_POST } from './url';
 
 export interface Data {
@@ -29,7 +28,7 @@ export const createNewPost = async (
 
   await axios
     .post(URL_CREATE_POST, data, {
-      headers: token,
+      headers: { Authorization: sessionStorage.getItem('token') },
     })
     .then((res) => navigate('/'))
     .catch((err) => {

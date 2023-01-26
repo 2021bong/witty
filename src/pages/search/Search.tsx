@@ -14,7 +14,6 @@ import Feed from '../../components/common/Feed';
 import { MainFeedStateType, SearchUseType } from '../../utils/interface';
 import { getTime } from '../../utils/function';
 import { CATEGORY } from '../../utils/constant';
-import token from '../../api/token';
 import NoResult from '../../components/common/NoResult';
 
 const Search = () => {
@@ -56,7 +55,7 @@ const Search = () => {
       );
       axios
         .get(URL_SEARCH_CATEGORY(textValue), {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         })
         .then((res) => setSearchFeeds(res.data))
         .catch((err) => console.log(err));
@@ -67,7 +66,7 @@ const Search = () => {
 
     axios
       .get(URL_SEARCH, {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setSearchFeeds(res.data);
@@ -101,7 +100,7 @@ const Search = () => {
     if (user.selected) {
       axios
         .get(URL_SEARCH_USER(textValue), {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         })
         .then((res) => {
           console.log(res.data);
@@ -114,7 +113,7 @@ const Search = () => {
     if (cate.selected) {
       axios
         .get(URL_SEARCH_CATEGORY(textValue), {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         })
         .then((res) => {
           console.log(res.data);
@@ -126,7 +125,7 @@ const Search = () => {
 
     axios
       .get(URL_SEARCH_POST(textValue), {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         console.log(res.data);
@@ -145,7 +144,7 @@ const Search = () => {
           li.textContent?.slice(1, li.textContent.length) ?? ''
         ),
         {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         }
       )
       .then((res) => {

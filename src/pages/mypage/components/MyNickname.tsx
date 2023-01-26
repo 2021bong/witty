@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkName } from '../../../utils/validation';
 import { URL_MYPAGE_NAME, URL_MYPAGE } from '../../../api/url';
-import token from '../../../api/token';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
@@ -15,16 +14,9 @@ const Nickname = () => {
   };
 
   useEffect(() => {
-    // axios
-    //   .get('../data/mypage.json')
-    //   .then((res) => {
-    //     setNickname(res.data.data.nickname);
-    //   })
-    //   .catch((err) => console.log(err));
-
     axios
       .get(URL_MYPAGE, {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setNickname(res.data.nickname);
@@ -42,7 +34,11 @@ const Nickname = () => {
       return;
     }
     axios
-      .patch(URL_MYPAGE_NAME, { nickname: textValue }, { headers: token })
+      .patch(
+        URL_MYPAGE_NAME,
+        { nickname: textValue },
+        { headers: { Authorization: sessionStorage.getItem('token') } }
+      )
       .then((res) => {
         alert('변경되었습니다. 😀');
         navigate('/mypage');

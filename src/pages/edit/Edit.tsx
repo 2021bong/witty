@@ -4,20 +4,15 @@ import axios from 'axios';
 import Create from '../../components/write/Write';
 import { DetailFeedDataType } from '../../utils/interface';
 import { URL_GET_DETAIL_POST } from '../../api/url';
-import token from '../../api/token';
 
 const Edit = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType>();
   const param = useParams().id;
 
   useEffect(() => {
-    // axios.get('../data/detail.json').then((res) => {
-    //   setFeedData(res.data.feeds[Number(param) - 1]);
-    // });
-
     axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setFeedData(res.data.post);

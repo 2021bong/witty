@@ -30,7 +30,6 @@ import {
   URL_CREATE_COMMENT,
 } from '../../api/url';
 import { CommentIcon, Container } from './Detail.styled';
-import token from '../../api/token';
 
 const Detail = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType | undefined>();
@@ -46,15 +45,9 @@ const Detail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // axios.get('../data/detail.json').then((res) => {
-    //   setFeedData(res.data.feeds[Number(param) - 1]);
-    //   setHeart(res.data.feeds[Number(param) - 1].is_liked || false);
-    //   setSave(res.data.feeds[Number(param) - 1].is_marked || false);
-    // });
-
     axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setFeedData(res.data.post);
@@ -73,7 +66,7 @@ const Detail = () => {
     if (confirm('정말로 삭제하실 건가요?😭')) {
       axios
         .delete(URL_DELETE_COMMENT(param, e.currentTarget.id), {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         })
         .then((res) => {
           alert('삭제되었습니다. ✨');
@@ -95,7 +88,7 @@ const Detail = () => {
         URL_PATCH_POST_LIKE(param),
         {},
         {
-          headers: token,
+          headers: { Authorization: sessionStorage.getItem('token') },
         }
       )
       .then((res) => setHeart((prev) => !prev))
@@ -113,7 +106,7 @@ const Detail = () => {
         {
           comment: commentValue,
         },
-        { headers: token }
+        { headers: { Authorization: sessionStorage.getItem('token') } }
       )
       .then()
       .catch((err) => alert(`네트워크 통신이 원활하지 않습니다.🥲\n${err}`));
@@ -121,7 +114,7 @@ const Detail = () => {
 
     await axios
       .get(URL_GET_DETAIL_POST(param), {
-        headers: token,
+        headers: { Authorization: sessionStorage.getItem('token') },
       })
       .then((res) => {
         setFeedData(res.data.post);
