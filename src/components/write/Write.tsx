@@ -83,8 +83,13 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
     if (type === 'create' && photos.length === uploadImgUrls.length) {
       createNewPost(textValue, categorys, navigate, uploadImgUrls);
     }
-    if (type === 'edit' && photos.length === uploadImgUrls.length) {
-      modifyPost(textValue, categorys, navigate, id, uploadImgUrls);
+    if (type === 'edit') {
+      const prevPhoto = photos.filter((photoObj) => !!!photoObj.file);
+      if (photos.length === prevPhoto.length + uploadImgUrls.length) {
+        const prevPhotoUrls = prevPhoto.map((obj) => obj.previewUrl);
+        const allPhotoUrls = [...prevPhotoUrls, uploadImgUrls].flat();
+        modifyPost(textValue, categorys, navigate, id, allPhotoUrls);
+      }
     }
   }, [uploadImgUrls]);
 
@@ -100,12 +105,30 @@ const Write = ({ type, id, category, content, images }: WriteProps) => {
         alert('내용을 작성해 주세요!🥺');
       }
     } else {
-      if (!!!photos.length && photos?.[photos.length - 1].file) {
-        const changedPhoto: PhotosType = photos.filter((photo) => !!photo.file);
-        uploadPhotos(changedPhoto, setUploadImgUrls);
+      if (!!photos.length) {
         setGetUrlLoading(true);
-      } else if (textValue.length) {
+        if (photos[photos.length - 1].file) {
+          const changedPhoto: PhotosType = photos.filter(
+            (photo) => !!photo.file
+          );
+          uploadPhotos(changedPhoto, setUploadImgUrls);
+          return;
+        }
+        if (
+          photos[photos.length - 1].previewUrl?.includes('res.cloudinary.com')
+        ) {
+          modifyPost(
+            textValue,
+            categorys,
+            navigate,
+            id,
+            photos.map((obj) => obj.previewUrl)
+          );
+          return;
+        }
         modifyPost(textValue, categorys, navigate, id);
+      } else if (!!textValue.length) {
+        modifyPost(textValue, categorys, navigate, id, []);
         setGetUrlLoading(true);
       } else {
         alert('내용을 작성해 주세요!🥺');

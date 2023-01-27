@@ -128,13 +128,13 @@ export interface LoginoutProp {
 export interface CreatePhoto {
   id: number;
   file: string | Blob;
-  previewUrl: string | null;
+  previewUrl: string;
 }
 
 export interface EditPhoto {
   id: number;
   file?: string | Blob;
-  previewUrl: string | null;
+  previewUrl: string;
 }
 
 export type PhotosType = CreatePhoto[] | EditPhoto[] | [];

@@ -18,7 +18,7 @@ export const modifyPost = async (
       .map((cate) => cate.name),
   };
 
-  if (images?.length) {
+  if (images) {
     data.images = images;
   }
 
