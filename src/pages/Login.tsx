@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import SignUpBtn from '../signup/SignUpBtn';
-import { LoginoutProp } from '../../utils/interface';
-import { URL_SIGNIN } from '../../api/url';
-import { checkId, checkPw } from '../../utils/validation';
+import SignUpBtn from '../components/signup/SignUpBtn';
+import { LoginoutProp } from '../utils/types';
+import { URL_SIGNIN } from '../api/url';
+import { checkId, checkPw } from '../utils/validation';
 
 const { Kakao } = window as any;
 

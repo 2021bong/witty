@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import { LoginoutProp } from '../../utils/interface';
+import { LoginoutProp } from '../../utils/types';
 import { URL_KAKAO_LOGIN } from '../../api/url';
 
 const LoadingLogin = ({ getToken }: LoginoutProp) => {

@@ -31,9 +31,11 @@ export interface SearchUseType {
   nickname: string;
 }
 
-export type SetArrState = (
-  setState: SetStateAction<DetailCommentType[] | undefined>
-) => void;
+export interface Data {
+  content: string;
+  category: string[];
+  images?: string[];
+}
 
 type SetFeedsType = (
   setState: SetStateAction<MainFeedStateType[] | undefined>

@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Greeting from '../../components/common/Greeting';
+import Greeting from '../components/common/Greeting';
 import {
   URL_SEARCH,
   URL_SEARCH_POST,
   URL_SEARCH_USER,
   URL_SEARCH_CATEGORY,
-} from '../../api/url';
+} from '../api/url';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Feed from '../../components/common/Feed';
-import { MainFeedStateType, SearchUseType } from '../../utils/interface';
-import { getTime } from '../../utils/function';
-import { CATEGORY } from '../../utils/constant';
-import NoResult from '../../components/common/NoResult';
+import Feed from '../components/common/Feed';
+import { MainFeedStateType, SearchUseType } from '../utils/types';
+import { getTime } from '../utils/function';
+import { CATEGORY, INITIAL_TABMENU } from '../utils/constant';
+import NoResult from '../components/common/NoResult';
 
 const Search = () => {
   const [searchFeeds, setSearchFeeds] = useState<
@@ -22,23 +21,7 @@ const Search = () => {
   >();
   const [searchUsers, setSearchUsers] = useState<SearchUseType[] | undefined>();
   const [textValue, setTextValue] = useState('');
-  const [tabMenu, setTabMenu] = useState([
-    {
-      id: 1,
-      name: '게시글',
-      selected: true,
-    },
-    {
-      id: 2,
-      name: '카테고리',
-      selected: false,
-    },
-    {
-      id: 3,
-      name: '유저',
-      selected: false,
-    },
-  ]);
+  const [tabMenu, setTabMenu] = useState(INITIAL_TABMENU);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -68,11 +51,15 @@ const Search = () => {
       .get(URL_SEARCH, {
         headers: { Authorization: sessionStorage.getItem('token') },
       })
-      .then((res) => {
-        setSearchFeeds(res.data);
-      })
+      .then((res) => setSearchFeeds(res.data))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (!cate.selected) {
+      navigate('/search');
+    }
+  }, [tabMenu]);
 
   const handleWriteText = (e: ChangeEvent<HTMLInputElement>) => {
     setTextValue(e.target.value);
@@ -90,22 +77,13 @@ const Search = () => {
     setTextValue('');
   };
 
-  useEffect(() => {
-    if (!cate.selected) {
-      navigate('/search');
-    }
-  }, [tabMenu]);
-
   const handleSearch = () => {
     if (user.selected) {
       axios
         .get(URL_SEARCH_USER(textValue), {
           headers: { Authorization: sessionStorage.getItem('token') },
         })
-        .then((res) => {
-          console.log(res.data);
-          setSearchUsers(res.data);
-        })
+        .then((res) => setSearchUsers(res.data))
         .catch((err) => console.log(err));
       return;
     }
@@ -115,10 +93,7 @@ const Search = () => {
         .get(URL_SEARCH_CATEGORY(textValue), {
           headers: { Authorization: sessionStorage.getItem('token') },
         })
-        .then((res) => {
-          console.log(res.data);
-          setSearchFeeds(res.data);
-        })
+        .then((res) => setSearchFeeds(res.data))
         .catch((err) => console.log(err));
       return;
     }
@@ -127,10 +102,7 @@ const Search = () => {
       .get(URL_SEARCH_POST(textValue), {
         headers: { Authorization: sessionStorage.getItem('token') },
       })
-      .then((res) => {
-        console.log(res.data);
-        setSearchFeeds(res.data);
-      })
+      .then((res) => setSearchFeeds(res.data))
       .catch((err) => console.log(err));
   };
 
@@ -147,13 +119,9 @@ const Search = () => {
           headers: { Authorization: sessionStorage.getItem('token') },
         }
       )
-      .then((res) => {
-        setSearchFeeds(res.data);
-      })
+      .then((res) => setSearchFeeds(res.data))
       .catch((err) => console.log(err));
   };
-
-  console.log(searchFeeds);
 
   return (
     <Container>

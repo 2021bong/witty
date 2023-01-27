@@ -2,8 +2,8 @@ import axios from 'axios';
 import {
   MainFeedStateType,
   BookmarkType,
-  SetArrState,
-} from '../utils/interface';
+  DetailCommentType,
+} from '../utils/types';
 import { checkEmail, checkId } from '../utils/validation';
 import {
   URL_CHECK_USER,
@@ -22,6 +22,9 @@ type SetFeeds = (
 ) => void;
 type SetBookmarks = (
   value: React.SetStateAction<BookmarkType[] | undefined>
+) => void;
+type SetArrState = (
+  setState: React.SetStateAction<DetailCommentType[] | undefined>
 ) => void;
 
 export const checkUser = (

@@ -7,3 +7,21 @@ export const CATEGORY = [
   { id: 4, name: '오늘잡담', selected: false },
   { id: 5, name: '오늘먹은것', selected: false },
 ];
+
+export const INITIAL_TABMENU = [
+  {
+    id: 1,
+    name: '게시글',
+    selected: true,
+  },
+  {
+    id: 2,
+    name: '카테고리',
+    selected: false,
+  },
+  {
+    id: 3,
+    name: '유저',
+    selected: false,
+  },
+];

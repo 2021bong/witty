@@ -10,26 +10,26 @@ import {
   BsFillBookmarkFill,
 } from 'react-icons/bs';
 
-import Greeting from '../../components/common/Greeting';
-import { DetailFeedDataType, DetailCommentType } from '../../utils/interface';
+import Greeting from '../components/common/Greeting';
+import { DetailFeedDataType, DetailCommentType } from '../utils/types';
 import {
   getDetailTime,
   handleIconcolor,
   goEditMode,
   AddComma,
-} from '../../utils/function';
+} from '../utils/function';
 import {
   removePost,
   handleSavePost,
   handleLikeComment,
-} from '../../api/communicate';
+} from '../api/communicate';
 import {
   URL_GET_DETAIL_POST,
   URL_DELETE_COMMENT,
   URL_PATCH_POST_LIKE,
   URL_CREATE_COMMENT,
-} from '../../api/url';
-import { CommentIcon, Container } from './Detail.styled';
+} from '../api/url';
+import { CommentIcon, Container } from '../styles/pages/Detail.styled';
 
 const Detail = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType | undefined>();

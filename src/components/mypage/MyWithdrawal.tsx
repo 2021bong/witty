@@ -2,8 +2,8 @@ import axios from 'axios';
 import { MouseEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { URL_DELETE_USER } from '../../../api/url';
-import { LoginoutProp } from '../../../utils/interface';
+import { URL_DELETE_USER } from '../../api/url';
+import { LoginoutProp } from '../../utils/types';
 
 const MyWithdrawal = ({ getToken }: LoginoutProp) => {
   const navigate = useNavigate();

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
-import { Category } from '../utils/interface';
-import { Data } from './createPost';
+import { Category, Data } from '../utils/types';
 import { URL_EDIT_POST } from './url';
 
-export const modifyPost = async (
+const modifyPost = async (
   text: string,
   categorys: Category[],
   navigate: NavigateFunction,
@@ -32,3 +31,5 @@ export const modifyPost = async (
       navigate('/');
     });
 };
+
+export default modifyPost;

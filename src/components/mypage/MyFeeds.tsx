@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import Feed from '../../../components/common/Feed';
-import { MainFeedStateType } from '../../../utils/interface';
-import { URL_MYPAGE_POSTS } from '../../../api/url';
-import { getTime } from '../../../utils/function';
+import Feed from '../common/Feed';
+import { MainFeedStateType } from '../../utils/types';
+import { URL_MYPAGE_POSTS } from '../../api/url';
+import { getTime } from '../../utils/function';
 
 const MyFeeds = () => {
   const [myFeeds, setMyFeeds] = useState<MainFeedStateType[] | undefined>();

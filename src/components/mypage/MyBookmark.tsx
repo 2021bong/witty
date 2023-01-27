@@ -9,9 +9,9 @@ import {
   BsChat,
   BsFillBookmarkFill,
 } from 'react-icons/bs';
-import { BookmarkType } from '../../../utils/interface';
-import { handleSaveBookmarks } from '../../../api/communicate';
-import { URL_MYPAGE_BOOKMARKS } from '../../../api/url';
+import { BookmarkType } from '../../utils/types';
+import { handleSaveBookmarks } from '../../api/communicate';
+import { URL_MYPAGE_BOOKMARKS } from '../../api/url';
 
 const MyFeeds = () => {
   const [myBookmarks, setmyBookmarks] = useState<BookmarkType[] | undefined>();

@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import SignUpBtn from './SignUpBtn';
-import {
-  checkEmail,
-  checkName,
-  checkId,
-  checkPw,
-} from '../../utils/validation';
-import { URL_SIGNUP } from '../../api/url';
-import { checkUser } from '../../api/communicate';
-import { Container } from './SignUp.styled';
+import SignUpBtn from '../components/signup/SignUpBtn';
+import { checkEmail, checkName, checkId, checkPw } from '../utils/validation';
+import { URL_SIGNUP } from '../api/url';
+import { checkUser } from '../api/communicate';
+import { Container } from '../styles/pages/SignUp.styled';
 
 const SignUp = () => {
   const [idValue, setIdValue] = useState('');

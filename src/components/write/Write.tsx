@@ -1,18 +1,22 @@
-import { useState, MouseEvent, ChangeEvent } from 'react';
+import { useState, useEffect, MouseEvent, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { IoMdPhotos } from 'react-icons/io';
 
 import Greeting from '../common/Greeting';
 import Spinner from '../../components/write/Spinner';
-import { NoticeCurcle, Preview, Container } from './Write.styled';
+import {
+  NoticeCurcle,
+  Preview,
+  Container,
+} from '../../styles/pages/Write.styled';
 
-import { PhotosType, WriteProps } from '../../utils/interface';
+import { PhotosType, WriteProps } from '../../utils/types';
 import { PHOTO_INDEX, CATEGORY } from '../../utils/constant';
 import { getCategory, setColor } from '../../utils/function';
-import { useEffect } from 'react';
-import { createNewPost, uploadPhotos } from '../../api/createPost';
-import { modifyPost } from '../../api/modifyPost';
+import createNewPost from '../../api/createPost';
+import uploadPhotos from '../../api/uploadPhoto';
+import modifyPost from '../../api/modifyPost';
 
 const Write = ({ type, id, category, content, images }: WriteProps) => {
   const [textValue, setTextValue] = useState<string>('');

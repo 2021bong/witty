@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Create from '../../components/write/Write';
-import { DetailFeedDataType } from '../../utils/interface';
-import { URL_GET_DETAIL_POST } from '../../api/url';
+import Create from '../components/write/Write';
+import { DetailFeedDataType } from '../utils/types';
+import { URL_GET_DETAIL_POST } from '../api/url';
 
 const Edit = () => {
   const [feedData, setFeedData] = useState<DetailFeedDataType>();

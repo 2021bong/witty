@@ -6,21 +6,21 @@ import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import styled from 'styled-components';
 
-import Login from './pages/login/Login';
-import Main from './pages/main/Main';
-import SignUp from './pages/signup/SignUp';
-import LoadingLogin from './pages/signup/LoadingLogin';
-import Create from './pages/create/Create';
-import Detail from './pages/main/Detail';
-import Search from './pages/search/Search';
-import Edit from './pages/edit/Edit';
-import MyPage from './pages/mypage/MyPage';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import SignUp from './pages/SignUp';
+import LoadingLogin from './components/signup/LoadingLogin';
+import Create from './pages/Create';
+import Detail from './pages/Detail';
+import Search from './pages/Search';
+import Edit from './pages/Edit';
+import MyPage from './pages/MyPage';
 import Dock from './components/common/Dock';
-import MyNickname from './pages/mypage/components/MyNickname';
-import MyFeeds from './pages/mypage/components/MyFeeds';
-import MyBookmark from './pages/mypage/components/MyBookmark';
-import MyWithdrawal from './pages/mypage/components/MyWithdrawal';
-import Chat from './pages/chat/Chat';
+import MyNickname from './components/mypage/MyNickname';
+import MyFeeds from './components/mypage/MyFeeds';
+import MyBookmark from './components/mypage/MyBookmark';
+import MyWithdrawal from './components/mypage/MyWithdrawal';
+import Chat from './pages/Chat';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState<string | null>(

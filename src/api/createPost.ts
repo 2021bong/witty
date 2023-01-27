@@ -1,15 +1,9 @@
 import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
-import { Category, PhotosType } from '../utils/interface';
+import { Category, Data } from '../utils/types';
 import { URL_CREATE_POST } from './url';
 
-export interface Data {
-  content: string;
-  category: string[];
-  images?: string[];
-}
-
-export const createNewPost = async (
+const createNewPost = async (
   text: string,
   categorys: Category[],
   navigate: NavigateFunction,
@@ -37,25 +31,4 @@ export const createNewPost = async (
     });
 };
 
-type setState = React.Dispatch<React.SetStateAction<string[] | []>>;
-
-export const uploadPhotos = (
-  photos: PhotosType,
-  setUploadImgUrls: setState
-) => {
-  const formData = new FormData();
-  for (let i = 0; i < photos.length; i += 1) {
-    formData.append('file', photos[i].file ?? '');
-    formData.append(
-      'upload_preset',
-      import.meta.env.VITE_CLOUDINARY_PRESET_KEY
-    );
-
-    fetch(import.meta.env.VITE_CLOUDINARY_UPLOAD_URL, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((res) => setUploadImgUrls((prev) => [...prev, res.url]));
-  }
-};
+export default createNewPost;

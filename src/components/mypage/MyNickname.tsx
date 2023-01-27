@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkName } from '../../../utils/validation';
-import { URL_MYPAGE_NAME, URL_MYPAGE } from '../../../api/url';
+import { checkName } from '../../utils/validation';
+import { URL_MYPAGE_NAME, URL_MYPAGE } from '../../api/url';
 
 const Nickname = () => {
   const [nickname, setNickname] = useState('');

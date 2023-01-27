@@ -4,8 +4,8 @@ import axios from 'axios';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { BsCreditCard2FrontFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import { LoginoutProp } from '../../utils/interface';
-import { URL_MYPAGE } from '../../api/url';
+import { LoginoutProp } from '../utils/types';
+import { URL_MYPAGE } from '../api/url';
 
 const MyPage = ({ getToken }: LoginoutProp) => {
   const [nickname, setNickname] = useState();

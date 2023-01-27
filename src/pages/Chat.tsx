@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import NoResult from '../../components/common/NoResult';
+import NoResult from '../components/common/NoResult';
 
 const Chat = () => {
   return (

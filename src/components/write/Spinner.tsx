@@ -30,8 +30,8 @@ const Container = styled.div`
   z-index: 1000;
 
   .spinner {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border: 5px solid rgba(255, 255, 255, 0.1);
     border-right: 5px solid ${({ theme }) => theme.subColor};
     border-radius: 50%;

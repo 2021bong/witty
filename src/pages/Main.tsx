@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiPlus } from 'react-icons/fi';
-import Greeting from '../../components/common/Greeting';
-import Feed from '../../components/common/Feed';
-import { MainFeedStateType } from '../../utils/interface';
-import { getAllPosts } from '../../api/communicate';
+import Greeting from '../components/common/Greeting';
+import Feed from '../components/common/Feed';
+import { MainFeedStateType } from '../utils/types';
+import { getAllPosts } from '../api/communicate';
 
 const Main = () => {
   const [feeds, setFeeds] = useState<MainFeedStateType[] | undefined>();
