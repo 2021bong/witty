@@ -225,7 +225,7 @@ const Detail = () => {
                       <b className='nickname'>{el.nickname}</b>
                       <span>{el.comment}</span>
                     </p>
-                    <p className='date'>{getDetailTime(feedData.created_at)}</p>
+                    <p className='date'>{getDetailTime(el.created_at)}</p>
                   </div>
                   <div className='commentActionBox'>
                     {el.is_liked ? (
