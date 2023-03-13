@@ -128,7 +128,7 @@ http://localhost:5173/
 
 ##### Witty는 로그인 후 이용할 수 있습니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Login](https://user-images.githubusercontent.com/49029756/224647216-6cfe84a6-4fc7-4d85-8d19-af038f9a0d2f.png)
 
@@ -141,7 +141,7 @@ http://localhost:5173/
 
 ##### 이메일을 사용해 회원가입 할 수 있습니다. 카카오톡 로그인도 가능합니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Sign up](https://user-images.githubusercontent.com/49029756/224647220-22c571cc-4dbb-4037-a49c-aab1f748f309.png)
 
@@ -154,7 +154,7 @@ http://localhost:5173/
 
 ##### 최신순으로 올라온 포스트를 확인할 수 있습니다. 좋아요를 누르거나 북마크 저장도 가능합니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Main](https://user-images.githubusercontent.com/49029756/224647234-deb42616-d40e-454a-bd19-076dfa51b21b.png)
 
@@ -167,7 +167,7 @@ http://localhost:5173/
 
 ##### 댓글을 달고 좋아요를 누를 수 있습니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Detail](https://user-images.githubusercontent.com/49029756/224647231-09fe74d1-76d7-4e95-9a4b-7da180298858.png)
 
@@ -180,7 +180,7 @@ http://localhost:5173/
 
 ##### 포스트를 작성 할 수 있습니다. 최대 4장까지 사진을 첨부할 수 있습니다. 첨부된 사진은 외부 클라우드에 저장됩니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Write](https://user-images.githubusercontent.com/49029756/224647227-d85ef4d9-e9de-40ab-8877-080e2640d4f9.png)
 
@@ -193,7 +193,7 @@ http://localhost:5173/
 
 ##### 게시글, 카테고리, 유저로 나눠 검색이 가능합니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Search](https://user-images.githubusercontent.com/49029756/224647210-e05c117b-2b1b-4a73-a676-331fc3a7e3a0.png)
 
@@ -206,7 +206,7 @@ http://localhost:5173/
 
 ##### 내 정보를 확인하고 수정할 수 있습니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty My page](https://user-images.githubusercontent.com/49029756/224647224-ef34eead-e5c4-4f52-925f-ac60cd2f67ac.png)
 
@@ -219,7 +219,7 @@ http://localhost:5173/
 
 ##### 채팅은 추후 구현 예정입니다.
 
-<div style='width : 50%; margin-top: 10px;'>
+<div style='width : 400px; margin-top: 10px;'>
 
 ![Witty Chat](https://user-images.githubusercontent.com/49029756/224647226-639f7fd4-09d4-49e0-8746-7992e954ee2b.png)
 
@@ -233,6 +233,8 @@ http://localhost:5173/
 ## 🚧 업데이트 예정
 
 #### 현재 정확한 날짜는 정하지 않았으나 추후 업데이트 예정입니다.
+
+##### - 서버 배포 후 배포 예정
 
 ##### - 리팩토링
 
