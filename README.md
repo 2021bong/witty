@@ -23,7 +23,7 @@
 
 <img src="https://img.shields.io/badge/Vite-646CFF??style=flat&logo=vite&logoColor=white"/>
 <img src="https://img.shields.io/badge/React.js-61DAFB??style=flat&logo=react&logoColor=white"/>
-<img src="https://img.shields.io/badge/Typescript-3178C6??style=flat&logo=typescript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Typesrcipt-3178C6??style=flat&logo=typesrcipt&logoColor=white"/>
 
 <details> 
 <summary>파일 구조</summary>
@@ -85,7 +85,7 @@ npm i
 ```
 (.env)
 
-VITE_KAKAO_JAVASCRIPT_KEY = 카카오 JS키
+VITE_KAKAO_JAVASrcIPT_KEY = 카카오 JS키
 VITE_KAKAO_REDIRECT_URL = http://localhost:5173/loading
 
 VITE_CLOUDINARY_API_KEY = CLOUDINARY API 키
@@ -130,7 +130,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Login](https://user-images.githubusercontent.com/49029756/224647216-6cfe84a6-4fc7-4d85-8d19-af038f9a0d2f.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647216-6cfe84a6-4fc7-4d85-8d19-af038f9a0d2f.png' alt='Witty Login' width='400px'/>
 
 </div>
 
@@ -143,7 +143,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Sign up](https://user-images.githubusercontent.com/49029756/224647220-22c571cc-4dbb-4037-a49c-aab1f748f309.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647220-22c571cc-4dbb-4037-a49c-aab1f748f309.png' alt='Witty Sign up' width='400px'/>
 
 </div>
 
@@ -156,7 +156,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Main](https://user-images.githubusercontent.com/49029756/224647234-deb42616-d40e-454a-bd19-076dfa51b21b.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647234-deb42616-d40e-454a-bd19-076dfa51b21b.png' alt='Witty Main' width='400px'/>
 
 </div>
 
@@ -169,7 +169,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Detail](https://user-images.githubusercontent.com/49029756/224647231-09fe74d1-76d7-4e95-9a4b-7da180298858.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647231-09fe74d1-76d7-4e95-9a4b-7da180298858.png' alt='Witty Detail' width='400px'/>
 
 </div>
 
@@ -182,7 +182,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Write](https://user-images.githubusercontent.com/49029756/224647227-d85ef4d9-e9de-40ab-8877-080e2640d4f9.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647227-d85ef4d9-e9de-40ab-8877-080e2640d4f9.png' alt='Witty Write' width='400px'/>
 
 </div>
 
@@ -195,7 +195,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Search](https://user-images.githubusercontent.com/49029756/224647210-e05c117b-2b1b-4a73-a676-331fc3a7e3a0.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647210-e05c117b-2b1b-4a73-a676-331fc3a7e3a0.png' alt='Witty Search' width='400px'/>
 
 </div>
 
@@ -208,7 +208,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty My page](https://user-images.githubusercontent.com/49029756/224647224-ef34eead-e5c4-4f52-925f-ac60cd2f67ac.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647224-ef34eead-e5c4-4f52-925f-ac60cd2f67ac.png' alt='Witty My page' width='400px'/>
 
 </div>
 
@@ -221,7 +221,7 @@ http://localhost:5173/
 
 <div style='width : 400px; margin-top: 10px;'>
 
-![Witty Chat](https://user-images.githubusercontent.com/49029756/224647226-639f7fd4-09d4-49e0-8746-7992e954ee2b.png)
+<img src='https://user-images.githubusercontent.com/49029756/224647226-639f7fd4-09d4-49e0-8746-7992e954ee2b.png' alt='Witty Chat' width='400px'/>
 
 </div>
 <br>
